@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 
+import com.example.yazilimlab.AdminHomeActivity;
 import com.example.yazilimlab.R;
 
 import androidx.fragment.app.Fragment;
@@ -29,6 +30,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 
 public class StudentLoginFragment extends Fragment {
@@ -41,6 +45,8 @@ public class StudentLoginFragment extends Fragment {
     //Firebase
     private FirebaseAuth fAuth;
     private FirebaseUser fUser;
+    private FirebaseFirestore firebaseFirestore;
+    private DocumentReference docRef;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,32 +68,32 @@ public class StudentLoginFragment extends Fragment {
 
         //Firebase
         fAuth = FirebaseAuth.getInstance();
-
+        firebaseFirestore = FirebaseFirestore.getInstance();
 
         //click Event
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                buttonLogin();
+                setButtonLogin();
             }
         });
 
         textForgetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                buttonForgetPasswordPage(view);
+                setButtonForgetPasswordPage(view);
             }
         });
 
         buttonStudentLoginRegisterPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                buttonRegisterPage();
+                setButtonRegisterPage();
             }
         });
     }
 
-    private void buttonForgetPasswordPage(View v) {
+    private void setButtonForgetPasswordPage(View v) {
 
         EditText resetMail = new EditText(v.getContext());
         final AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(v.getContext());
@@ -127,7 +133,7 @@ public class StudentLoginFragment extends Fragment {
 
     }
 
-    private void buttonLogin() {
+    private void setButtonLogin() {
         strUser = editTextStudentLoginUserName.getText().toString();
         strPassword = editTextStudentLoginPassword.getText().toString();
 
@@ -137,9 +143,19 @@ public class StudentLoginFragment extends Fragment {
                         @Override
                         public void onSuccess(AuthResult authResult) {
                             fUser = fAuth.getCurrentUser();
-                            System.out.println(fUser.getEmail());
-                            Intent homeIntent = new Intent(getActivity(), StudentHomeActivity.class);
-                            startActivity(homeIntent);
+                            docRef = firebaseFirestore.collection("Users").document(fUser.getUid());
+                            docRef.get().addOnSuccessListener(getActivity(), new OnSuccessListener<DocumentSnapshot>() {
+                                @Override
+                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                                    if (documentSnapshot.getData().get("isStudent") != null) {
+                                        Intent homeIntent = new Intent(getActivity(), StudentHomeActivity.class);
+                                        startActivity(homeIntent);
+                                    } else {
+                                        Toast.makeText(getActivity(), "Kullanıcı adı veya şifre hatalı", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
                         }
                     }).addOnFailureListener(getActivity(), new OnFailureListener() {
                 @Override
@@ -149,11 +165,11 @@ public class StudentLoginFragment extends Fragment {
             });
 
         } else {
-            Toast.makeText(getActivity(), "Kullanıcı adı veya şifre hatalı", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Kullanıcı adı veya şifre boş", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void buttonRegisterPage() {
+    private void setButtonRegisterPage() {
         Intent registerIntent = new Intent(getContext(), RegisterActivity.class);
         startActivity(registerIntent);
     }

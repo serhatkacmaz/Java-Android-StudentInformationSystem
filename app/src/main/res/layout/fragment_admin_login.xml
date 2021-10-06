@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Sicil Numarası Giriniz"
-            android:inputType="number"
+            android:inputType="textEmailAddress"
             android:minHeight="48dp"
             android:textAlignment="center"
             tools:ignore="SpeakableTextPresentCheck" />
@@ -74,13 +74,12 @@
 
 
     <Button
-        android:id="@+id/AdminLoginButtonLogin"
+        android:id="@+id/adminLoginButtonLogin"
         android:layout_width="750px"
         android:layout_height="wrap_content"
         android:layout_marginTop="21dp"
         android:layout_gravity="center"
         android:backgroundTint="@color/kou_green"
-        android:onClick="buttonLogin"
         android:text="Giriş Yap"
         android:textAlignment="center" />
 
