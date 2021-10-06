@@ -283,7 +283,7 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                     });
         } else {
-            Toast.makeText(RegisterActivity.this, "Eksik veriler var", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegisterActivity.this, "Eksik bilgiler var", Toast.LENGTH_SHORT).show();
         }
     }
 
