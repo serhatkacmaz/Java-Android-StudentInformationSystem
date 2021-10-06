@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/studentHome_bottomBar_menu_makeApplication"
+        android:icon="@drawable/make_application"
+        android:title="Başvuru Yap" />
+    <item
+        android:id="@+id/studentHome_bottomBar_menu_MyApplication"
+        android:icon="@drawable/my_application"
+        android:title="Başvurularım" />
+
+</menu>

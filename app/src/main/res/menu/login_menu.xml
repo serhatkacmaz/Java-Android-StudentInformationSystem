@@ -2,10 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/item_bottomBar_loginMenu_studentLogin"
-        android:icon="@drawable/make_application"
+        android:icon="@drawable/student_logo"
         android:title="Ögrenci Giris" />
     <item
         android:id="@+id/item_bottomBar_loginMenu_adminLogin"
-        android:icon="@drawable/my_application"
+        android:icon="@drawable/admin_logo"
         android:title="Admin Giris" />
 </menu>
