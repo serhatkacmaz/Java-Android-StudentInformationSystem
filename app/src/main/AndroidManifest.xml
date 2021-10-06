@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.YazilimLAB">
         <activity
+            android:name=".RegisterActivity"
+            android:exported="true" />
+        <activity
+            android:name=".StudentHomeActivity"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

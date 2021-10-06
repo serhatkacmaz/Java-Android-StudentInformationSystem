@@ -1,14 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/studentLoginLinearLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".LoginFragment.StudentLoginFragment">
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:padding="25dp">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="40dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/kou_logo" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="student" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="5dp"
+        app:boxCornerRadiusBottomEnd="20dp"
+        app:boxCornerRadiusTopStart="20dp"
+        app:boxStrokeColor="@color/kou_green"
+        app:endIconMode="clear_text"
+        app:helperTextTextColor="@color/red_helper">
 
-</FrameLayout>
+        <EditText
+            android:id="@+id/editTextStudentLoginUserName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Mail Adresi Giriniz"
+            android:inputType="textEmailAddress"
+            android:minHeight="48dp"
+            android:textAlignment="center"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="5dp"
+        app:boxCornerRadiusBottomEnd="20dp"
+        app:boxCornerRadiusTopStart="20dp"
+        app:boxStrokeColor="@color/kou_green"
+        app:endIconMode="password_toggle"
+        app:helperTextTextColor="@color/red_helper">
+
+        <EditText
+            android:id="@+id/editTextStudentLoginPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Şifre Giriniz"
+            android:inputType="textPassword"
+            android:minHeight="48dp"
+            android:textAlignment="center"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="30dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/buttonStudentLoginRegisterPage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="3dp"
+            android:onClick="buttonRegisterPage"
+            android:text="Kayıt Ol "
+            android:textColor="#000000"
+            android:textSize="12dp"
+            android:textStyle="bold"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" / "
+            android:textSize="13dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textStudentLoginForgetPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="15dp"
+            android:onClick="buttonForgetPasswordPage"
+            android:text="Şifremi Unuttum!"
+            android:textColor="#000000"
+            android:textSize="12dp"
+            android:textStyle="bold"
+            tools:ignore="TouchTargetSizeCheck" />
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/studentLoginButtonLogin"
+        android:layout_width="750px"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/kou_green"
+        android:text="Giriş Yap"
+        android:textAlignment="center" />
+
+
+</LinearLayout>

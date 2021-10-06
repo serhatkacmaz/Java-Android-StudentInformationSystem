@@ -1,14 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/adminLoginLinearLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".LoginFragment.AdminLoginFragment">
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:padding="25dp">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="40dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/kou_logo" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="admin" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="5dp"
+        app:boxCornerRadiusBottomEnd="20dp"
+        app:boxCornerRadiusTopStart="20dp"
+        app:boxStrokeColor="@color/kou_green"
+        app:endIconMode="clear_text"
+        app:helperTextTextColor="@color/red_helper">
 
-</FrameLayout>
+        <EditText
+            android:id="@+id/editTextAdminLoginUserName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Sicil Numarası Giriniz"
+            android:inputType="number"
+            android:minHeight="48dp"
+            android:textAlignment="center"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="5dp"
+        app:boxCornerRadiusBottomEnd="20dp"
+        app:boxCornerRadiusTopStart="20dp"
+        android:layout_marginBottom="50dp"
+        app:boxStrokeColor="@color/kou_green"
+        app:endIconMode="password_toggle"
+        app:helperTextTextColor="@color/red_helper">
+
+        <EditText
+            android:id="@+id/editTextAdminLoginPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Şifre Giriniz"
+            android:inputType="textPassword"
+            android:minHeight="48dp"
+            android:textAlignment="center"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    <Button
+        android:id="@+id/AdminLoginButtonLogin"
+        android:layout_width="750px"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="21dp"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/kou_green"
+        android:onClick="buttonLogin"
+        android:text="Giriş Yap"
+        android:textAlignment="center" />
+
+
+</LinearLayout>
