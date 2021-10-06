@@ -222,7 +222,7 @@ public class RegisterActivity extends AppCompatActivity {
         return number + "_" + name + "_" + lastName + "_" + strDate;
     }
 
-    private void saveInFirebase() {
+    private void saveInStorage() {
         if (imgUri != null) {
             try {
 
@@ -295,7 +295,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    saveInFirebase();
+                    saveInStorage();
                 } else {
                     Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }

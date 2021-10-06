@@ -1,7 +1,6 @@
 package com.example.yazilimlab.Model;
 
-public class UserRegister
-{
+public class UserRegister {
     private String strNumber, strMail, strName, strLastName, strPhone, strIdentity, strAddress, strInfoClass, strBirthday, strUniversity, strFaculty, strDepartment, strPassword;
 
     public UserRegister() {
