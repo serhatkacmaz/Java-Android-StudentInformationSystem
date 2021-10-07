@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/adminHome_bottomBar_menu_incomingApplication"
+        android:icon="@drawable/incoming_application"
+        android:title="Gelen Başvurular" />
+    <item
+        android:id="@+id/adminHome_bottomBar_menu_acceptedApplication"
+        android:icon="@drawable/accepted_application"
+        android:title="Kabul Edilen" />
+
+    <item
+        android:id="@+id/adminHome_bottomBar_menu_rejectedApplication"
+        android:icon="@drawable/rejected_application"
+        android:title="Red Edilen" />
+</menu>
