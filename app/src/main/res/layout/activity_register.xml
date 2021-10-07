@@ -98,6 +98,16 @@
                 android:minHeight="48dp"
                 tools:ignore="SpeakableTextPresentCheck" />
 
+            <EditText
+                android:id="@+id/editTextRegisterName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="İsim Giriniz"
+                android:inputType="textPersonName"
+                android:minHeight="48dp"
+                tools:ignore="SpeakableTextPresentCheck" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -112,16 +122,6 @@
             app:endIconMode="clear_text"
             app:helperText="*Zorunlu Alan"
             app:helperTextTextColor="@color/red_helper">
-
-            <EditText
-                android:id="@+id/editTextRegisterName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="İsim Giriniz"
-                android:inputType="textPersonName"
-                android:minHeight="48dp"
-                tools:ignore="SpeakableTextPresentCheck" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

@@ -3,6 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Kou-Mobile2/app/src/main/res/layout/activity_admin_home.xml" value="0.37083333333333335" />
+        <entry key="..\:/Kou-Mobile2/app/src/main/res/layout/activity_main.xml" value="0.37083333333333335" />
+        <entry key="..\:/Kou-Mobile2/app/src/main/res/layout/activity_register.xml" value="0.33" />
+        <entry key="..\:/Kou-Mobile2/app/src/main/res/layout/activity_student_home.xml" value="0.37083333333333335" />
+        <entry key="..\:/Kou-Mobile2/app/src/main/res/layout/fragment_admin_login.xml" value="0.37083333333333335" />
+        <entry key="..\:/Kou-Mobile2/app/src/main/res/layout/fragment_make_application.xml" value="0.33" />
         <entry key="..\:/Users/Asus/Documents/GitHub/Kou-Mobile/app/src/main/res/layout/activity_main.xml" value="0.2957427536231884" />
         <entry key="..\:/Users/Asus/Documents/GitHub/Kou-Mobile/app/src/main/res/layout/activity_register.xml" value="0.2957427536231884" />
         <entry key="..\:/Users/Asus/Documents/GitHub/Kou-Mobile/app/src/main/res/layout/activity_student_home.xml" value="0.2957427536231884" />
