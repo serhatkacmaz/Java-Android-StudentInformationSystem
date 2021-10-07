@@ -3,12 +3,116 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".StudentHomeFragment.MakeApplicationFragment">
+    tools:context=".StudentHomeFragment.MakeApplicationFragment"
+    android:paddingTop="100dp"
+    android:orientation="vertical"
+    android:layout_gravity="center">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="başvur" />
+
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:src="@drawable/kocaelilogo" />
+
+
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yaz okulu başvurusu"
+            android:textSize="32dp"
+            android:paddingTop="20dp"
+            android:paddingLeft="20dp"
+            android:textColor="@color/black"/>
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/basvuru_icon"
+            android:layout_gravity="right"
+            android:paddingTop="10dp"
+            android:paddingRight="10dp"/>
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yatay geçiş başvurusu"
+            android:textSize="30dp"
+            android:paddingTop="120dp"
+            android:paddingLeft="20dp"
+            android:textColor="@color/black"/>
+
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/basvuru_icon1"
+            android:layout_gravity="right"
+            android:paddingTop="111dp"
+            android:paddingRight="10dp"/>
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DGS başvurusu"
+            android:textSize="30dp"
+            android:paddingTop="220dp"
+            android:paddingLeft="20dp"
+            android:textColor="@color/black"
+            />
+
+        <ImageView
+            android:id="@+id/imageView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/basvuru_icon2"
+            android:layout_gravity="right"
+            android:paddingTop="211dp"
+            android:paddingRight="10dp"/>
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Çap Başvurusu"
+            android:textSize="30dp"
+            android:paddingTop="320dp"
+            android:paddingLeft="20dp"
+            android:textColor="@color/black"/>
+
+        <ImageView
+            android:id="@+id/imageView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/basvuru_icon3"
+            android:layout_gravity="right"
+            android:paddingTop="311dp"
+            android:paddingRight="10dp"/>
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ders intibakı başvurusu"
+            android:textSize="30dp"
+            android:paddingTop="420dp"
+            android:paddingLeft="20dp"
+            android:textColor="@color/black"/>
+
+        <ImageView
+            android:id="@+id/imageView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/basvuru_icon4"
+            android:layout_gravity="right"
+            android:paddingTop="411dp"
+            android:paddingRight="10dp"/>
+
+
+
 
 </FrameLayout>
