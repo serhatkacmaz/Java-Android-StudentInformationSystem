@@ -73,7 +73,7 @@ public class RegisterActivity extends AppCompatActivity {
             editTextRegisterPassword, autoCompleteRegisterInfoClass;
 
     private UserRegister userRegister;
-    public String strNumber, strMail, strName, strLastName, strPhone, strIdentity, strAddress, strInfoClass, strBirthday, strUniversity, strFaculty, strDepartment, strPassword;
+    public String strNumber, strMail, strName, strLastName, strPhone, strIdentity, strAddress, strInfoClass, strBirthday, strUniversity, strFaculty, strDepartment, strPassword, isStudent = "1";
     private FirebaseAuth fAuth;
     private FirebaseUser fUser;
     private FirebaseFirestore firebaseFirestore;
@@ -216,7 +216,7 @@ public class RegisterActivity extends AppCompatActivity {
         // https://www.javatpoint.com/java-get-current-date
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("ddMMyyyyHHmm");
-        String strDate= formatter.format(date);
+        String strDate = formatter.format(date);
         // https://www.javatpoint.com/java-get-current-date
 
         return number + "_" + name + "_" + lastName + "_" + strDate;
@@ -288,7 +288,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void setData(String Uid) {
-        userRegister = new UserRegister(strNumber, strMail, strName, strLastName, strPhone, strAddress, strInfoClass, strAddress, strBirthday, strUniversity, strFaculty, strDepartment, strPassword);
+        userRegister = new UserRegister(strNumber, strMail, strName, strLastName, strPhone, strAddress, strInfoClass, strAddress, strBirthday, strUniversity, strFaculty, strDepartment, strPassword, isStudent);
 
         firebaseFirestore.collection("Users").document(Uid)
                 .set(userRegister).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<Void>() {

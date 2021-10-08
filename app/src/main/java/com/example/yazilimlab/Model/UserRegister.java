@@ -1,7 +1,7 @@
 package com.example.yazilimlab.Model;
 
 public class UserRegister {
-    private String strNumber, strMail, strName, strLastName, strPhone, strIdentity, strAddress, strInfoClass, strBirthday, strUniversity, strFaculty, strDepartment, strPassword;
+    private String strNumber, strMail, strName, strLastName, strPhone, strIdentity, strAddress, strInfoClass, strBirthday, strUniversity, strFaculty, strDepartment, strPassword, isStudent;
 
     public UserRegister() {
 
@@ -23,7 +23,15 @@ public class UserRegister {
         this.strLastName = strLastName;
     }
 
-    public UserRegister(String strNumber, String strMail, String strName, String strLastName, String strPhone, String strIdentity, String strAddress, String strInfoClass, String strBirthday, String strUniversity, String strFaculty, String strDepartment, String strPassword) {
+    public String getIsStudent() {
+        return isStudent;
+    }
+
+    public void setIsStudent(String isStudent) {
+        this.isStudent = isStudent;
+    }
+
+    public UserRegister(String strNumber, String strMail, String strName, String strLastName, String strPhone, String strIdentity, String strAddress, String strInfoClass, String strBirthday, String strUniversity, String strFaculty, String strDepartment, String strPassword, String isStudent) {
         this.strNumber = strNumber;
         this.strMail = strMail;
         this.strName = strName;
@@ -37,6 +45,7 @@ public class UserRegister {
         this.strFaculty = strFaculty;
         this.strDepartment = strDepartment;
         this.strPassword = strPassword;
+        this.isStudent = isStudent;
     }
 
     public String getStrNumber() {
