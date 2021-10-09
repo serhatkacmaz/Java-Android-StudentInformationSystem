@@ -8,4 +8,5 @@
         android:id="@+id/item_bottomBar_loginMenu_adminLogin"
         android:icon="@drawable/admin_logo"
         android:title="Admin Giris" />
+    
 </menu>

@@ -250,10 +250,7 @@ public class RegisterActivity extends AppCompatActivity {
                         while (!uriTask.isComplete()) ;
                         uri = uriTask.getResult();
                         //System.out.println(uri.toString());
-
                         setData();
-                        Toast.makeText(RegisterActivity.this, "Kayıt Tamamlandı", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(RegisterActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -295,14 +292,15 @@ public class RegisterActivity extends AppCompatActivity {
     private void setData() {
 
         fUser = fAuth.getCurrentUser();
-        userRegister = new UserRegister(strNumber, strMail, strName, strLastName, strPhone, strAddress, strInfoClass, strAddress, strBirthday, strUniversity, strFaculty, strDepartment, strPassword, isStudent, uri.toString());
-
+        userRegister = new UserRegister(strNumber, strMail, strName, strLastName, strPhone, strIdentity, strAddress, strInfoClass, strBirthday, strUniversity, strFaculty, strDepartment, strPassword, isStudent, uri.toString());
         firebaseFirestore.collection("Users").document(fUser.getUid())
                 .set(userRegister).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     //saveInStorage();
+                    Toast.makeText(RegisterActivity.this, "Kayıt Tamamlandı", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(RegisterActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 } else {
                     Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
