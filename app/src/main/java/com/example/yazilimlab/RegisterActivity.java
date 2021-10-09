@@ -83,7 +83,8 @@ public class RegisterActivity extends AppCompatActivity {
     //img
     private ImageView imageRegisterProfile;
     private final int IMG_REQUEST_ID = 10;
-    private Uri imgUri;
+    private Uri imgUri, uri;
+
     FirebaseStorage storage;
     StorageReference storageReference;
 
@@ -132,7 +133,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         arrayAdapterFaculty = new ArrayAdapter<>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, arrayListFaculty);
         facultyDropDown.setAdapter(arrayAdapterFaculty);
-
     }
 
     private void getDataComboBoxDepartment() {
@@ -199,6 +199,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     //img choice start
+
     // https://www.youtube.com/watch?v=_uW3yRhy0MU start
     public void buttonSelectPhoto(View v) {
         Intent intent = new Intent();
@@ -206,6 +207,21 @@ public class RegisterActivity extends AppCompatActivity {
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Profil Seç"), IMG_REQUEST_ID);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == IMG_REQUEST_ID && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            imgUri = data.getData();
+            try {
+                Bitmap bitmapImg = MediaStore.Images.Media.getBitmap(getContentResolver(), imgUri);
+                imageRegisterProfile.setImageBitmap(bitmapImg);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    // https://www.youtube.com/watch?v=_uW3yRhy0MU end
 
     private String adjustFormat() {
         String number, name, lastName;
@@ -230,7 +246,13 @@ public class RegisterActivity extends AppCompatActivity {
                 reference.putFile(imgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        Toast.makeText(RegisterActivity.this, "Tamamlandı", Toast.LENGTH_SHORT).show();
+                        Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+                        while (!uriTask.isComplete()) ;
+                        uri = uriTask.getResult();
+                        //System.out.println(uri.toString());
+
+                        setData();
+                        Toast.makeText(RegisterActivity.this, "Kayıt Tamamlandı", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(RegisterActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -245,20 +267,6 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == IMG_REQUEST_ID && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            imgUri = data.getData();
-            try {
-                Bitmap bitmapImg = MediaStore.Images.Media.getBitmap(getContentResolver(), imgUri);
-                imageRegisterProfile.setImageBitmap(bitmapImg);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-    // https://www.youtube.com/watch?v=_uW3yRhy0MU end
     //img choice end
 
 
@@ -273,10 +281,7 @@ public class RegisterActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                fUser = fAuth.getCurrentUser();
-                                if (fUser != null) {
-                                    setData(fUser.getUid());
-                                }
+                                saveInStorage();
                             } else {
                                 Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             }
@@ -287,15 +292,17 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    private void setData(String Uid) {
-        userRegister = new UserRegister(strNumber, strMail, strName, strLastName, strPhone, strAddress, strInfoClass, strAddress, strBirthday, strUniversity, strFaculty, strDepartment, strPassword, isStudent);
+    private void setData() {
 
-        firebaseFirestore.collection("Users").document(Uid)
+        fUser = fAuth.getCurrentUser();
+        userRegister = new UserRegister(strNumber, strMail, strName, strLastName, strPhone, strAddress, strInfoClass, strAddress, strBirthday, strUniversity, strFaculty, strDepartment, strPassword, isStudent, uri.toString());
+
+        firebaseFirestore.collection("Users").document(fUser.getUid())
                 .set(userRegister).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    saveInStorage();
+                    //saveInStorage();
                 } else {
                     Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }

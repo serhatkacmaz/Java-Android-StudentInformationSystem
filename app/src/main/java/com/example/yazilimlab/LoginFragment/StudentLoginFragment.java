@@ -70,7 +70,7 @@ public class StudentLoginFragment extends Fragment {
         fAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
 
-        //click Event
+        //click Events start
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,8 +91,10 @@ public class StudentLoginFragment extends Fragment {
                 setButtonRegisterPage();
             }
         });
+        //click Events end
     }
 
+    // https://www.youtube.com/watch?v=7P9kMo5NbOY&t=584s
     private void setButtonForgetPasswordPage(View v) {
 
         EditText resetMail = new EditText(v.getContext());
@@ -132,6 +134,8 @@ public class StudentLoginFragment extends Fragment {
         passwordResetDialog.create().show();
 
     }
+    // https://www.youtube.com/watch?v=7P9kMo5NbOY&t=584s
+
 
     private void setButtonLogin() {
         strUser = editTextStudentLoginUserName.getText().toString();

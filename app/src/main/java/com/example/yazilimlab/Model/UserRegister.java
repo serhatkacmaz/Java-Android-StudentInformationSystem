@@ -1,10 +1,36 @@
 package com.example.yazilimlab.Model;
 
 public class UserRegister {
-    private String strNumber, strMail, strName, strLastName, strPhone, strIdentity, strAddress, strInfoClass, strBirthday, strUniversity, strFaculty, strDepartment, strPassword, isStudent;
+    private String imageURL, strNumber, strMail, strName, strLastName, strPhone, strIdentity, strAddress, strInfoClass, strBirthday, strUniversity, strFaculty, strDepartment, strPassword, isStudent;
 
     public UserRegister() {
 
+    }
+
+    public UserRegister(String strNumber, String strMail, String strName, String strLastName, String strPhone, String strIdentity, String strAddress, String strInfoClass, String strBirthday, String strUniversity, String strFaculty, String strDepartment, String strPassword, String isStudent, String imageURL) {
+        this.strNumber = strNumber;
+        this.strMail = strMail;
+        this.strName = strName;
+        this.strLastName = strLastName;
+        this.strPhone = strPhone;
+        this.strIdentity = strIdentity;
+        this.strAddress = strAddress;
+        this.strInfoClass = strInfoClass;
+        this.strBirthday = strBirthday;
+        this.strUniversity = strUniversity;
+        this.strFaculty = strFaculty;
+        this.strDepartment = strDepartment;
+        this.strPassword = strPassword;
+        this.isStudent = isStudent;
+        this.imageURL = imageURL;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     public String getStrName() {
@@ -28,23 +54,6 @@ public class UserRegister {
     }
 
     public void setIsStudent(String isStudent) {
-        this.isStudent = isStudent;
-    }
-
-    public UserRegister(String strNumber, String strMail, String strName, String strLastName, String strPhone, String strIdentity, String strAddress, String strInfoClass, String strBirthday, String strUniversity, String strFaculty, String strDepartment, String strPassword, String isStudent) {
-        this.strNumber = strNumber;
-        this.strMail = strMail;
-        this.strName = strName;
-        this.strLastName = strLastName;
-        this.strPhone = strPhone;
-        this.strIdentity = strIdentity;
-        this.strAddress = strAddress;
-        this.strInfoClass = strInfoClass;
-        this.strBirthday = strBirthday;
-        this.strUniversity = strUniversity;
-        this.strFaculty = strFaculty;
-        this.strDepartment = strDepartment;
-        this.strPassword = strPassword;
         this.isStudent = isStudent;
     }
 
