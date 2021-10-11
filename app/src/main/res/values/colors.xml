@@ -17,4 +17,5 @@
     <color name="HomeFragmentBgColor">#FFC107</color>
     <color name="SearchFragmentBgColor">#03A9F4</color>
     <color name="ProfileFragmentBgColor">#8BC34A</color>
+    <color name="transparent">#00000000</color>
 </resources>

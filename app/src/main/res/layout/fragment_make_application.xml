@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
+    android:layout_margin="30dp"
+    android:gravity="center"
     android:orientation="vertical"
     tools:context=".StudentHomeFragment.MakeApplicationFragment">
-
 
     <ImageView
         android:layout_width="match_parent"
@@ -20,135 +21,110 @@
         android:gravity="center"
         android:orientation="vertical">
 
-
-        <LinearLayout
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView_makeApp_YazOkul"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/transparent"
+            android:elevation="10dp">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="Yaz Okulu Başvurusu"
-                android:textColor="@color/kou_green"
-                android:textSize="32dp" />
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="27dp"
+                android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/admin_home_activity_YazOkulu"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="5dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/document_icon" />
+        </androidx.cardview.widget.CardView>
 
-        </LinearLayout>
-
-        <LinearLayout
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView_makeApp_YatayGecis"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/transparent"
+            android:elevation="10dp">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="Yatay Geçiş Başvurusu"
-                android:textColor="@color/kou_green"
-                android:textSize="32dp" />
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="27dp"
+                android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/admin_home_activity_YatayGecis"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="5dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/document_icon" />
+        </androidx.cardview.widget.CardView>
 
-        </LinearLayout>
-
-
-        <LinearLayout
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView_makeApp_DGS"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/transparent"
+            android:elevation="10dp">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="DGS Başvurusu"
-                android:textColor="@color/kou_green"
-                android:textSize="32dp" />
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="27dp"
+                android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/admin_home_activity_DGSbasvuru"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="10dp"
-                android:src="@drawable/document_icon" />
+        </androidx.cardview.widget.CardView>
 
-        </LinearLayout>
-
-        <LinearLayout
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView_makeApp_CAP"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/transparent"
+            android:elevation="10dp">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="ÇAP Başvurusu"
-                android:textColor="@color/kou_green"
-                android:textSize="32dp" />
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="27dp"
+                android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/admin_home_activity_CAPbasvuru"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="5dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/document_icon" />
+        </androidx.cardview.widget.CardView>
 
-        </LinearLayout>
-
-
-        <LinearLayout
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView_makeApp_Intibak"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/transparent"
+            android:elevation="10dp">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="Ders İntibakı Başvurusu"
-                android:textColor="@color/kou_green"
-                android:textSize="32dp" />
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="27dp"
+                android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/admin_home_activity_intibakBasvuru"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="10dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/document_icon" />
-
-        </LinearLayout>
-
-
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
-
 
 </FrameLayout>
