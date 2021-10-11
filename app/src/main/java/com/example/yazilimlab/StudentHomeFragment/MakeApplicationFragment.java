@@ -12,15 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.example.yazilimlab.Catogery.IntibakActivity;
 import com.example.yazilimlab.Catogery.YazOkuluActivity;
-import com.example.yazilimlab.MainActivity;
 import com.example.yazilimlab.R;
-import com.example.yazilimlab.RegisterActivity;
 
 public class MakeApplicationFragment extends Fragment {
 
 
-    private ImageView admin_home_activity_YazOkulu;
+    private ImageView admin_home_activity_YazOkulu,admin_home_activity_intibakBasvuru;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,13 +32,21 @@ public class MakeApplicationFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //initializings
         admin_home_activity_YazOkulu = (ImageView) view.findViewById(R.id.admin_home_activity_YazOkulu);
+        admin_home_activity_intibakBasvuru = (ImageView) view.findViewById(R.id.admin_home_activity_intibakBasvuru);
 
-
+        //click eventler
         admin_home_activity_YazOkulu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), YazOkuluActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            }
+        });
+        admin_home_activity_intibakBasvuru.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), IntibakActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
 
