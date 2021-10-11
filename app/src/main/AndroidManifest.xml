@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.YazilimLAB">
         <activity
+            android:name=".Catogery.IntibakActivity"
+            android:exported="true" />
+        <activity
             android:name=".Catogery.YazOkuluActivity"
             android:exported="true" />
         <activity
