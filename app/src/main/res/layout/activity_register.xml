@@ -48,6 +48,20 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/editTextRegisterBirthday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/black"
+            android:ems="10"
+            android:hint="Doğum Günü Giriniz"
+            android:inputType="date"
+            android:minHeight="48dp"
+            android:padding="15dp"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -220,7 +234,6 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Adres Giriniz"
-                android:inputType="textMultiLine"
                 android:minHeight="48dp"
                 tools:ignore="SpeakableTextPresentCheck" />
 
@@ -250,30 +263,6 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="5dp"
-            app:boxCornerRadiusBottomEnd="20dp"
-            app:boxCornerRadiusTopStart="20dp"
-            app:boxStrokeColor="@color/kou_green"
-            app:endIconMode="clear_text"
-            app:helperText="*Zorunlu Alan"
-            app:helperTextTextColor="@color/red_helper">
-
-            <EditText
-                android:id="@+id/editTextRegisterBirthday"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Doğum Günü Giriniz"
-                android:inputType="date"
-                android:minHeight="48dp"
-                tools:ignore="SpeakableTextPresentCheck" />
-
-        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"

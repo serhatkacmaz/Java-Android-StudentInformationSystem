@@ -4,6 +4,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.yazilimlab.R;
+import com.example.yazilimlab.RegisterActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -12,18 +13,24 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import android.app.DatePickerDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 public class YazOkuluActivity extends AppCompatActivity {
@@ -41,10 +48,15 @@ public class YazOkuluActivity extends AppCompatActivity {
     private EditText editYazOkuluLessonName, editYazOkuluLessonT, editYazOkuluLessonU, editYazOkuluLessonL, editYazOkuluLessonAKTS;
     private String strLessonName, strLessonT, strLessonU, strLessonL, strLessonAKTS;
 
+
     // yaz okulunda alıncak
     ArrayList<String> takeLessonList;
     private EditText editYazOkuluTakeFaculty, editYazOkuluTakeLessonName, editYazOkuluTakeLessonT, editYazOkuluTakeLessonU, editYazOkuluTakeLessonL, editYazOkuluTakeLessonAKTS;
     private String strTakeFaculty, strTakeLessonName, strTakeLessonT, strTakeLessonU, strTakeLessonL, strTakeLessonAKTS;
+
+    // date
+    DatePickerDialog.OnDateSetListener onDateSetListenerStart, onDateSetListenerFinish;
+    private TextView editYazOkuluSchoolDateStart, editYazOkuluSchoolDateFinish;
 
     private void init() {
         //sorumlu olunan dersler
@@ -63,6 +75,57 @@ public class YazOkuluActivity extends AppCompatActivity {
         editYazOkuluTakeLessonU = (EditText) findViewById(R.id.editYazOkuluTakeLessonU);
         editYazOkuluTakeLessonL = (EditText) findViewById(R.id.editYazOkuluTakeLessonL);
         editYazOkuluTakeLessonAKTS = (EditText) findViewById(R.id.editYazOkuluTakeLessonAKTS);
+
+        // date
+        editYazOkuluSchoolDateStart = (TextView) findViewById(R.id.editYazOkuluSchoolDateStart);
+        editYazOkuluSchoolDateFinish = (TextView) findViewById(R.id.editYazOkuluSchoolDateFinish);
+
+        Calendar calendar = Calendar.getInstance();
+        final int year = calendar.get(Calendar.YEAR);
+        final int month = calendar.get(Calendar.MONTH);
+        final int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+
+        // date baslangıc
+        editYazOkuluSchoolDateStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(YazOkuluActivity.this, android.R.style.Theme_Holo_Dialog_MinWidth, onDateSetListenerStart, year, month, day);
+                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                datePickerDialog.show();
+            }
+        });
+
+        onDateSetListenerStart = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month + 1;
+                String date = day + "/" + month + "/" + year;
+                System.out.println(date);
+                editYazOkuluSchoolDateStart.setText(date);
+            }
+        };
+
+        // date bitis
+        editYazOkuluSchoolDateFinish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(YazOkuluActivity.this, android.R.style.Theme_Holo_Dialog_MinWidth, onDateSetListenerFinish, year, month, day);
+                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                datePickerDialog.show();
+            }
+        });
+
+        onDateSetListenerFinish = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month + 1;
+                String date = day + "/" + month + "/" + year;
+                System.out.println(date);
+                editYazOkuluSchoolDateFinish.setText(date);
+            }
+        };
+
     }
 
     @Override

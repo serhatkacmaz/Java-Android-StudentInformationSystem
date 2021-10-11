@@ -8,11 +8,14 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.ImageDecoder;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,12 +27,15 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.yazilimlab.Catogery.YatayGecisActivity;
 import com.example.yazilimlab.Model.UserRegister;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -56,6 +62,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -69,9 +76,10 @@ public class RegisterActivity extends AppCompatActivity {
     ArrayAdapter<String> arrayAdapterInfoClass, arrayAdapterFaculty, arrayAdapterDepartment;
 
     private EditText editTextRegisterNumber, editTextRegisterMail, editTextRegisterName, editTextRegisterLastName, editTextRegisterPhone, editTextRegisterIdentity,
-            editTextRegisterAddress, editTextRegisterBirthday, editTextRegisterUniversity,
+            editTextRegisterAddress, editTextRegisterUniversity,
             editTextRegisterPassword, autoCompleteRegisterInfoClass;
 
+    private TextView editTextRegisterBirthday;
     private UserRegister userRegister;
     public String strNumber, strMail, strName, strLastName, strPhone, strIdentity, strAddress, strInfoClass, strBirthday, strUniversity, strFaculty, strDepartment, strPassword, isStudent = "1";
     private FirebaseAuth fAuth;
@@ -87,6 +95,9 @@ public class RegisterActivity extends AppCompatActivity {
 
     FirebaseStorage storage;
     StorageReference storageReference;
+
+    // date
+    DatePickerDialog.OnDateSetListener onDateSetListener;
 
 
     @Override
@@ -173,7 +184,7 @@ public class RegisterActivity extends AppCompatActivity {
         editTextRegisterPhone = (EditText) findViewById(R.id.editTextRegisterPhone);
         editTextRegisterIdentity = (EditText) findViewById(R.id.editTextRegisterIdentity);
         editTextRegisterAddress = (EditText) findViewById(R.id.editTextRegisterAddress);
-        editTextRegisterBirthday = (EditText) findViewById(R.id.editTextRegisterBirthday);
+        editTextRegisterBirthday = (TextView) findViewById(R.id.editTextRegisterBirthday);
         editTextRegisterUniversity = (EditText) findViewById(R.id.editTextRegisterUniversity);
         editTextRegisterPassword = (EditText) findViewById(R.id.editTextRegisterPassword);
         imageRegisterProfile = (ImageView) findViewById(R.id.imageRegisterProfile);
@@ -196,6 +207,31 @@ public class RegisterActivity extends AppCompatActivity {
         //img
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
+
+        // dogum gunu
+        Calendar calendar = Calendar.getInstance();
+        final int year = calendar.get(Calendar.YEAR);
+        final int month = calendar.get(Calendar.MONTH);
+        final int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        editTextRegisterBirthday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(RegisterActivity.this, android.R.style.Theme_Holo_Dialog_MinWidth, onDateSetListener, year, month, day);
+                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                datePickerDialog.show();
+            }
+        });
+
+        onDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month + 1;
+                String date = day + "/" + month + "/" + year;
+                System.out.println(date);
+                editTextRegisterBirthday.setText(date);
+            }
+        };
     }
 
     //img choice start
