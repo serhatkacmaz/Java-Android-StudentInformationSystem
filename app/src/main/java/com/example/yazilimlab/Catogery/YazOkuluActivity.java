@@ -14,11 +14,17 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import java.sql.SQLOutput;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class YazOkuluActivity extends AppCompatActivity {
 
@@ -28,78 +34,134 @@ public class YazOkuluActivity extends AppCompatActivity {
     private FirebaseFirestore firebaseFirestore;
     private DocumentReference docRef;
 
-    //Linear Layout for cardView
-    private LinearLayout yazOkulu_linearLayoutLesson1, yazOkulu_linearLayoutLesson2, yazOkulu_linearLayoutLesson3;
-    private LinearLayout yazOkulu_linearLayoutDateBetween;
-    private TextInputLayout yazOkulu_linearLayoutTakeFacultyInput1, yazOkulu_linearLayoutTakeFacultyInput2, yazOkulu_linearLayoutTakeFacultyInput3;
-    private LinearLayout yazOkulu_linearLayoutTakeLesson1, yazOkulu_linearLayoutTakeLesson2, yazOkulu_linearLayoutTakeLesson3;
+
+    // sorumlu olunan dersler
+    ArrayList<String> lessonList;
+    private EditText editYazOkuluLessonName, editYazOkuluLessonT, editYazOkuluLessonU, editYazOkuluLessonL, editYazOkuluLessonAKTS;
+    private String strLessonName, strLessonT, strLessonU, strLessonL, strLessonAKTS;
+
+    // yaz okulunda alıncak
+    ArrayList<String> takeLessonList;
+    private EditText editYazOkuluTakeFaculty, editYazOkuluTakeLessonName, editYazOkuluTakeLessonT, editYazOkuluTakeLessonU, editYazOkuluTakeLessonL, editYazOkuluTakeLessonAKTS;
+    private String strTakeFaculty, strTakeLessonName, strTakeLessonT, strTakeLessonU, strTakeLessonL, strTakeLessonAKTS;
+
+    private void init() {
+        //sorumlu olunan dersler
+        lessonList = new ArrayList<String>();
+        editYazOkuluLessonName = (EditText) findViewById(R.id.editYazOkuluLessonName);
+        editYazOkuluLessonT = (EditText) findViewById(R.id.editYazOkuluLessonT);
+        editYazOkuluLessonU = (EditText) findViewById(R.id.editYazOkuluLessonU);
+        editYazOkuluLessonL = (EditText) findViewById(R.id.editYazOkuluLessonL);
+        editYazOkuluLessonAKTS = (EditText) findViewById(R.id.editYazOkuluLessonAKTS);
+
+        //yaz okulunda alıncak
+        takeLessonList = new ArrayList<String>();
+        editYazOkuluTakeFaculty = (EditText) findViewById(R.id.editYazOkuluTakeFaculty);
+        editYazOkuluTakeLessonName = (EditText) findViewById(R.id.editYazOkuluTakeLessonName);
+        editYazOkuluTakeLessonT = (EditText) findViewById(R.id.editYazOkuluTakeLessonT);
+        editYazOkuluTakeLessonU = (EditText) findViewById(R.id.editYazOkuluTakeLessonU);
+        editYazOkuluTakeLessonL = (EditText) findViewById(R.id.editYazOkuluTakeLessonL);
+        editYazOkuluTakeLessonAKTS = (EditText) findViewById(R.id.editYazOkuluTakeLessonAKTS);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_yaz_okulu);
+        init();
 
-        // sorumlu dersler for cardView
-        yazOkulu_linearLayoutLesson1 = (LinearLayout) findViewById(R.id.yazOkulu_linearLayoutLesson1);
-        yazOkulu_linearLayoutLesson2 = (LinearLayout) findViewById(R.id.yazOkulu_linearLayoutLesson2);
-        yazOkulu_linearLayoutLesson3 = (LinearLayout) findViewById(R.id.yazOkulu_linearLayoutLesson3);
-
-        // tarih aralığı for cardView
-        yazOkulu_linearLayoutDateBetween = (LinearLayout) findViewById(R.id.yazOkulu_linearLayoutDateBetween);
-
-        //Yaz doneminde alınan dersler for cardView
-        yazOkulu_linearLayoutTakeFacultyInput1 = (TextInputLayout) findViewById(R.id.yazOkulu_linearLayoutTakeFacultyInput1);
-        yazOkulu_linearLayoutTakeFacultyInput2 = (TextInputLayout) findViewById(R.id.yazOkulu_linearLayoutTakeFacultyInput2);
-        yazOkulu_linearLayoutTakeFacultyInput3 = (TextInputLayout) findViewById(R.id.yazOkulu_linearLayoutTakeFacultyInput3);
-        yazOkulu_linearLayoutTakeLesson1 = (LinearLayout) findViewById(R.id.yazOkulu_linearLayoutTakeLesson1);
-        yazOkulu_linearLayoutTakeLesson2 = (LinearLayout) findViewById(R.id.yazOkulu_linearLayoutTakeLesson2);
-        yazOkulu_linearLayoutTakeLesson3 = (LinearLayout) findViewById(R.id.yazOkulu_linearLayoutTakeLesson3);
     }
 
-    //https://www.youtube.com/watch?v=qIJ_U51s4ls&list=PLY0RqCbhFOzJZCQQ07rTTIt2YCGIxsR5-&index=17&t=456s
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public void expandLessons(View view) {
-        int v1 = (yazOkulu_linearLayoutLesson1.getVisibility() == View.GONE) ? View.VISIBLE : View.GONE;
-        int v2 = (yazOkulu_linearLayoutLesson2.getVisibility() == View.GONE) ? View.VISIBLE : View.GONE;
-        int v3 = (yazOkulu_linearLayoutLesson3.getVisibility() == View.GONE) ? View.VISIBLE : View.GONE;
-
-        TransitionManager.beginDelayedTransition(yazOkulu_linearLayoutLesson1, new AutoTransition());
-        TransitionManager.beginDelayedTransition(yazOkulu_linearLayoutLesson2, new AutoTransition());
-        TransitionManager.beginDelayedTransition(yazOkulu_linearLayoutLesson3, new AutoTransition());
-        yazOkulu_linearLayoutLesson1.setVisibility(v1);
-        yazOkulu_linearLayoutLesson2.setVisibility(v2);
-        yazOkulu_linearLayoutLesson3.setVisibility(v3);
-    }
-    //https://www.youtube.com/watch?v=qIJ_U51s4ls&list=PLY0RqCbhFOzJZCQQ07rTTIt2YCGIxsR5-&index=17&t=456s
-
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public void expandSchoolDateBetween(View view) {
-        int v = (yazOkulu_linearLayoutDateBetween.getVisibility() == View.GONE) ? View.VISIBLE : View.GONE;
-        TransitionManager.beginDelayedTransition(yazOkulu_linearLayoutDateBetween, new AutoTransition());
-        yazOkulu_linearLayoutDateBetween.setVisibility(v);
+    // sorumlu olunan dersler start
+    private void setTextStringLesson() {
+        strLessonName = editYazOkuluLessonName.getText().toString();
+        strLessonT = editYazOkuluLessonT.getText().toString();
+        strLessonU = editYazOkuluLessonU.getText().toString();
+        strLessonL = editYazOkuluLessonL.getText().toString();
+        strLessonAKTS = editYazOkuluLessonAKTS.getText().toString();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public void expandTakeLessons(View view) {
-        int v1 = (yazOkulu_linearLayoutTakeFacultyInput1.getVisibility() == View.GONE) ? View.VISIBLE : View.GONE;
-        int v2 = (yazOkulu_linearLayoutTakeFacultyInput2.getVisibility() == View.GONE) ? View.VISIBLE : View.GONE;
-        int v3 = (yazOkulu_linearLayoutTakeFacultyInput3.getVisibility() == View.GONE) ? View.VISIBLE : View.GONE;
-        int v4 = (yazOkulu_linearLayoutTakeLesson1.getVisibility() == View.GONE) ? View.VISIBLE : View.GONE;
-        int v5 = (yazOkulu_linearLayoutTakeLesson2.getVisibility() == View.GONE) ? View.VISIBLE : View.GONE;
-        int v6 = (yazOkulu_linearLayoutTakeLesson3.getVisibility() == View.GONE) ? View.VISIBLE : View.GONE;
-
-        TransitionManager.beginDelayedTransition(yazOkulu_linearLayoutTakeFacultyInput1, new AutoTransition());
-        TransitionManager.beginDelayedTransition(yazOkulu_linearLayoutTakeFacultyInput2, new AutoTransition());
-        TransitionManager.beginDelayedTransition(yazOkulu_linearLayoutTakeFacultyInput3, new AutoTransition());
-        TransitionManager.beginDelayedTransition(yazOkulu_linearLayoutTakeLesson1, new AutoTransition());
-        TransitionManager.beginDelayedTransition(yazOkulu_linearLayoutTakeLesson2, new AutoTransition());
-        TransitionManager.beginDelayedTransition(yazOkulu_linearLayoutTakeLesson3, new AutoTransition());
-
-        yazOkulu_linearLayoutTakeFacultyInput1.setVisibility(v1);
-        yazOkulu_linearLayoutTakeFacultyInput2.setVisibility(v2);
-        yazOkulu_linearLayoutTakeFacultyInput3.setVisibility(v3);
-        yazOkulu_linearLayoutTakeLesson1.setVisibility(v4);
-        yazOkulu_linearLayoutTakeLesson2.setVisibility(v5);
-        yazOkulu_linearLayoutTakeLesson3.setVisibility(v6);
+    private boolean isNotEmptyLesson() {
+        setTextStringLesson();
+        boolean result = TextUtils.isEmpty(strLessonName) || TextUtils.isEmpty(strLessonT) || TextUtils.isEmpty(strLessonU) || TextUtils.isEmpty(strLessonL) || TextUtils.isEmpty(strLessonAKTS);
+        System.out.println(result);
+        if (result)
+            return false;
+        return true;
     }
+
+    private void lessonTextDelete() {
+        editYazOkuluLessonName.setText("");
+        editYazOkuluLessonT.setText("");
+        editYazOkuluLessonU.setText("");
+        editYazOkuluLessonL.setText("");
+        editYazOkuluLessonAKTS.setText("");
+    }
+
+    public void yazOkuluLessonAdd(View view) {
+
+        if (isNotEmptyLesson()) {
+            String temp = strLessonName + ";" + strLessonT + ";" + strLessonU + ";" + strLessonL + ";" + strLessonAKTS;
+            lessonList.add(temp);
+
+            for (int i = 0; i < lessonList.size(); i++) {
+                System.out.println(lessonList.get(i));
+            }
+            System.out.println("----------------------------------------------");
+            lessonTextDelete();
+        } else {
+            Toast.makeText(YazOkuluActivity.this, "Boş alanlar var", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+    // sorumlu olunan dersler end
+
+
+    // yaz okulunda alıncak start
+    private void setTextStringTakeLesson() {
+        strTakeFaculty = editYazOkuluTakeFaculty.getText().toString();
+        strTakeLessonName = editYazOkuluTakeLessonName.getText().toString();
+        strTakeLessonT = editYazOkuluTakeLessonT.getText().toString();
+        strTakeLessonU = editYazOkuluTakeLessonU.getText().toString();
+        strTakeLessonL = editYazOkuluTakeLessonL.getText().toString();
+        strTakeLessonAKTS = editYazOkuluTakeLessonAKTS.getText().toString();
+    }
+
+    private boolean isNotEmptyTakeLesson() {
+        setTextStringTakeLesson();
+        boolean result = TextUtils.isEmpty(strTakeFaculty) || TextUtils.isEmpty(strTakeLessonName) || TextUtils.isEmpty(strTakeLessonT) || TextUtils.isEmpty(strTakeLessonU) || TextUtils.isEmpty(strTakeLessonL) || TextUtils.isEmpty(strTakeLessonAKTS);
+
+        if (result)
+            return false;
+        return true;
+    }
+
+    private void takeLessonTextDelete() {
+        editYazOkuluTakeFaculty.setText("");
+        editYazOkuluTakeLessonName.setText("");
+        editYazOkuluTakeLessonT.setText("");
+        editYazOkuluTakeLessonU.setText("");
+        editYazOkuluTakeLessonL.setText("");
+        editYazOkuluTakeLessonAKTS.setText("");
+    }
+
+    public void yazOkuluTakeLessonAdd(View view) {
+
+        if (isNotEmptyTakeLesson()) {
+            setTextStringTakeLesson();
+            String temp = strTakeFaculty + ";" + strTakeLessonName + ";" + strTakeLessonT + ";" + strTakeLessonU + ";" + strTakeLessonL + ";" + strTakeLessonAKTS;
+            takeLessonList.add(temp);
+
+            for (int i = 0; i < takeLessonList.size(); i++) {
+                System.out.println(takeLessonList.get(i));
+            }
+            System.out.println("----------------------------------------------");
+            takeLessonTextDelete();
+        } else {
+            Toast.makeText(YazOkuluActivity.this, "Boş alanlar var (take)", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+    // yaz okulunda alıncak end
+
 }
