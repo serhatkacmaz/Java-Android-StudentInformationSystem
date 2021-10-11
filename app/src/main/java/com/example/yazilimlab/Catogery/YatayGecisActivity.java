@@ -26,6 +26,10 @@ public class YatayGecisActivity extends AppCompatActivity {
     ArrayList<String> arrayListMakeApplicationType;
     ArrayAdapter<String> arrayAdapterMakeApplicationType;
 
+    // ComboBox for Ogretim turu
+    private AutoCompleteTextView educationTypeDropDown;
+    ArrayList<String> arrayListEducationType;
+    ArrayAdapter<String> arrayAdapterEducationType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +40,19 @@ public class YatayGecisActivity extends AppCompatActivity {
         makeApplicationTypeDropDown = (AutoCompleteTextView) findViewById(R.id.autoCompleteYatayGecisMakeApplicationType);
         arrayListMakeApplicationType = new ArrayList<>();
         arrayListMakeApplicationType.add("KURUMİÇİ YATAY GEÇİŞ BAŞVURUSU");
-        arrayListMakeApplicationType.add("KURUMLARARASI YATAY GEÇİŞ BAŞVURUSU ");
+        arrayListMakeApplicationType.add("KURUMLARARASI YATAY GEÇİŞ BAŞVURUSU");
         arrayListMakeApplicationType.add("MER. YER. PUANIYLA YATAY GEÇİŞ BAŞVURUSU");
         arrayListMakeApplicationType.add("YURT DIŞI YATAY GEÇİŞ BAŞVURUSU");
         arrayAdapterMakeApplicationType = new ArrayAdapter<String>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, arrayListMakeApplicationType);
         makeApplicationTypeDropDown.setAdapter(arrayAdapterMakeApplicationType);
+
+        // ComboBox for Ogretim turu
+        educationTypeDropDown = (AutoCompleteTextView) findViewById(R.id.autoCompleteYatayGecisEducationType);
+        arrayListEducationType = new ArrayList<>();
+        arrayListEducationType.add("I.ÖĞRETİM");
+        arrayListEducationType.add("II.ÖĞRETİM");
+        arrayAdapterEducationType = new ArrayAdapter<String>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, arrayListEducationType);
+        educationTypeDropDown.setAdapter(arrayAdapterEducationType);
 
 
     }
