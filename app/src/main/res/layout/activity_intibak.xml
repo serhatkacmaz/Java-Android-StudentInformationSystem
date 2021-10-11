@@ -30,12 +30,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:padding="5dp"
             app:boxCornerRadiusBottomEnd="20dp"
             app:boxCornerRadiusTopStart="20dp"
             app:boxStrokeColor="@color/kou_green"
             app:endIconMode="clear_text"
-            app:helperText="*Zorunlu Alan"
             app:helperTextTextColor="@color/red_helper">
 
             <EditText
@@ -56,12 +57,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:padding="5dp"
             app:boxCornerRadiusBottomEnd="20dp"
             app:boxCornerRadiusTopStart="20dp"
             app:boxStrokeColor="@color/kou_green"
             app:endIconMode="clear_text"
-            app:helperText="*Zorunlu Alan"
             app:helperTextTextColor="@color/red_helper">
 
             <EditText
@@ -82,12 +84,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:padding="5dp"
             app:boxCornerRadiusBottomEnd="20dp"
             app:boxCornerRadiusTopStart="20dp"
             app:boxStrokeColor="@color/kou_green"
             app:endIconMode="clear_text"
-            app:helperText="*Zorunlu Alan"
             app:helperTextTextColor="@color/red_helper">
 
             <EditText
@@ -102,50 +105,337 @@
                 tools:ignore="SpeakableTextPresentCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!--yeni fakülte text-->
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:hint="Fakülte Seçiniz"
-            android:padding="5dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="Daha Önce Aldığım Dersin"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="18dp"></TextView>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
             app:boxCornerRadiusBottomEnd="20dp"
             app:boxCornerRadiusTopStart="20dp"
             app:boxStrokeColor="@color/kou_green"
-            app:helperText="*Zorunlu Alan"
             app:helperTextTextColor="@color/red_helper">
 
-            <AutoCompleteTextView
-                android:id="@+id/autoCompleteIntibakFaculty"
+            <EditText
+                android:id="@+id/editYazOkuluOldLesson"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:enabled="false"
-                android:inputType="none"
-                android:textColor="@color/black" />
+                android:backgroundTint="@color/black"
+                android:ems="10"
+                android:hint="Ders adı"
+                android:inputType="textPersonName"
+                android:minHeight="48dp"
+                tools:ignore="SpeakableTextPresentCheck" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!--yeni bölüm text-->
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+        <LinearLayout
+            android:id="@+id/yazOkulu_linearLayoutLesson1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:hint="Bölüm Seçiniz"
-            android:padding="5dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                app:boxStrokeColor="@color/kou_green"
+                app:helperTextTextColor="@color/red_helper">
+
+                <EditText
+                    android:id="@+id/editYazOkuluOldLessonT"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/black"
+                    android:ems="10"
+                    android:hint="T"
+                    android:inputType="number"
+                    android:minHeight="48dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                app:boxStrokeColor="@color/kou_green"
+                app:helperTextTextColor="@color/red_helper">
+
+                <EditText
+                    android:id="@+id/editYazOkuluOldLessonUL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/black"
+                    android:ems="10"
+                    android:hint="U/L"
+                    android:inputType="number"
+                    android:minHeight="48dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                app:boxStrokeColor="@color/kou_green"
+                app:helperTextTextColor="@color/red_helper">
+
+                <EditText
+                    android:id="@+id/editYazOkuluOldLessonK"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/black"
+                    android:ems="10"
+                    android:hint="K"
+                    android:inputType="number"
+                    android:minHeight="48dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                app:boxStrokeColor="@color/kou_green"
+                app:helperTextTextColor="@color/red_helper">
+
+                <EditText
+                    android:id="@+id/editYazOkuluOldLessonAKTS"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/black"
+                    android:ems="10"
+                    android:hint="AKTS"
+                    android:inputType="number"
+                    android:minHeight="48dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/buttonYazOkuluOldLessonAdd"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="15dp"
+                android:layout_marginTop="30dp"
+                android:onClick="yazOkuluOldLessonAdd"
+                android:text="+"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/text_intibakActivity_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="Muaf Olmak İstediğim"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="18dp"></TextView>
+
+        <!--1.ders sorumlu-->
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
             app:boxCornerRadiusBottomEnd="20dp"
             app:boxCornerRadiusTopStart="20dp"
             app:boxStrokeColor="@color/kou_green"
-            app:helperText="*Zorunlu Alan"
             app:helperTextTextColor="@color/red_helper">
 
-            <AutoCompleteTextView
-                android:id="@+id/autoCompleteIntibakBranch"
+            <EditText
+                android:id="@+id/editYazOkuluExemptLessonCode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:enabled="false"
-                android:inputType="none"
-                android:textColor="@color/black" />
+                android:backgroundTint="@color/black"
+                android:ems="10"
+                android:hint="Ders Kodu"
+                android:inputType="textPersonName"
+                android:minHeight="48dp"
+                tools:ignore="SpeakableTextPresentCheck" />
+
         </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
+            app:boxStrokeColor="@color/kou_green"
+            app:helperTextTextColor="@color/red_helper">
+
+            <EditText
+                android:id="@+id/editYazOkuluExemptLessonName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/black"
+                android:ems="10"
+                android:hint="Ders adı"
+                android:inputType="textPersonName"
+                android:minHeight="48dp"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:id="@+id/yazOkulu_linearLayoutTakeLesson1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                app:boxStrokeColor="@color/kou_green"
+                app:helperTextTextColor="@color/red_helper">
+
+                <EditText
+                    android:id="@+id/editYazOkuluExemptLessonT"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/black"
+                    android:ems="10"
+                    android:hint="T"
+                    android:inputType="number"
+                    android:minHeight="48dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                app:boxStrokeColor="@color/kou_green"
+                app:helperTextTextColor="@color/red_helper">
+
+                <EditText
+                    android:id="@+id/editYazOkuluExemptLessonUL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/black"
+                    android:ems="10"
+                    android:hint="U/L"
+                    android:inputType="number"
+                    android:minHeight="48dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                app:boxStrokeColor="@color/kou_green"
+                app:helperTextTextColor="@color/red_helper">
+
+                <EditText
+                    android:id="@+id/editYazOkuluExemptLessonK"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/black"
+                    android:ems="10"
+                    android:hint="K"
+                    android:inputType="number"
+                    android:minHeight="48dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                app:boxStrokeColor="@color/kou_green"
+                app:helperTextTextColor="@color/red_helper">
+
+                <EditText
+                    android:id="@+id/editYazOkuluExemptLessonAKTS"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/black"
+                    android:ems="10"
+                    android:hint="AKTS"
+                    android:inputType="number"
+                    android:minHeight="48dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/buttonYazOkuluExemptLessonAdd"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="15dp"
+                android:layout_marginTop="30dp"
+                android:onClick="yazOkuluExemptLessonAdd"
+                android:text="+"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:layout_marginTop="30dp"
+            android:onClick="createPdf"
+            android:text="Pdf Olustur"
+            android:textSize="16dp" />
+
     </LinearLayout>
+
 </ScrollView>

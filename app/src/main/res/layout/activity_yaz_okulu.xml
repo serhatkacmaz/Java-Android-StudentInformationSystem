@@ -485,7 +485,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:layout_marginTop="30dp"
-            android:text="Gönder"
+            android:text="Pdf Olustur"
+            android:onClick="createPdf"
             android:textSize="16dp" />
 
     </LinearLayout>

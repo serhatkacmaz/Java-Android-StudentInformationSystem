@@ -35,6 +35,7 @@ public class YazOkuluActivity extends AppCompatActivity {
     private DocumentReference docRef;
 
 
+    private int tableRow = 3;
     // sorumlu olunan dersler
     ArrayList<String> lessonList;
     private EditText editYazOkuluLessonName, editYazOkuluLessonT, editYazOkuluLessonU, editYazOkuluLessonL, editYazOkuluLessonAKTS;
@@ -72,6 +73,11 @@ public class YazOkuluActivity extends AppCompatActivity {
 
     }
 
+    public void createPdf(View view) {
+
+    }
+
+
     // sorumlu olunan dersler start
     private void setTextStringLesson() {
         strLessonName = editYazOkuluLessonName.getText().toString();
@@ -100,19 +106,22 @@ public class YazOkuluActivity extends AppCompatActivity {
 
     public void yazOkuluLessonAdd(View view) {
 
-        if (isNotEmptyLesson()) {
-            String temp = strLessonName + ";" + strLessonT + ";" + strLessonU + ";" + strLessonL + ";" + strLessonAKTS;
-            lessonList.add(temp);
+        if (lessonList.size() < tableRow) {
+            if (isNotEmptyLesson()) {
+                String temp = strLessonName + ";" + strLessonT + ";" + strLessonU + ";" + strLessonL + ";" + strLessonAKTS;
+                lessonList.add(temp);
 
-            for (int i = 0; i < lessonList.size(); i++) {
-                System.out.println(lessonList.get(i));
+                for (int i = 0; i < lessonList.size(); i++) {
+                    System.out.println(lessonList.get(i));
+                }
+                System.out.println("----------------------------------------------");
+                lessonTextDelete();
+            } else {
+                Toast.makeText(YazOkuluActivity.this, "Boş alanlar var", Toast.LENGTH_SHORT).show();
             }
-            System.out.println("----------------------------------------------");
-            lessonTextDelete();
         } else {
-            Toast.makeText(YazOkuluActivity.this, "Boş alanlar var", Toast.LENGTH_SHORT).show();
+            Toast.makeText(YazOkuluActivity.this, String.valueOf(tableRow) + " adet ekliyebilirsin", Toast.LENGTH_SHORT).show();
         }
-
     }
     // sorumlu olunan dersler end
 
@@ -147,19 +156,24 @@ public class YazOkuluActivity extends AppCompatActivity {
 
     public void yazOkuluTakeLessonAdd(View view) {
 
-        if (isNotEmptyTakeLesson()) {
-            setTextStringTakeLesson();
-            String temp = strTakeFaculty + ";" + strTakeLessonName + ";" + strTakeLessonT + ";" + strTakeLessonU + ";" + strTakeLessonL + ";" + strTakeLessonAKTS;
-            takeLessonList.add(temp);
+        if (takeLessonList.size() < tableRow) {
+            if (isNotEmptyTakeLesson()) {
+                setTextStringTakeLesson();
+                String temp = strTakeFaculty + ";" + strTakeLessonName + ";" + strTakeLessonT + ";" + strTakeLessonU + ";" + strTakeLessonL + ";" + strTakeLessonAKTS;
+                takeLessonList.add(temp);
 
-            for (int i = 0; i < takeLessonList.size(); i++) {
-                System.out.println(takeLessonList.get(i));
+                for (int i = 0; i < takeLessonList.size(); i++) {
+                    System.out.println(takeLessonList.get(i));
+                }
+                System.out.println("----------------------------------------------");
+                takeLessonTextDelete();
+            } else {
+                Toast.makeText(YazOkuluActivity.this, "Boş alanlar var", Toast.LENGTH_SHORT).show();
             }
-            System.out.println("----------------------------------------------");
-            takeLessonTextDelete();
         } else {
-            Toast.makeText(YazOkuluActivity.this, "Boş alanlar var (take)", Toast.LENGTH_SHORT).show();
+            Toast.makeText(YazOkuluActivity.this, String.valueOf(tableRow) + " adet ekliyebilirsin", Toast.LENGTH_SHORT).show();
         }
+
 
     }
     // yaz okulunda alıncak end
