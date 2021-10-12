@@ -33,8 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+
             android:padding="5dp"
             app:boxCornerRadiusBottomEnd="20dp"
             app:boxCornerRadiusTopStart="20dp"
@@ -62,8 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+
             android:padding="5dp"
             app:boxCornerRadiusBottomEnd="20dp"
             app:boxCornerRadiusTopStart="20dp"
@@ -105,11 +103,11 @@
 
             <TextView
                 android:id="@+id/editYazOkuluSchoolDateStart"
-                android:layout_width="150dp"
+                android:layout_width="125dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
-                android:ems="10"
+                android:layout_marginLeft="50dp"
                 android:background="@drawable/text_view_border"
+                android:ems="10"
                 android:gravity="center"
                 android:hint="Başlangıç"
                 android:inputType="date"
@@ -134,15 +132,14 @@
 
             <TextView
                 android:id="@+id/editYazOkuluSchoolDateFinish"
-                android:layout_width="150dp"
+                android:layout_width="125dp"
                 android:layout_height="wrap_content"
-
-                android:layout_marginRight="40dp"
+                android:layout_marginRight="50dp"
+                android:background="@drawable/text_view_border"
                 android:ems="10"
                 android:gravity="center"
                 android:hint="Bitiş"
                 android:inputType="date"
-                android:background="@drawable/text_view_border"
                 android:minHeight="48dp"
                 android:textColor="@color/black"
                 android:textSize="18dp"
@@ -168,9 +165,8 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
-            android:layout_marginRight="20dp"
+
             app:boxCornerRadiusBottomEnd="20dp"
             app:boxCornerRadiusTopStart="20dp"
             app:boxStrokeColor="@color/kou_green"
@@ -194,9 +190,8 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+
             android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp"
             app:boxCornerRadiusBottomEnd="20dp"
             app:boxCornerRadiusTopStart="20dp"
             app:boxStrokeColor="@color/kou_green"
