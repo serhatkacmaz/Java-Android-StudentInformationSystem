@@ -102,6 +102,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:layout_marginTop="30dp"
+            android:onClick="createPdf"
             android:text="Başvur"
             android:textSize="16dp" />
     </LinearLayout>

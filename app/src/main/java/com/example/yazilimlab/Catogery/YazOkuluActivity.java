@@ -135,6 +135,7 @@ public class YazOkuluActivity extends AppCompatActivity {
 
     }
 
+    //pdf start
     public void initPdf(String title) {
         Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -297,7 +298,6 @@ public class YazOkuluActivity extends AppCompatActivity {
 
     }
 
-    //pdf start
     public void createPdf(View view) {
         initPdf("YazOkuluBasvuru");
     }
