@@ -24,7 +24,15 @@
             android:textColor="@color/black"
             android:textSize="30dp"
             android:textStyle="bold" />
-
+        <!-- alt baslik1 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="Öğrenimine İlişkin Bilgiler"
+            android:textColor="@color/black"
+            android:textSize="20dp"></TextView>
         <!--Basvuru Turu-->
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
@@ -36,6 +44,7 @@
             app:boxCornerRadiusBottomEnd="20dp"
             app:boxCornerRadiusTopStart="20dp"
             app:boxStrokeColor="@color/kou_green"
+            app:helperText="*Zorunlu Alan"
             app:helperTextTextColor="@color/red_helper">
 
             <AutoCompleteTextView
@@ -59,6 +68,7 @@
             app:boxCornerRadiusBottomEnd="20dp"
             app:boxCornerRadiusTopStart="20dp"
             app:boxStrokeColor="@color/kou_green"
+            app:helperText="*Zorunlu Alan"
             app:helperTextTextColor="@color/red_helper">
 
             <AutoCompleteTextView
@@ -68,10 +78,198 @@
                 android:enabled="false"
                 android:inputType="none"
                 android:textColor="@color/black" />
-
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Yarıyıl -->
         <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
+            app:boxStrokeColor="@color/kou_green"
+            app:endIconMode="clear_text"
+            app:helperText="*Zorunlu Alan"
+            app:helperTextTextColor="@color/red_helper">
+
+            <EditText
+                android:id="@+id/editTextYatayGecisTerm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/black"
+                android:ems="10"
+                android:hint="Yarıyıl"
+                android:inputType="number"
+                android:minHeight="48dp"
+                tools:ignore="SpeakableTextPresentCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Disiplin -->
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:hint="Disiplin Durumu"
+            android:padding="5dp"
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
+            app:boxStrokeColor="@color/kou_green"
+            app:helperText="*Zorunlu Alan"
+            app:helperTextTextColor="@color/red_helper">
+
+            <AutoCompleteTextView
+                android:id="@+id/autoCompleteYatayGecisDiscipline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:inputType="none"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- genel not ortalaması -->
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
+            app:boxStrokeColor="@color/kou_green"
+            app:endIconMode="clear_text"
+            app:helperText="*Zorunlu Alan"
+            app:helperTextTextColor="@color/red_helper">
+
+            <EditText
+                android:id="@+id/editTextYatayGecisNoteGrade"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/black"
+                android:ems="10"
+                android:hint="Genel Not Ortalaması(GNO)"
+                android:inputType="number"
+                android:minHeight="48dp"
+                tools:ignore="SpeakableTextPresentCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Öğrenci Numarası  -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/editTextYatayGecisNoWrap"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:visibility="gone"
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
+            app:boxStrokeColor="@color/kou_green"
+            app:endIconMode="clear_text"
+            app:helperTextTextColor="@color/red_helper">
+
+            <EditText
+                android:id="@+id/editTextYatayGecisNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/black"
+                android:ems="10"
+                android:hint="KOÜ Öğrenci Numarası"
+                android:inputType="number"
+                android:minHeight="48dp"
+                tools:ignore="SpeakableTextPresentCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- hala kayıtlı olduğu kuruma kayıt yılı  -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/editTextYatayGecisYearWrap"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
+            app:boxStrokeColor="@color/kou_green"
+            app:endIconMode="clear_text"
+            app:helperText="*Zorunlu Alan"
+            app:helperTextTextColor="@color/red_helper">
+
+            <EditText
+                android:id="@+id/editTextYatayGecisYear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/black"
+                android:ems="10"
+                android:hint="Kayıtlı Olduğu Kuruma Yerleşme Yılı"
+                android:inputType="number"
+                android:minHeight="48dp"
+                tools:ignore="SpeakableTextPresentCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <!-- hala kayıtlı olduğu kuruma kayıt puanı  -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editTextYatayGecisScoreWrap"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="230dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="5dp"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                app:boxStrokeColor="@color/kou_green"
+                app:endIconMode="clear_text"
+                app:helperText="*Zorunlu Alan"
+                app:helperTextTextColor="@color/red_helper">
+
+                <EditText
+                    android:id="@+id/editTextYatayGecisScore"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/black"
+                    android:ems="10"
+                    android:hint="Kayıtlı Olduğu Kuruma Yerleşme Puanı"
+                    android:inputType="number"
+                    android:minHeight="48dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="Puan Türü"
+                android:padding="5dp"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                app:boxStrokeColor="@color/kou_green"
+                app:helperText="*Zorunlu Alan"
+                app:helperTextTextColor="@color/red_helper">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteYatayGecispScoreType1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:inputType="none"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+
+
+        <!-- yabancı dil puanı -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/editTextYatayGecisEnglishWrapper"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -84,22 +282,159 @@
             app:helperTextTextColor="@color/red_helper">
 
             <EditText
-                android:id="@+id/autoCompleteYatayGecisTerm"
+                android:id="@+id/editTextYatayGecisEnglish"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/black"
                 android:ems="10"
-                android:hint="Yarıyıl"
+                android:hint="Yabancı Dil Puanı"
                 android:inputType="number"
                 android:minHeight="48dp"
                 tools:ignore="SpeakableTextPresentCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- alt baslik1 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="Adayın Başurduğu Yükseköğretim Programına İlişkin Bilgiler"
+            android:textColor="@color/black"
+            android:textSize="20dp"></TextView>
+
+        <!-- başvuracağı fakülte -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/editTextYatayGecisFacultyWrap"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
+            app:boxStrokeColor="@color/kou_green"
+            app:endIconMode="clear_text"
+            app:helperText="*Zorunlu Alan"
+            app:helperTextTextColor="@color/red_helper">
+
+            <EditText
+                android:id="@+id/editTextYatayGecisFaculty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/black"
+                android:ems="10"
+                android:hint="Başvurulacak Fakülte/Yüksekokul/MYO"
+                android:inputType="text"
+                android:minHeight="48dp"
+                tools:ignore="SpeakableTextPresentCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- başcuracağı bölüm -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/editTextYatayGecisBranchWrap"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
+            app:boxStrokeColor="@color/kou_green"
+            app:endIconMode="clear_text"
+            app:helperText="*Zorunlu Alan"
+            app:helperTextTextColor="@color/red_helper">
+
+            <EditText
+                android:id="@+id/editTextYatayGecisBranch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/black"
+                android:ems="10"
+                android:hint="Başvurulacak Bölüm"
+                android:inputType="text"
+                android:minHeight="48dp"
+                tools:ignore="SpeakableTextPresentCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--Ogretim Turu2-->
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:hint="Öğretim Türü"
+            android:padding="5dp"
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
+            app:boxStrokeColor="@color/kou_green"
+            app:helperText="*Zorunlu Alan"
+            app:helperTextTextColor="@color/red_helper">
+
+            <AutoCompleteTextView
+                android:id="@+id/autoCompleteYatayGecisEducationType2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:inputType="none"
+                android:textColor="@color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
+        <!-- başvurulacak bölüme ait puan -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editTextYatayGecisScore2Wrap"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="230dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="5dp"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                app:boxStrokeColor="@color/kou_green"
+                app:endIconMode="clear_text"
+                app:helperText="*Zorunlu Alan"
+                app:helperTextTextColor="@color/red_helper">
 
+                <EditText
+                    android:id="@+id/editTextYatayGecisScore2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/black"
+                    android:ems="10"
+                    android:hint="Başurulacak Bölüme Ait Puan"
+                    android:inputType="number"
+                    android:minHeight="48dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+            </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="Puan Türü"
+                android:padding="5dp"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                app:boxStrokeColor="@color/kou_green"
+                android:maxWidth="20dp"
+                app:helperText="*Zorunlu Alan"
+                app:helperTextTextColor="@color/red_helper">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteYatayGecispScoreType2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:inputType="none"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
     </LinearLayout>
-
-
 </ScrollView>
