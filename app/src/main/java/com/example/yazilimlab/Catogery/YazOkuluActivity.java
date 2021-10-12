@@ -5,7 +5,6 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.yazilimlab.R;
-import com.example.yazilimlab.RegisterActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -55,11 +54,6 @@ public class YazOkuluActivity extends AppCompatActivity {
     private static final int CREATEPDF = 1;
 
     private int tableRow = 3;
-    // sorumlu olunan dersler
-    ArrayList<String> lessonList;
-    private EditText editYazOkuluLessonName, editYazOkuluLessonT, editYazOkuluLessonU, editYazOkuluLessonL, editYazOkuluLessonAKTS;
-    private String strLessonName, strLessonT, strLessonU, strLessonL, strLessonAKTS;
-
 
     // yaz okulunda alıncak
     ArrayList<String> takeLessonList;
@@ -71,13 +65,6 @@ public class YazOkuluActivity extends AppCompatActivity {
     private TextView editYazOkuluSchoolDateStart, editYazOkuluSchoolDateFinish;
 
     private void init() {
-        //sorumlu olunan dersler
-        lessonList = new ArrayList<String>();
-        editYazOkuluLessonName = (EditText) findViewById(R.id.editYazOkuluLessonName);
-        editYazOkuluLessonT = (EditText) findViewById(R.id.editYazOkuluLessonT);
-        editYazOkuluLessonU = (EditText) findViewById(R.id.editYazOkuluLessonU);
-        editYazOkuluLessonL = (EditText) findViewById(R.id.editYazOkuluLessonL);
-        editYazOkuluLessonAKTS = (EditText) findViewById(R.id.editYazOkuluLessonAKTS);
 
         //yaz okulunda alıncak
         takeLessonList = new ArrayList<String>();
@@ -167,7 +154,7 @@ public class YazOkuluActivity extends AppCompatActivity {
 
                 PdfDocument pdfDocument = new PdfDocument();
                 Paint paint = new Paint();
-                Paint s=new Paint();
+                Paint s = new Paint();
                 PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(210, 297, 1).create();
                 PdfDocument.Page page = pdfDocument.startPage(pageInfo);
                 Canvas canvas = page.getCanvas();
@@ -213,21 +200,23 @@ public class YazOkuluActivity extends AppCompatActivity {
                 canvas.drawLine(180, 85, 180, 115, paint);
 
 
-                canvas.drawText("   Kocaeli Üniversitesi Bilişim Sistemleri Mühendisliği Bölümü’nde sorumlu olunan ders/dersler:", 30, 129, paint);
-                //table2 row
+                canvas.drawText("   Yaz öğretimi kapsamında alınacak ders/dersler", 30, 129, paint);
+                //table3 row
                 canvas.drawLine(30, 130, 180, 130, paint);
                 canvas.drawLine(30, 135, 180, 135, paint);
                 canvas.drawLine(30, 140, 180, 140, paint);
                 canvas.drawLine(30, 145, 180, 145, paint);
                 canvas.drawLine(30, 150, 180, 150, paint);
-                //table2 context
-                canvas.drawText("Dersin Adı ve Kodu", 85, 134, paint);
+                //table3 context
+                canvas.drawText("Fakülte/Bölüm", 40, 134, paint);
+                canvas.drawText("Dersin Adı ve Kodu", 100, 134, paint);
                 canvas.drawText("T", 144, 134, paint);
                 canvas.drawText("U", 154, 134, paint);
                 canvas.drawText("L", 164, 134, paint);
                 canvas.drawText("AKTS", 172, 134, paint);
-                //table2 column
+                //table3 column
                 canvas.drawLine(30, 130, 30, 150, paint);
+                canvas.drawLine(70, 130, 70, 150, paint);
                 canvas.drawLine(140, 130, 140, 150, paint);
                 canvas.drawLine(150, 130, 150, 150, paint);
                 canvas.drawLine(160, 130, 160, 150, paint);
@@ -235,76 +224,53 @@ public class YazOkuluActivity extends AppCompatActivity {
                 canvas.drawLine(180, 130, 180, 150, paint);
 
 
-                canvas.drawText("   Yaz öğretimi kapsamında alınacak ders/dersler", 30, 159, paint);
-                //table3 row
-                canvas.drawLine(30, 160, 180, 160, paint);
-                canvas.drawLine(30, 165, 180, 165, paint);
-                canvas.drawLine(30, 170, 180, 170, paint);
-                canvas.drawLine(30, 175, 180, 175, paint);
-                canvas.drawLine(30, 180, 180, 180, paint);
-                //table3 context
-                canvas.drawText("Fakülte/Bölüm", 40, 164, paint);
-                canvas.drawText("Dersin Adı ve Kodu", 100, 164, paint);
-                canvas.drawText("T", 144, 164, paint);
-                canvas.drawText("U", 154, 164, paint);
-                canvas.drawText("L", 164, 164, paint);
-                canvas.drawText("AKTS", 172, 164, paint);
-                //table3 column
-                canvas.drawLine(30, 160, 30, 180, paint);
-                canvas.drawLine(70, 160, 70, 180, paint);
-                canvas.drawLine(140, 160, 140, 180, paint);
-                canvas.drawLine(150, 160, 150, 180, paint);
-                canvas.drawLine(160, 160, 160, 180, paint);
-                canvas.drawLine(170, 160, 170, 180, paint);
-                canvas.drawLine(180, 160, 180, 180, paint);
-
-
                 paint.setFakeBoldText(true);
-                canvas.drawText("   Dilekçe Ekleri", 30, 189, paint);
+                canvas.drawText("   Dilekçe Ekleri", 30, 159, paint);
                 paint.setFakeBoldText(false);
                 paint.setTextSize(2);
-                canvas.drawText("       1-\tYaz döneminde ders almak istenilen Üniversite ve Kocaeli Üniversitesinin ilgili bölümlerinin, öğrencinin üniversiteye giriş yılındaki taban puanlarını gösteren belge ektedir.", 30, 194, paint);
-                canvas.drawText("       2-\tAlınmak istenilen derslerin karşı Üniversitedeki ders saati/kredi/AKTS ve ders içeriklerini gösteren belge ektedir", 30, 197, paint);
-                canvas.drawText("       3-\tBaşvurulan dönem içinde alınmış transkript ektedir.", 30, 200, paint);
+                canvas.drawText("       1-\tYaz döneminde ders almak istenilen Üniversite ve Kocaeli Üniversitesinin ilgili bölümlerinin, öğrencinin üniversiteye giriş yılındaki taban puanlarını gösteren belge ektedir.", 30, 164, paint);
+                canvas.drawText("       2-\tAlınmak istenilen derslerin karşı Üniversitedeki ders saati/kredi/AKTS ve ders içeriklerini gösteren belge ektedir", 30, 167, paint);
+                canvas.drawText("       3-\tBaşvurulan dönem içinde alınmış transkript ektedir.", 30, 170, paint);
 
 
                 paint.setTextSize(3);
                 //table4 row
-                canvas.drawLine(30, 205, 180, 205, paint);
-                canvas.drawLine(30, 210, 180, 210, paint);
-                canvas.drawLine(30, 215, 180, 215, paint);
-                canvas.drawLine(30, 220, 180, 220, paint);
+                canvas.drawLine(30, 175, 180, 175, paint);
+                canvas.drawLine(30, 180, 180, 180, paint);
+                canvas.drawLine(30, 185, 180, 185, paint);
+                canvas.drawLine(30, 190, 180, 190, paint);
                 //table4 context
-                canvas.drawText("Unvan, Adı, Soyadı", 82, 209, paint);
-                canvas.drawText("İmza", 163, 209, paint);
-                canvas.drawText("ÖĞRENCİ DANIŞMANI", 35, 214, paint);
-                canvas.drawText("BÖLÜM BAŞKANI", 35, 219, paint);
+                canvas.drawText("Unvan, Adı, Soyadı", 82, 179, paint);
+                canvas.drawText("İmza", 163, 179, paint);
+                canvas.drawText("ÖĞRENCİ DANIŞMANI", 35, 184, paint);
+                canvas.drawText("BÖLÜM BAŞKANI", 35, 189, paint);
                 //table4 column
-                canvas.drawLine(30, 205, 30, 220, paint);
-                canvas.drawLine(80, 205, 80, 220, paint);
-                canvas.drawLine(150, 205, 150, 220, paint);
-                canvas.drawLine(180, 205, 180, 220, paint);
+                canvas.drawLine(30, 175, 30, 190, paint);
+                canvas.drawLine(80, 175, 80, 190, paint);
+                canvas.drawLine(150, 175, 150, 190, paint);
+                canvas.drawLine(180, 175, 180, 190, paint);
 
                 paint.setTextSize(2);
                 paint.setFakeBoldText(true);
                 paint.setTextAlign(Paint.Align.CENTER);
 
-                canvas.drawText("KOCAELİ ÜNİVERSİTESİ", pageInfo.getPageWidth() / 2, 230, paint);
-                canvas.drawText("YAZ ÖĞRETİMİ ESASLARI", pageInfo.getPageWidth() / 2, 233, paint);
+                canvas.drawText("KOCAELİ ÜNİVERSİTESİ", pageInfo.getPageWidth() / 2, 200, paint);
+                canvas.drawText("YAZ ÖĞRETİMİ ESASLARI", pageInfo.getPageWidth() / 2, 203, paint);
                 paint.setTextAlign(Paint.Align.LEFT);
                 paint.setFakeBoldText(false);
-                canvas.drawText("ESAS l- (1) Spor Bilimleri Fakültesi dışındaki tüm akademik birimlerde okuyan öğrencilerin, diğer yükseköğretim kurumlarından yaz öğretiminde ders alabilmeleri ", 30, 240, paint);
-                canvas.drawText("için; Üniversiteye giriş yılı esas olmak üzere ilgili bölüm/program taban puanın en fazla 40 puan düşük olma koşulu aranır.", 30, 243, paint);
-                canvas.drawText(" (3) Yaz okulunda diğer yükseköğretim kurumlarından alınacak dersler için öğrencinin kayıtlı olduğu ilgili birimin Bölüm/Anabilim Dalı veya Program ", 30, 247, paint);
-                canvas.drawText("Başkanlığının onayı gerekir. ", 30, 250, paint);
-                canvas.drawText("(4) Yaz okulunda Bölüm/Anabilim Dalı veya Program Başkanlığı bu konudaki değerlendirmesini; ilgili bölüm müfredatındaki benzer içeriğe veya program ", 30, 253, paint);
-                canvas.drawText("yeterliliğine sahip olmakla birlikte, ders(ler)in AKTS/kedi/saat değer(ler)inden herhangi birini dikkate alarak yapar. ", 30, 256, paint);
-                canvas.drawText("ESAS 2- (l) Öğrenciler, yaz öğretiminde derslerin AKTS/kredi/saat değerlerine bakılmaksızın, en çok 3 ders alabilir. ", 30, 259, paint);
-                canvas.drawText("ESAS 3- (l) Güz ve/veya bahar yarıyıllarında kayıt donduran öğrenciler, kayıt dondurdukları yarıyıllara ilişkin dersleri yaz öğretiminde alamazlar.", 30, 262, paint);
-                canvas.drawText("ESAS 6  (l)Yaz öğretimi kapsamında alınan ders(ler)in notu genel not ortalamasına bakılmaksızın 4'lük sistem üzerinden 2'nin altında ise öğrenci bu ders(ler)den ", 30, 265, paint);
-                canvas.drawText("başarısız sayılır.", 30, 268, paint);
-                canvas.drawText("ESAS 9- (l) Yaz öğretimi aynı öğretim yılına ait üçüncü bir yarıyıl değildir. Yaz öğretiminde alınan ders(ler)in notları, öğrencilerin güz ve bahar yarıyıllarındaki ", 30, 271, paint);
-                canvas.drawText("yarıyıl not ortalamalarını ve yarıyıllardaki derslerin koşul durumlarını etkilemez. Ancak, öğrencinin genel not ortalaması (GNO) hesaplanmasına dahil edilir", 30, 274, paint);
+                canvas.drawText("ESAS l- (1) Spor Bilimleri Fakültesi dışındaki tüm akademik birimlerde okuyan öğrencilerin, diğer yükseköğretim kurumlarından yaz öğretiminde ders alabilmeleri ", 30, 210, paint);
+                canvas.drawText("için; Üniversiteye giriş yılı esas olmak üzere ilgili bölüm/program taban puanın en fazla 40 puan düşük olma koşulu aranır.", 30, 213, paint);
+                canvas.drawText(" (3) Yaz okulunda diğer yükseköğretim kurumlarından alınacak dersler için öğrencinin kayıtlı olduğu ilgili birimin Bölüm/Anabilim Dalı veya Program ", 30, 217, paint);
+                canvas.drawText("Başkanlığının onayı gerekir. ", 30, 220, paint);
+                canvas.drawText("(4) Yaz okulunda Bölüm/Anabilim Dalı veya Program Başkanlığı bu konudaki değerlendirmesini; ilgili bölüm müfredatındaki benzer içeriğe veya program ", 30, 223, paint);
+                canvas.drawText("yeterliliğine sahip olmakla birlikte, ders(ler)in AKTS/kedi/saat değer(ler)inden herhangi birini dikkate alarak yapar. ", 30, 226, paint);
+                canvas.drawText("ESAS 2- (l) Öğrenciler, yaz öğretiminde derslerin AKTS/kredi/saat değerlerine bakılmaksızın, en çok 3 ders alabilir. ", 30, 229, paint);
+                canvas.drawText("ESAS 3- (l) Güz ve/veya bahar yarıyıllarında kayıt donduran öğrenciler, kayıt dondurdukları yarıyıllara ilişkin dersleri yaz öğretiminde alamazlar.", 30, 232, paint);
+                canvas.drawText("ESAS 6  (l)Yaz öğretimi kapsamında alınan ders(ler)in notu genel not ortalamasına bakılmaksızın 4'lük sistem üzerinden 2'nin altında ise öğrenci bu ders(ler)den ", 30, 235, paint);
+                canvas.drawText("başarısız sayılır.", 30, 238, paint);
+                canvas.drawText("ESAS 9- (l) Yaz öğretimi aynı öğretim yılına ait üçüncü bir yarıyıl değildir. Yaz öğretiminde alınan ders(ler)in notları, öğrencilerin güz ve bahar yarıyıllarındaki ", 30, 241, paint);
+                canvas.drawText("yarıyıl not ortalamalarını ve yarıyıllardaki derslerin koşul durumlarını etkilemez. Ancak, öğrencinin genel not ortalaması (GNO) hesaplanmasına dahil edilir", 30, 244, paint);
+
 
                 pdfDocument.finishPage(page);
                 setPdf(uri, pdfDocument);
@@ -337,54 +303,6 @@ public class YazOkuluActivity extends AppCompatActivity {
     }
 
     //pdf end
-
-
-    // sorumlu olunan dersler start
-    private void setTextStringLesson() {
-        strLessonName = editYazOkuluLessonName.getText().toString();
-        strLessonT = editYazOkuluLessonT.getText().toString();
-        strLessonU = editYazOkuluLessonU.getText().toString();
-        strLessonL = editYazOkuluLessonL.getText().toString();
-        strLessonAKTS = editYazOkuluLessonAKTS.getText().toString();
-    }
-
-    private boolean isNotEmptyLesson() {
-        setTextStringLesson();
-        boolean result = TextUtils.isEmpty(strLessonName) || TextUtils.isEmpty(strLessonT) || TextUtils.isEmpty(strLessonU) || TextUtils.isEmpty(strLessonL) || TextUtils.isEmpty(strLessonAKTS);
-        System.out.println(result);
-        if (result)
-            return false;
-        return true;
-    }
-
-    private void lessonTextDelete() {
-        editYazOkuluLessonName.setText("");
-        editYazOkuluLessonT.setText("");
-        editYazOkuluLessonU.setText("");
-        editYazOkuluLessonL.setText("");
-        editYazOkuluLessonAKTS.setText("");
-    }
-
-    public void yazOkuluLessonAdd(View view) {
-
-        if (lessonList.size() < tableRow) {
-            if (isNotEmptyLesson()) {
-                String temp = strLessonName + ";" + strLessonT + ";" + strLessonU + ";" + strLessonL + ";" + strLessonAKTS;
-                lessonList.add(temp);
-
-                for (int i = 0; i < lessonList.size(); i++) {
-                    System.out.println(lessonList.get(i));
-                }
-                System.out.println("----------------------------------------------");
-                lessonTextDelete();
-            } else {
-                Toast.makeText(YazOkuluActivity.this, "Boş alanlar var", Toast.LENGTH_SHORT).show();
-            }
-        } else {
-            Toast.makeText(YazOkuluActivity.this, String.valueOf(tableRow) + " adet ekliyebilirsin", Toast.LENGTH_SHORT).show();
-        }
-    }
-    // sorumlu olunan dersler end
 
 
     // yaz okulunda alıncak start
