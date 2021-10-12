@@ -433,7 +433,7 @@
             android:layout_margin="15dp"
             android:layout_marginTop="30dp"
             android:onClick="createPdf"
-            android:text="Pdf Olustur"
+            android:text="BAŞVUR"
             android:textSize="16dp" />
 
     </LinearLayout>
