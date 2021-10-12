@@ -108,9 +108,8 @@
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40dp"
-                android:layout_marginRight="10dp"
-                android:backgroundTint="@color/black"
                 android:ems="10"
+                android:background="@drawable/text_view_border"
                 android:gravity="center"
                 android:hint="Başlangıç"
                 android:inputType="date"
@@ -121,16 +120,29 @@
 
 
             <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/black"
+                android:ems="10"
+                android:gravity="center"
+                android:minHeight="48dp"
+                android:text="-"
+                android:textColor="@color/black"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <TextView
                 android:id="@+id/editYazOkuluSchoolDateFinish"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+
                 android:layout_marginRight="40dp"
-                android:backgroundTint="@color/black"
                 android:ems="10"
                 android:gravity="center"
                 android:hint="Bitiş"
                 android:inputType="date"
+                android:background="@drawable/text_view_border"
                 android:minHeight="48dp"
                 android:textColor="@color/black"
                 android:textSize="18dp"
@@ -140,14 +152,12 @@
         </LinearLayout>
 
 
-
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:gravity="center"
-            android:text="Yaz Okulunda Alınacak Ders/Dersler"
+            android:text="Yaz Okulunda Alınacak Ders / Dersler"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20dp"></TextView>
@@ -322,7 +332,7 @@
             android:layout_margin="15dp"
             android:layout_marginTop="30dp"
             android:onClick="createPdf"
-            android:text="Pdf Olustur"
+            android:text="BAŞVUR"
             android:textSize="16dp" />
 
     </LinearLayout>
