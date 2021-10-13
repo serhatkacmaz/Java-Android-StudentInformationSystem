@@ -442,6 +442,7 @@
             android:layout_margin="15dp"
             android:layout_marginTop="30dp"
             android:text="BAŞVUR"
+            android:onClick="createPdf"
             android:textSize="16dp" />
     </LinearLayout>
 </ScrollView>

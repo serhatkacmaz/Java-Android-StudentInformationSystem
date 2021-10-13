@@ -144,7 +144,7 @@ public class CapActivity extends AppCompatActivity {
             pdfDocument.writeTo(stream);
             pdfDocument.close();
             stream.flush();
-            Toast.makeText(this, "Başarıyla Olmuş PDF", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Pdf oluşturuldu", Toast.LENGTH_LONG).show();
 
         } catch (FileNotFoundException e) {
             Toast.makeText(this, "Dosya hatası bulunamadı", Toast.LENGTH_LONG).show();
