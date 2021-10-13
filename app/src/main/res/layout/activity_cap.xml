@@ -10,8 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="15dp"
-        >
+        android:padding="15dp">
         <!--Baslik-->
         <TextView
             android:layout_width="match_parent"
@@ -23,18 +22,17 @@
             android:textColor="@color/black"
             android:textSize="30dp"
             android:textStyle="bold" />
-        <!--Ogretim Turu-->
+        <!--Aktif Ogretim Turu-->
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:hint="Öğretim Türü"
+            android:hint="Aktif Öğretim Türü"
             android:padding="5dp"
             app:boxCornerRadiusBottomEnd="20dp"
             app:boxCornerRadiusTopStart="20dp"
             app:boxStrokeColor="@color/kou_green"
-            app:helperText="*Zorunlu Alan"
             app:helperTextTextColor="@color/red_helper">
 
             <AutoCompleteTextView
@@ -57,7 +55,6 @@
             app:boxCornerRadiusTopStart="20dp"
             app:boxStrokeColor="@color/kou_green"
             app:endIconMode="clear_text"
-            app:helperText="*Zorunlu Alan"
             app:helperTextTextColor="@color/red_helper">
 
             <EditText
@@ -66,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/black"
                 android:ems="10"
-                android:hint="Fakülte"
+                android:hint="Geçilecek Fakülte"
                 android:inputType="text"
                 android:minHeight="48dp"
                 tools:ignore="SpeakableTextPresentCheck" />
@@ -83,7 +80,6 @@
             app:boxCornerRadiusTopStart="20dp"
             app:boxStrokeColor="@color/kou_green"
             app:endIconMode="clear_text"
-            app:helperText="*Zorunlu Alan"
             app:helperTextTextColor="@color/red_helper">
 
             <EditText
@@ -92,11 +88,34 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/black"
                 android:ems="10"
-                android:hint="Bölüm"
+                android:hint="Geçilecek Bölüm"
                 android:inputType="text"
                 android:minHeight="48dp"
                 tools:ignore="SpeakableTextPresentCheck" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <!--Aktif Ogretim Turu-->
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:hint="Geçilecek Öğretim Türü"
+            android:padding="5dp"
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
+            app:boxStrokeColor="@color/kou_green"
+            app:helperTextTextColor="@color/red_helper">
+
+            <AutoCompleteTextView
+                android:id="@+id/autoCompleteCapEducationTypePass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:inputType="none"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

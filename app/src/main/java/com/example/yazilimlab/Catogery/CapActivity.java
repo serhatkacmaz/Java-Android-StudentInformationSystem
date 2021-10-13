@@ -9,12 +9,19 @@ import android.graphics.Paint;
 import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.yazilimlab.MainActivity;
 import com.example.yazilimlab.R;
+import com.example.yazilimlab.RegisterActivity;
+import com.example.yazilimlab.StudentHomeActivity;
+import com.example.yazilimlab.StudentHomeFragment.MakeApplicationFragment;
 
 import java.io.BufferedOutputStream;
 import java.io.FileNotFoundException;
@@ -25,27 +32,60 @@ import java.util.Objects;
 public class CapActivity extends AppCompatActivity {
 
     // ComboBox for Ogretim turu
-    private AutoCompleteTextView educationCapTypeDropDown;
+    private AutoCompleteTextView educationCapTypeDropDown, educationCapTypePassDropDown;
     ArrayList<String> arrayListCapEducationType;
     ArrayAdapter<String> arrayAdapterCapEducationType;
 
+
+    // input
+    private EditText editTextCapFaculty, editTextCapBranch;
+    private String strEducationCapType, strEducationCapTypePass, strCapFaculty, strCapBranch;
+
     private static final int CREATEPDF = 1;
+
+    private void init() {
+        // ComboBox for Ogretim turu
+        educationCapTypeDropDown = (AutoCompleteTextView) findViewById(R.id.autoCompleteCapEducationType);
+        educationCapTypePassDropDown = (AutoCompleteTextView) findViewById(R.id.autoCompleteCapEducationTypePass);
+        arrayListCapEducationType = new ArrayList<>();
+        arrayListCapEducationType.add("I.Öğretim");
+        arrayListCapEducationType.add("II.Öğretim");
+        arrayAdapterCapEducationType = new ArrayAdapter<String>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, arrayListCapEducationType);
+        educationCapTypeDropDown.setAdapter(arrayAdapterCapEducationType);
+        educationCapTypePassDropDown.setAdapter(arrayAdapterCapEducationType);
+
+        //editText
+        editTextCapFaculty = (EditText) findViewById(R.id.editTextCapFaculty);
+        editTextCapBranch = (EditText) findViewById(R.id.editTextCapBranch);
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cap);
-        // ComboBox for Ogretim turu
-        educationCapTypeDropDown = (AutoCompleteTextView) findViewById(R.id.autoCompleteCapEducationType);
-        arrayListCapEducationType = new ArrayList<>();
-        arrayListCapEducationType.add("I.ÖĞRETİM");
-        arrayListCapEducationType.add("II.ÖĞRETİM");
-        arrayAdapterCapEducationType = new ArrayAdapter<String>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, arrayListCapEducationType);
-        educationCapTypeDropDown.setAdapter(arrayAdapterCapEducationType);
+        init();
+    }
+
+    //string degerleri atama
+    private void setString() {
+        strEducationCapType = educationCapTypeDropDown.getText().toString();
+        strEducationCapTypePass = educationCapTypePassDropDown.getText().toString();
+        strCapFaculty = editTextCapFaculty.getText().toString();
+        strCapBranch = editTextCapBranch.getText().toString();
+    }
+
+    // input bos kontrolu
+    private boolean isNotEmptyStrings() {
+        setString();
+        boolean result = TextUtils.isEmpty(strEducationCapType) || TextUtils.isEmpty(strCapFaculty) || TextUtils.isEmpty(strCapBranch) || TextUtils.isEmpty(strEducationCapTypePass);
+
+        if (result)
+            return false;
+        return true;
     }
 
     // pdf Start
-
     public void initPdf(String title) {
         Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -81,11 +121,11 @@ public class CapActivity extends AppCompatActivity {
                 paint.setTextSize(3);
                 paint.setFakeBoldText(false);
 
-                canvas.drawText("       Mühendislik Fakültesi ……….……….........................……………. Bölümü (I. Öğr / II. Öğr.)", 30, 45, paint);
+                canvas.drawText("       Mühendislik Fakültesi ……….……….........................……………. Bölümü " + strEducationCapType, 30, 45, paint);
                 canvas.drawText("...........................................numaralı …………………………………......…. isimli öğrencisiyim.", 30, 50, paint);
                 canvas.drawText("       Kocaeli Üniversitesi Ön Lisans ve Lisans Eğitim ve Öğretim Yönetmeliği’nin 43. maddesi", 30, 60, paint);
-                canvas.drawText("uyarınca, Fakülteniz ……………..........................………..…………………………. Bölümü aşağıda belirtmiş", 30, 65, paint);
-                canvas.drawText("olduğum (I. Öğr / II. Öğr.) Çift Anadal Programı (ÇAP) kapsamında öğrenim görme talebimin kabul", 30, 70, paint);
+                canvas.drawText("uyarınca, " + strCapFaculty + " Fakülteniz " + strCapBranch + " Bölümü aşağıda belirtmiş", 30, 65, paint);
+                canvas.drawText("olduğum " + strEducationCapTypePass + " Çift Anadal Programı (ÇAP) kapsamında öğrenim görme talebimin kabul", 30, 70, paint);
                 canvas.drawText("edilmesini arz ederim.", 30, 75, paint);
                 canvas.drawText("imza", 165, 80, paint);
 
@@ -130,7 +170,6 @@ public class CapActivity extends AppCompatActivity {
                 canvas.drawText("itibariyle en üst %20'sinde yer almayan öğrencilerden çift anadal yapılacak bölümün/programın ilgili yıldaki taban puanından az", 30, 185, paint);
                 canvas.drawText("olmamak üzere puana sahip olanlar da ÇAP'a başvurabilirler.", 30, 188, paint);
 
-
                 pdfDocument.finishPage(page);
                 setPdf(uri, pdfDocument);
 
@@ -145,6 +184,7 @@ public class CapActivity extends AppCompatActivity {
             pdfDocument.close();
             stream.flush();
             Toast.makeText(this, "Pdf oluşturuldu", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(CapActivity.this, StudentHomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
 
         } catch (FileNotFoundException e) {
             Toast.makeText(this, "Dosya hatası bulunamadı", Toast.LENGTH_LONG).show();
@@ -156,10 +196,12 @@ public class CapActivity extends AppCompatActivity {
 
     }
 
-
     public void createPdf(View view) {
-        initPdf("CapBasvurusu");
+        if (isNotEmptyStrings()) {
+            initPdf("CapBasvurusu");
+        } else {
+            Toast.makeText(CapActivity.this, "Boş alanlar var", Toast.LENGTH_SHORT).show();
+        }
     }
-
     // pdf End
 }
