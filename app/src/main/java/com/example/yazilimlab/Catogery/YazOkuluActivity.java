@@ -53,7 +53,11 @@ public class YazOkuluActivity extends AppCompatActivity {
     private DocumentReference docRef;
     private static final int CREATEPDF = 1;
 
-    private int tableRow = 3;
+    private int tableRow = 3;   // tabloya eklenecek sınır
+
+    //EditText
+    private EditText editYazOkuluTeacherName, editYazOkuluToSchool;
+    private String strTeacherName, strToSchool;
 
     // yaz okulunda alıncak
     ArrayList<String> takeLessonList;
@@ -63,6 +67,7 @@ public class YazOkuluActivity extends AppCompatActivity {
     // date
     DatePickerDialog.OnDateSetListener onDateSetListenerStart, onDateSetListenerFinish;
     private TextView editYazOkuluSchoolDateStart, editYazOkuluSchoolDateFinish;
+    private String strSchoolDateStart, strSchoolDateFinish;
 
     private void init() {
 
@@ -79,13 +84,18 @@ public class YazOkuluActivity extends AppCompatActivity {
         editYazOkuluSchoolDateStart = (TextView) findViewById(R.id.editYazOkuluSchoolDateStart);
         editYazOkuluSchoolDateFinish = (TextView) findViewById(R.id.editYazOkuluSchoolDateFinish);
 
+        //EditText
+        editYazOkuluTeacherName = (EditText) findViewById(R.id.editYazOkuluTeacherName);
+        editYazOkuluToSchool = (EditText) findViewById(R.id.editYazOkuluToSchool);
+
+        // aktif tarih alma
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
         final int month = calendar.get(Calendar.MONTH);
         final int day = calendar.get(Calendar.DAY_OF_MONTH);
 
 
-        // date baslangıc
+        // date baslangıc tarihi
         editYazOkuluSchoolDateStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,7 +104,6 @@ public class YazOkuluActivity extends AppCompatActivity {
                 datePickerDialog.show();
             }
         });
-
         onDateSetListenerStart = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
@@ -105,7 +114,7 @@ public class YazOkuluActivity extends AppCompatActivity {
             }
         };
 
-        // date bitis
+        // date bitis tarihi
         editYazOkuluSchoolDateFinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,7 +123,6 @@ public class YazOkuluActivity extends AppCompatActivity {
                 datePickerDialog.show();
             }
         });
-
         onDateSetListenerFinish = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
@@ -132,8 +140,75 @@ public class YazOkuluActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_yaz_okulu);
         init();
-
     }
+
+
+    private void setTextString() {
+        strTakeFaculty = editYazOkuluTakeFaculty.getText().toString();
+        strTakeLessonName = editYazOkuluTakeLessonName.getText().toString();
+        strTakeLessonT = editYazOkuluTakeLessonT.getText().toString();
+        strTakeLessonU = editYazOkuluTakeLessonU.getText().toString();
+        strTakeLessonL = editYazOkuluTakeLessonL.getText().toString();
+        strTakeLessonAKTS = editYazOkuluTakeLessonAKTS.getText().toString();
+        //EditText,TextView
+        strTeacherName = editYazOkuluTeacherName.getText().toString();
+        strToSchool = editYazOkuluToSchool.getText().toString();
+        strSchoolDateStart = editYazOkuluSchoolDateStart.getText().toString();
+        strSchoolDateFinish = editYazOkuluSchoolDateFinish.getText().toString();
+    }
+
+    // input bos kontrolu
+    private boolean isNotEmptyStrings() {
+        setTextString();
+        boolean result = TextUtils.isEmpty(strTeacherName) || TextUtils.isEmpty(strToSchool) || TextUtils.isEmpty(strSchoolDateStart) || TextUtils.isEmpty(strSchoolDateFinish)
+                || takeLessonList.size() == 0;
+        if (result)
+            return false;
+        return true;
+    }
+
+    // yaz okulunda alıncak start
+
+    // yaz okulunda alıncak dersler text kontrol
+    private boolean isNotEmptyTakeLesson() {
+        setTextString();
+        boolean result = TextUtils.isEmpty(strTakeFaculty) || TextUtils.isEmpty(strTakeLessonName) || TextUtils.isEmpty(strTakeLessonT) || TextUtils.isEmpty(strTakeLessonU) || TextUtils.isEmpty(strTakeLessonL) || TextUtils.isEmpty(strTakeLessonAKTS);
+
+        if (result)
+            return false;
+        return true;
+    }
+
+    private void takeLessonTextDelete() {
+        editYazOkuluTakeFaculty.setText("");
+        editYazOkuluTakeLessonName.setText("");
+        editYazOkuluTakeLessonT.setText("");
+        editYazOkuluTakeLessonU.setText("");
+        editYazOkuluTakeLessonL.setText("");
+        editYazOkuluTakeLessonAKTS.setText("");
+    }
+
+    public void yazOkuluTakeLessonAdd(View view) {
+
+        if (takeLessonList.size() < tableRow) {
+            if (isNotEmptyTakeLesson()) {
+                String temp = strTakeFaculty + ";" + strTakeLessonName + ";" + strTakeLessonT + ";" + strTakeLessonU + ";" + strTakeLessonL + ";" + strTakeLessonAKTS;
+                takeLessonList.add(temp);
+
+                for (int i = 0; i < takeLessonList.size(); i++) {
+                    System.out.println(takeLessonList.get(i));
+                }
+                System.out.println("----------------------------------------------");
+                takeLessonTextDelete();
+            } else {
+                Toast.makeText(YazOkuluActivity.this, "Ders eklemede boş alanlar var ", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(YazOkuluActivity.this, String.valueOf(tableRow) + " adet ekliyebilirsin", Toast.LENGTH_SHORT).show();
+        }
+    }
+    // yaz okulunda alıncak end
+
 
     //pdf start
     public void initPdf(String title) {
@@ -298,62 +373,11 @@ public class YazOkuluActivity extends AppCompatActivity {
     }
 
     public void createPdf(View view) {
-        initPdf("YazOkuluBasvuru");
-    }
-
-    //pdf end
-
-
-    // yaz okulunda alıncak start
-    private void setTextStringTakeLesson() {
-        strTakeFaculty = editYazOkuluTakeFaculty.getText().toString();
-        strTakeLessonName = editYazOkuluTakeLessonName.getText().toString();
-        strTakeLessonT = editYazOkuluTakeLessonT.getText().toString();
-        strTakeLessonU = editYazOkuluTakeLessonU.getText().toString();
-        strTakeLessonL = editYazOkuluTakeLessonL.getText().toString();
-        strTakeLessonAKTS = editYazOkuluTakeLessonAKTS.getText().toString();
-    }
-
-    private boolean isNotEmptyTakeLesson() {
-        setTextStringTakeLesson();
-        boolean result = TextUtils.isEmpty(strTakeFaculty) || TextUtils.isEmpty(strTakeLessonName) || TextUtils.isEmpty(strTakeLessonT) || TextUtils.isEmpty(strTakeLessonU) || TextUtils.isEmpty(strTakeLessonL) || TextUtils.isEmpty(strTakeLessonAKTS);
-
-        if (result)
-            return false;
-        return true;
-    }
-
-    private void takeLessonTextDelete() {
-        editYazOkuluTakeFaculty.setText("");
-        editYazOkuluTakeLessonName.setText("");
-        editYazOkuluTakeLessonT.setText("");
-        editYazOkuluTakeLessonU.setText("");
-        editYazOkuluTakeLessonL.setText("");
-        editYazOkuluTakeLessonAKTS.setText("");
-    }
-
-    public void yazOkuluTakeLessonAdd(View view) {
-
-        if (takeLessonList.size() < tableRow) {
-            if (isNotEmptyTakeLesson()) {
-                setTextStringTakeLesson();
-                String temp = strTakeFaculty + ";" + strTakeLessonName + ";" + strTakeLessonT + ";" + strTakeLessonU + ";" + strTakeLessonL + ";" + strTakeLessonAKTS;
-                takeLessonList.add(temp);
-
-                for (int i = 0; i < takeLessonList.size(); i++) {
-                    System.out.println(takeLessonList.get(i));
-                }
-                System.out.println("----------------------------------------------");
-                takeLessonTextDelete();
-            } else {
-                Toast.makeText(YazOkuluActivity.this, "Boş alanlar var", Toast.LENGTH_SHORT).show();
-            }
+        if (isNotEmptyStrings()) {
+            initPdf("YazOkuluBasvuru");
         } else {
-            Toast.makeText(YazOkuluActivity.this, String.valueOf(tableRow) + " adet ekliyebilirsin", Toast.LENGTH_SHORT).show();
+            Toast.makeText(YazOkuluActivity.this, "Boş alanlar var", Toast.LENGTH_SHORT).show();
         }
-
-
     }
-    // yaz okulunda alıncak end
-
+    //pdf end
 }

@@ -358,6 +358,5 @@ public class YatayGecisActivity extends AppCompatActivity {
             Toast.makeText(YatayGecisActivity.this, "Boş alanlar var", Toast.LENGTH_SHORT).show();
         }
     }
-
     //pdf end
 }
