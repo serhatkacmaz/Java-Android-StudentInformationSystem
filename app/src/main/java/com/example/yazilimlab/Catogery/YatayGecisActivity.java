@@ -13,6 +13,7 @@ import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -23,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.yazilimlab.R;
+import com.example.yazilimlab.StudentHomeActivity;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.BufferedOutputStream;
@@ -55,7 +57,6 @@ public class YatayGecisActivity extends AppCompatActivity {
     ArrayList<String> arrayListEducationType2;
     ArrayAdapter<String> arrayAdapterEducationType2;
 
-
     // ComboBox for puan türü1
     private AutoCompleteTextView scoreTypeDropDown1;
     ArrayList<String> arrayListScoreType1;
@@ -66,12 +67,35 @@ public class YatayGecisActivity extends AppCompatActivity {
     ArrayList<String> arrayListScoreType2;
     ArrayAdapter<String> arrayAdapterScoreType2;
 
+    private EditText editTextYatayGecisTerm, editTextYatayGecisNoteGrade, editTextYatayGecisYear, editTextYatayGecisScore, editTextYatayGecisEnglish;
+    private EditText editTextYatayGecisFaculty, editTextYatayGecisBranch, editTextYatayGecisScore2;
+    private String strTerm, strNoteGrade, strYear, strScore, strScore2, strEnglish, strFaculty, strBranch;
+    private String strMakeApplicationType, strEducationType, strDisciplineType, strEducationType2, strScoreTypeDropDown1, strScoreTypeDropDown2;
+
+    // visibility
+    private EditText editTextYatayGecisNo;
+    private String strNo;
+
     private TextInputLayout editTextYatayGecisNoWrap;
     private static final int CREATEPDF = 1;
 
     private void init() {
 
+        //kurum içi
         editTextYatayGecisNoWrap = (TextInputLayout) findViewById(R.id.editTextYatayGecisNoWrap);
+        editTextYatayGecisNo = (EditText) findViewById(R.id.editTextYatayGecisNo);
+
+        //EditText
+        editTextYatayGecisTerm = (EditText) findViewById(R.id.editTextYatayGecisTerm);
+        editTextYatayGecisNoteGrade = (EditText) findViewById(R.id.editTextYatayGecisNoteGrade);
+        editTextYatayGecisYear = (EditText) findViewById(R.id.editTextYatayGecisYear);
+        editTextYatayGecisScore = (EditText) findViewById(R.id.editTextYatayGecisScore);
+        editTextYatayGecisEnglish = (EditText) findViewById(R.id.editTextYatayGecisEnglish);
+        editTextYatayGecisFaculty = (EditText) findViewById(R.id.editTextYatayGecisFaculty);
+        editTextYatayGecisBranch = (EditText) findViewById(R.id.editTextYatayGecisBranch);
+        editTextYatayGecisScore2 = (EditText) findViewById(R.id.editTextYatayGecisScore2);
+
+
         // ComboBox for Basvuru turu
         makeApplicationTypeDropDown = (AutoCompleteTextView) findViewById(R.id.autoCompleteYatayGecisMakeApplicationType);
         arrayListMakeApplicationType = new ArrayList<>();
@@ -155,7 +179,7 @@ public class YatayGecisActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                System.out.println(makeApplicationTypeDropDown.getText().toString());
+                //System.out.println(makeApplicationTypeDropDown.getText().toString());
                 if (makeApplicationTypeDropDown.getText().toString().equals("KURUMİÇİ YATAY GEÇİŞ BAŞVURUSU")) {
                     System.out.println("visible");
                     editTextYatayGecisNoWrap.setVisibility(View.VISIBLE);
@@ -165,6 +189,44 @@ public class YatayGecisActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    // string degerleri atama
+    private void setString() {
+        // editText
+        strTerm = editTextYatayGecisTerm.getText().toString();
+        strNoteGrade = editTextYatayGecisNoteGrade.getText().toString();
+        strYear = editTextYatayGecisYear.getText().toString();
+        strScore = editTextYatayGecisScore.getText().toString();
+        strScore2 = editTextYatayGecisScore2.getText().toString();
+        strEnglish = editTextYatayGecisEnglish.getText().toString();
+        strFaculty = editTextYatayGecisFaculty.getText().toString();
+        strBranch = editTextYatayGecisBranch.getText().toString();
+        // combBox
+        strMakeApplicationType = makeApplicationTypeDropDown.getText().toString();
+        strEducationType = educationTypeDropDown.getText().toString();
+        strDisciplineType = disciplineTypeDropDown.getText().toString();
+        strEducationType2 = educationTypeDropDown2.getText().toString();
+        strScoreTypeDropDown1 = scoreTypeDropDown1.getText().toString();
+        strScoreTypeDropDown2 = scoreTypeDropDown2.getText().toString();
+
+        //kurum ici
+        strNo = editTextYatayGecisNo.getText().toString();
+
+    }
+
+    // input bos kontrolu
+    private boolean isNotEmptyStrings() {
+        setString();
+        boolean result = TextUtils.isEmpty(strTerm) || TextUtils.isEmpty(strNoteGrade) || TextUtils.isEmpty(strYear) || TextUtils.isEmpty(strScore) || TextUtils.isEmpty(strScore2) || TextUtils.isEmpty(strFaculty) || TextUtils.isEmpty(strBranch)
+                || TextUtils.isEmpty(strMakeApplicationType) || TextUtils.isEmpty(strEducationType) || TextUtils.isEmpty(strDisciplineType) || TextUtils.isEmpty(strEducationType2) || TextUtils.isEmpty(strScoreTypeDropDown1) || TextUtils.isEmpty(strScoreTypeDropDown2);
+        if (makeApplicationTypeDropDown.getText().toString().equals("KURUMİÇİ YATAY GEÇİŞ BAŞVURUSU") && result == true) {
+            result = TextUtils.isEmpty(strNo);
+        }
+
+        if (result)
+            return false;
+        return true;
     }
 
     //pdf start
@@ -182,9 +244,7 @@ public class YatayGecisActivity extends AppCompatActivity {
         if (requestCode == CREATEPDF) {
             if (data.getData() != null) {
 
-
                 Uri uri = data.getData();
-
 
                 PdfDocument pdfDocument = new PdfDocument();
                 Paint paint = new Paint();
@@ -206,12 +266,9 @@ public class YatayGecisActivity extends AppCompatActivity {
 
                 // text1
                 paint.setFakeBoldText(true);
-                canvas.drawText("I- BAŞVURU TÜRÜ", 30, 40, paint);
+                canvas.drawText("I- BAŞVURU TÜRÜ", 30, 45, paint);
                 paint.setFakeBoldText(false);
-                canvas.drawText("KURUMİÇİ YATAY GEÇİŞ BAŞVURUSU", 30, 45, paint);
-                canvas.drawText("MER. YER. PUANIYLA YATAY GEÇİŞ BAŞVURUSU", 30, 50, paint);
-                canvas.drawText("KURUMLARARASI YATAY GEÇİŞ BAŞVURUSU ", 125, 45, paint);
-                canvas.drawText("YURT DIŞI YATAY GEÇİŞ BAŞVURUSU", 125, 50, paint);
+                canvas.drawText(strMakeApplicationType, 30, 50, paint);
 
                 //text2
                 paint.setFakeBoldText(true);
@@ -230,26 +287,26 @@ public class YatayGecisActivity extends AppCompatActivity {
                 paint.setFakeBoldText(true);
                 canvas.drawText("III- ÖĞRENİMİNE İLİŞKİN BİLGİLER", 30, 95, paint);
                 paint.setFakeBoldText(false);
-                canvas.drawText("HALEN KAYITLI OLDUĞU ÜNİVERSİTE:", 30, 100, paint);
-                canvas.drawText("HALEN KAYITLI OLDUĞU FAKÜLTE / YÜKSEKOKUL:", 30, 105, paint);
-                canvas.drawText("HALEN KAYITLI OLDUĞU BÖLÜM / PROGRAM:", 30, 110, paint);
-                canvas.drawText("ÖĞRETİM TÜRÜ:", 30, 115, paint);
-                canvas.drawText("SINIF/ YARIYIL:", 120, 115, paint);
-                canvas.drawText("DİSİPLİN CEZASI ALIP ALMADIĞI:", 30, 120, paint);
-                canvas.drawText("GENEL AKADEMİK BAŞARI NOT ORTALAMASI:", 30, 125, paint);
-                canvas.drawText("ÖĞRENCİ NUMARASI (KOCAELİ  ÜNİVERSİTESİ ÖĞRENCİLERİ İÇİN):", 30, 130, paint);
-                canvas.drawText("HALEN KAYITLI OLDUĞU YÜKSEKÖĞRETİM KURUMUNA YERLEŞTİRİLDİĞİ YIL:", 30, 135, paint);
-                canvas.drawText("HALEN KAYITLI OLUNAN PROGRAMA YERLEŞTİRMEDE KULLANILAN PUAN TÜRÜ VE PUANI:", 30, 140, paint);
-                canvas.drawText("ZORUNLU HAZIRLIK SINIFI BULUNAN PROGRAMLARA BAŞVURAN ADAYLAR İÇİN YABANCI DİL PUANI VE SINAV TÜRÜ:", 30, 145, paint);
+                canvas.drawText("HALEN KAYITLI OLDUĞU ÜNİVERSİTE:   ", 30, 100, paint);
+                canvas.drawText("HALEN KAYITLI OLDUĞU FAKÜLTE / YÜKSEKOKUL: ", 30, 105, paint);
+                canvas.drawText("HALEN KAYITLI OLDUĞU BÖLÜM / PROGRAM:  ", 30, 110, paint);
+                canvas.drawText("ÖĞRETİM TÜRÜ:  " + strEducationType, 30, 115, paint);
+                canvas.drawText("SINIF/ YARIYIL:    " + strTerm, 120, 115, paint);
+                canvas.drawText("DİSİPLİN CEZASI ALIP ALMADIĞI: " + strDisciplineType, 30, 120, paint);
+                canvas.drawText("GENEL AKADEMİK BAŞARI NOT ORTALAMASI:  " + strNoteGrade, 30, 125, paint);
+                canvas.drawText("ÖĞRENCİ NUMARASI (KOCAELİ  ÜNİVERSİTESİ ÖĞRENCİLERİ İÇİN): " + strNo, 30, 130, paint);
+                canvas.drawText("HALEN KAYITLI OLDUĞU YÜKSEKÖĞRETİM KURUMUNA YERLEŞTİRİLDİĞİ YIL:   " + strYear, 30, 135, paint);
+                canvas.drawText("HALEN KAYITLI OLUNAN PROGRAMA YERLEŞTİRMEDE KULLANILAN PUAN TÜRÜ VE PUANI: " + strScoreTypeDropDown1 + " / " + strScore, 30, 140, paint);
+                canvas.drawText("ZORUNLU HAZIRLIK SINIFI BULUNAN PROGRAMLARA BAŞVURAN ADAYLAR İÇİN YABANCI DİL PUANI:  " + strEnglish, 30, 145, paint);
 
                 //text4
                 paint.setFakeBoldText(true);
                 canvas.drawText("IV – ADAYIN BAŞVURDUĞU YÜKSEKÖĞRETİM PROGRAMINA İLİŞKİN BİLGİLER", 30, 160, paint);
                 paint.setFakeBoldText(false);
-                canvas.drawText("FAKÜLTE / YÜKSEKOKUL/MYO. ADI:", 30, 165, paint);
-                canvas.drawText("BÖLÜM / PROGRAM ADI:", 30, 170, paint);
-                canvas.drawText("ÖĞRETİM TÜRÜ:", 30, 175, paint);
-                canvas.drawText("BAŞVURULAN PROGRAMIN HALEN KAYITLI OLUNAN PROGRAMA YERLEŞTİRME YAPILDIĞI PUAN TÜRÜ VE PUANI:", 30, 180, paint);
+                canvas.drawText("FAKÜLTE / YÜKSEKOKUL/MYO. ADI: " + strFaculty, 30, 165, paint);
+                canvas.drawText("BÖLÜM / PROGRAM ADI:   " + strBranch, 30, 170, paint);
+                canvas.drawText("ÖĞRETİM TÜRÜ:  " + strScoreTypeDropDown2, 30, 175, paint);
+                canvas.drawText("BAŞVURULAN PROGRAMIN HALEN KAYITLI OLUNAN PROGRAMA YERLEŞTİRME YAPILDIĞI PUAN TÜRÜ VE PUANI: " + strScoreTypeDropDown2 + " / " + strScore2, 30, 180, paint);
 
                 //text5
                 canvas.drawText("Beyan ettiğim bilgilerin veya belgelerin gerçeğe aykırı olması veya daha önce yatay geçiş yapmış olmam ", 30, 190, paint);
@@ -283,7 +340,7 @@ public class YatayGecisActivity extends AppCompatActivity {
             pdfDocument.close();
             stream.flush();
             Toast.makeText(this, "Pdf oluşturuldu.\n", Toast.LENGTH_LONG).show();
-
+            startActivity(new Intent(YatayGecisActivity.this, StudentHomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
         } catch (FileNotFoundException e) {
             Toast.makeText(this, "Dosya hatası bulunamadı", Toast.LENGTH_LONG).show();
         } catch (IOException e) {
@@ -295,7 +352,11 @@ public class YatayGecisActivity extends AppCompatActivity {
     }
 
     public void createPdf(View view) {
-        initPdf("YatayGecisBasvurusu");
+        if (isNotEmptyStrings()) {
+            initPdf("YatayGecisBasvurusu");
+        } else {
+            Toast.makeText(YatayGecisActivity.this, "Boş alanlar var", Toast.LENGTH_SHORT).show();
+        }
     }
 
     //pdf end
