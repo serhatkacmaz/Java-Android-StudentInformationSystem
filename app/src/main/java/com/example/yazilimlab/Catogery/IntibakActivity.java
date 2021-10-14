@@ -44,9 +44,9 @@ import java.util.Objects;
 public class IntibakActivity extends AppCompatActivity {
 
 
+    //EditText
     private EditText editIntibakOldSchool, editIntibakOldFaculty, editIntibakOldBranch;
-    private TextView text_intibakActivity_title;
-
+    private String strEditIntibakOldSchool, strEditIntibakOldFaculty, strEditIntibakOldBranch;
 
     // Firebase
     private FirebaseAuth fAuth;
@@ -54,18 +54,19 @@ public class IntibakActivity extends AppCompatActivity {
     private FirebaseFirestore firebaseFirestore;
     private DocumentReference docRef;
 
+
     private int tableRow = 16;
     private static final int CREATEPDF = 1;
 
     // daha önce aldığım
     ArrayList<String> oldLessonList;
-    private EditText editYazOkuluOldLesson, editYazOkuluOldLessonT, editYazOkuluOldLessonUL, editYazOkuluOldLessonK, editYazOkuluOldLessonAKTS;
+    private EditText editIntibakOldLesson, editIntibakOldLessonT, editIntibakOldLessonUL, editIntibakOldLessonK, editIntibakOldLessonAKTS;
     private String strOldLessonName, strOldLessonT, strOldLessonUL, strOldLessonK, strOldLessonAKTS;
 
 
     // muaf olmak istediğim
     ArrayList<String> exemptLessonList;
-    private EditText editYazOkuluExemptLessonCode, editYazOkuluExemptLessonName, editYazOkuluExemptLessonT, editYazOkuluExemptLessonUL, editYazOkuluExemptLessonK, editYazOkuluExemptLessonAKTS;
+    private EditText editIntibakExemptLessonCode, editIntibakExemptLessonName, editIntibakExemptLessonT, editIntibakExemptLessonUL, editIntibakExemptLessonK, editIntibakExemptLessonAKTS;
     private String strExemptLessonCode, strExemptLessonName, strExemptLessonT, strExemptLessonUL, strExemptLessonK, strExemptLessonAKTS;
 
     private void init() {
@@ -74,27 +75,27 @@ public class IntibakActivity extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
 
+        //EditText
         editIntibakOldSchool = (EditText) findViewById(R.id.editIntibakOldSchool);
         editIntibakOldFaculty = (EditText) findViewById(R.id.editIntibakOldFaculty);
         editIntibakOldBranch = (EditText) findViewById(R.id.editIntibakOldBranch);
-        text_intibakActivity_title = (TextView) findViewById(R.id.text_intibakActivity_title);
 
         // daha önce aldığım
         oldLessonList = new ArrayList<String>();
-        editYazOkuluOldLesson = (EditText) findViewById(R.id.editYazOkuluOldLesson);
-        editYazOkuluOldLessonT = (EditText) findViewById(R.id.editYazOkuluOldLessonT);
-        editYazOkuluOldLessonUL = (EditText) findViewById(R.id.editYazOkuluOldLessonUL);
-        editYazOkuluOldLessonK = (EditText) findViewById(R.id.editYazOkuluOldLessonK);
-        editYazOkuluOldLessonAKTS = (EditText) findViewById(R.id.editYazOkuluOldLessonAKTS);
+        editIntibakOldLesson = (EditText) findViewById(R.id.editIntibakOldLesson);
+        editIntibakOldLessonT = (EditText) findViewById(R.id.editIntibakOldLessonT);
+        editIntibakOldLessonUL = (EditText) findViewById(R.id.editIntibakOldLessonUL);
+        editIntibakOldLessonK = (EditText) findViewById(R.id.editIntibakOldLessonK);
+        editIntibakOldLessonAKTS = (EditText) findViewById(R.id.editIntibakOldLessonAKTS);
 
         // muaf olmak istediğim
         exemptLessonList = new ArrayList<String>();
-        editYazOkuluExemptLessonCode = (EditText) findViewById(R.id.editYazOkuluExemptLessonCode);
-        editYazOkuluExemptLessonName = (EditText) findViewById(R.id.editYazOkuluExemptLessonName);
-        editYazOkuluExemptLessonT = (EditText) findViewById(R.id.editYazOkuluExemptLessonT);
-        editYazOkuluExemptLessonUL = (EditText) findViewById(R.id.editYazOkuluExemptLessonUL);
-        editYazOkuluExemptLessonK = (EditText) findViewById(R.id.editYazOkuluExemptLessonK);
-        editYazOkuluExemptLessonAKTS = (EditText) findViewById(R.id.editYazOkuluExemptLessonAKTS);
+        editIntibakExemptLessonCode = (EditText) findViewById(R.id.editIntibakExemptLessonCode);
+        editIntibakExemptLessonName = (EditText) findViewById(R.id.editIntibakExemptLessonName);
+        editIntibakExemptLessonT = (EditText) findViewById(R.id.editIntibakExemptLessonT);
+        editIntibakExemptLessonUL = (EditText) findViewById(R.id.editIntibakExemptLessonUL);
+        editIntibakExemptLessonK = (EditText) findViewById(R.id.editIntibakExemptLessonK);
+        editIntibakExemptLessonAKTS = (EditText) findViewById(R.id.editIntibakExemptLessonAKTS);
     }
 
 
@@ -269,17 +270,39 @@ public class IntibakActivity extends AppCompatActivity {
 
     // pdf Start
     public void createPdf(View view) {
-        initPdf("intibak");
+        if (isNotEmptyString()) {
+            initPdf("intibak");
+        } else {
+            Toast.makeText(IntibakActivity.this, "Boş alanlar var", Toast.LENGTH_SHORT).show();
+        }
+
     }
     // pdf end
 
+    // editText set str
+    private void setTextString() {
+        strEditIntibakOldSchool = editIntibakOldSchool.getText().toString();
+        strEditIntibakOldFaculty = editIntibakOldFaculty.getText().toString();
+        strEditIntibakOldBranch = editIntibakOldBranch.getText().toString();
+    }
+
+    // input bos kontrolu editText
+    private boolean isNotEmptyString() {
+        setTextString();
+        boolean result = TextUtils.isEmpty(strEditIntibakOldSchool) || TextUtils.isEmpty(strEditIntibakOldFaculty) || TextUtils.isEmpty(strEditIntibakOldBranch)
+                || oldLessonList.size() == 0 || exemptLessonList.size() == 0;
+        if (result)
+            return false;
+        return true;
+    }
+
     // daha önce aldığım start
     private void setTextStringOldLesson() {
-        strOldLessonName = editYazOkuluOldLesson.getText().toString();
-        strOldLessonT = editYazOkuluOldLessonT.getText().toString();
-        strOldLessonUL = editYazOkuluOldLessonUL.getText().toString();
-        strOldLessonK = editYazOkuluOldLessonK.getText().toString();
-        strOldLessonAKTS = editYazOkuluOldLessonAKTS.getText().toString();
+        strOldLessonName = editIntibakOldLesson.getText().toString();
+        strOldLessonT = editIntibakOldLessonT.getText().toString();
+        strOldLessonUL = editIntibakOldLessonUL.getText().toString();
+        strOldLessonK = editIntibakOldLessonK.getText().toString();
+        strOldLessonAKTS = editIntibakOldLessonAKTS.getText().toString();
     }
 
     private boolean isNotEmptyOldLesson() {
@@ -292,14 +315,14 @@ public class IntibakActivity extends AppCompatActivity {
     }
 
     private void oldLessonTextDelete() {
-        editYazOkuluOldLesson.setText("");
-        editYazOkuluOldLessonT.setText("");
-        editYazOkuluOldLessonUL.setText("");
-        editYazOkuluOldLessonK.setText("");
-        editYazOkuluOldLessonAKTS.setText("");
+        editIntibakOldLesson.setText("");
+        editIntibakOldLessonT.setText("");
+        editIntibakOldLessonUL.setText("");
+        editIntibakOldLessonK.setText("");
+        editIntibakOldLessonAKTS.setText("");
     }
 
-    public void yazOkuluOldLessonAdd(View view) {
+    public void IntibakOldLessonAdd(View view) {
 
         if (oldLessonList.size() < tableRow) {
             if (isNotEmptyOldLesson()) {
@@ -312,7 +335,7 @@ public class IntibakActivity extends AppCompatActivity {
                 System.out.println("----------------------------------------------");
                 oldLessonTextDelete();
             } else {
-                Toast.makeText(IntibakActivity.this, "Boş alanlar var", Toast.LENGTH_SHORT).show();
+                Toast.makeText(IntibakActivity.this, "Daha önce aldığım ders kısmında boş alanlar var", Toast.LENGTH_SHORT).show();
             }
         } else {
             Toast.makeText(IntibakActivity.this, String.valueOf(tableRow) + " adet ekliyebilirsin", Toast.LENGTH_SHORT).show();
@@ -325,12 +348,12 @@ public class IntibakActivity extends AppCompatActivity {
 
     // muaf olmak istediğim start
     private void setTextStringExemptLesson() {
-        strExemptLessonCode = editYazOkuluExemptLessonCode.getText().toString();
-        strExemptLessonName = editYazOkuluExemptLessonName.getText().toString();
-        strExemptLessonT = editYazOkuluExemptLessonT.getText().toString();
-        strExemptLessonUL = editYazOkuluExemptLessonUL.getText().toString();
-        strExemptLessonK = editYazOkuluExemptLessonK.getText().toString();
-        strExemptLessonAKTS = editYazOkuluExemptLessonAKTS.getText().toString();
+        strExemptLessonCode = editIntibakExemptLessonCode.getText().toString();
+        strExemptLessonName = editIntibakExemptLessonName.getText().toString();
+        strExemptLessonT = editIntibakExemptLessonT.getText().toString();
+        strExemptLessonUL = editIntibakExemptLessonUL.getText().toString();
+        strExemptLessonK = editIntibakExemptLessonK.getText().toString();
+        strExemptLessonAKTS = editIntibakExemptLessonAKTS.getText().toString();
     }
 
     private boolean isNotEmptyExemptLesson() {
@@ -343,15 +366,15 @@ public class IntibakActivity extends AppCompatActivity {
     }
 
     private void exemptLessonTextDelete() {
-        editYazOkuluExemptLessonCode.setText("");
-        editYazOkuluExemptLessonName.setText("");
-        editYazOkuluExemptLessonT.setText("");
-        editYazOkuluExemptLessonUL.setText("");
-        editYazOkuluExemptLessonK.setText("");
-        editYazOkuluExemptLessonAKTS.setText("");
+        editIntibakExemptLessonCode.setText("");
+        editIntibakExemptLessonName.setText("");
+        editIntibakExemptLessonT.setText("");
+        editIntibakExemptLessonUL.setText("");
+        editIntibakExemptLessonK.setText("");
+        editIntibakExemptLessonAKTS.setText("");
     }
 
-    public void yazOkuluExemptLessonAdd(View view) {
+    public void IntibakExemptLessonAdd(View view) {
 
         if (exemptLessonList.size() < tableRow) {
             if (isNotEmptyExemptLesson()) {
@@ -364,7 +387,7 @@ public class IntibakActivity extends AppCompatActivity {
                 System.out.println("----------------------------------------------");
                 exemptLessonTextDelete();
             } else {
-                Toast.makeText(IntibakActivity.this, "Boş alanlar var", Toast.LENGTH_SHORT).show();
+                Toast.makeText(IntibakActivity.this, "Muaf olmak istediğim kısmında boş alanlar var", Toast.LENGTH_SHORT).show();
             }
         } else {
             Toast.makeText(IntibakActivity.this, String.valueOf(tableRow) + " adet ekliyebilirsin", Toast.LENGTH_SHORT).show();

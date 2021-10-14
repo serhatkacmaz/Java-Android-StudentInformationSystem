@@ -121,7 +121,7 @@
             app:helperTextTextColor="@color/red_helper">
 
             <EditText
-                android:id="@+id/editYazOkuluOldLesson"
+                android:id="@+id/editIntibakOldLesson"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/black"
@@ -134,7 +134,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
-            android:id="@+id/yazOkulu_linearLayoutLesson1"
+            android:id="@+id/Intibak_linearLayoutLesson1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -152,7 +152,7 @@
                 app:helperTextTextColor="@color/red_helper">
 
                 <EditText
-                    android:id="@+id/editYazOkuluOldLessonT"
+                    android:id="@+id/editIntibakOldLessonT"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/black"
@@ -175,7 +175,7 @@
                 app:helperTextTextColor="@color/red_helper">
 
                 <EditText
-                    android:id="@+id/editYazOkuluOldLessonUL"
+                    android:id="@+id/editIntibakOldLessonUL"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/black"
@@ -198,7 +198,7 @@
                 app:helperTextTextColor="@color/red_helper">
 
                 <EditText
-                    android:id="@+id/editYazOkuluOldLessonK"
+                    android:id="@+id/editIntibakOldLessonK"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/black"
@@ -220,7 +220,7 @@
                 app:helperTextTextColor="@color/red_helper">
 
                 <EditText
-                    android:id="@+id/editYazOkuluOldLessonAKTS"
+                    android:id="@+id/editIntibakOldLessonAKTS"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/black"
@@ -233,13 +233,13 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/buttonYazOkuluOldLessonAdd"
+                android:id="@+id/buttonIntibakOldLessonAdd"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="15dp"
                 android:layout_marginTop="30dp"
-                android:onClick="yazOkuluOldLessonAdd"
+                android:onClick="IntibakOldLessonAdd"
                 android:text="+"
                 android:textSize="16dp" />
         </LinearLayout>
@@ -268,7 +268,7 @@
             app:helperTextTextColor="@color/red_helper">
 
             <EditText
-                android:id="@+id/editYazOkuluExemptLessonCode"
+                android:id="@+id/editIntibakExemptLessonCode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/black"
@@ -292,7 +292,7 @@
             app:helperTextTextColor="@color/red_helper">
 
             <EditText
-                android:id="@+id/editYazOkuluExemptLessonName"
+                android:id="@+id/editIntibakExemptLessonName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/black"
@@ -305,7 +305,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
-            android:id="@+id/yazOkulu_linearLayoutTakeLesson1"
+            android:id="@+id/Intibak_linearLayoutTakeLesson1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -322,7 +322,7 @@
                 app:helperTextTextColor="@color/red_helper">
 
                 <EditText
-                    android:id="@+id/editYazOkuluExemptLessonT"
+                    android:id="@+id/editIntibakExemptLessonT"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/black"
@@ -345,7 +345,7 @@
                 app:helperTextTextColor="@color/red_helper">
 
                 <EditText
-                    android:id="@+id/editYazOkuluExemptLessonUL"
+                    android:id="@+id/editIntibakExemptLessonUL"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/black"
@@ -368,7 +368,7 @@
                 app:helperTextTextColor="@color/red_helper">
 
                 <EditText
-                    android:id="@+id/editYazOkuluExemptLessonK"
+                    android:id="@+id/editIntibakExemptLessonK"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/black"
@@ -390,7 +390,7 @@
                 app:helperTextTextColor="@color/red_helper">
 
                 <EditText
-                    android:id="@+id/editYazOkuluExemptLessonAKTS"
+                    android:id="@+id/editIntibakExemptLessonAKTS"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/black"
@@ -403,13 +403,13 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/buttonYazOkuluExemptLessonAdd"
+                android:id="@+id/buttonIntibakExemptLessonAdd"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="15dp"
                 android:layout_marginTop="30dp"
-                android:onClick="yazOkuluExemptLessonAdd"
+                android:onClick="IntibakExemptLessonAdd"
                 android:text="+"
                 android:textSize="16dp" />
         </LinearLayout>
