@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.example.yazilimlab.R;
 import com.example.yazilimlab.RegisterActivity;
+import com.example.yazilimlab.StudentHomeActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -54,7 +55,6 @@ public class IntibakActivity extends AppCompatActivity {
     private FirebaseFirestore firebaseFirestore;
     private DocumentReference docRef;
 
-
     private int tableRow = 16;
     private static final int CREATEPDF = 1;
 
@@ -62,7 +62,6 @@ public class IntibakActivity extends AppCompatActivity {
     ArrayList<String> oldLessonList;
     private EditText editIntibakOldLesson, editIntibakOldLessonT, editIntibakOldLessonUL, editIntibakOldLessonK, editIntibakOldLessonAKTS;
     private String strOldLessonName, strOldLessonT, strOldLessonUL, strOldLessonK, strOldLessonAKTS;
-
 
     // muaf olmak istediğim
     ArrayList<String> exemptLessonList;
@@ -164,13 +163,37 @@ public class IntibakActivity extends AppCompatActivity {
                 canvas.drawLine(180, 40, 180, 75, paint);
 
                 paint.setTextSize(4);
-                canvas.drawText("       Daha önce …………………… Üniversitesi……………………… Fakültesi / Meslek ", 35, 85, paint);
-                canvas.drawText("Yüksek Okulu……………………………………..Bölümünde / Programında aldığım ve ", 35, 90, paint);
-                canvas.drawText("aşağıda belirttiğim ders / derslerden muaf olmak istiyorum.", 35, 95, paint);
-                canvas.drawText("       Gereğinin yapılmasını arz ederim.", 35, 100, paint);
+                canvas.drawText("       Daha önce " + strEditIntibakOldSchool + " Üniversitesi " + strEditIntibakOldFaculty + " Fakültesi / Meslek ", 45, 85, paint);
+                canvas.drawText("Yüksek Okulu " + strEditIntibakOldBranch + " Bölümünde / Programında aldığım ve ", 45, 90, paint);
+                canvas.drawText("aşağıda belirttiğim ders / derslerden muaf olmak istiyorum.", 45, 95, paint);
+                canvas.drawText("       Gereğinin yapılmasını arz ederim.", 45, 100, paint);
                 canvas.drawText("Tarih:", 150, 107, paint);
                 canvas.drawText("İmza:", 150, 115, paint);
 
+
+                // table arraylist Daha once aldığım ders
+                int point = 145;
+                for (int i = 0; i < oldLessonList.size(); i++) {
+                    String[] temp = oldLessonList.get(i).toString().split(";");
+                    point += 5;
+                    canvas.drawText(temp[0], 31, point, paint);   // Adı
+                    canvas.drawText(temp[1], 81, point, paint);   // T
+                    canvas.drawText(temp[2], 86, point, paint);   // U/L
+                    canvas.drawText(temp[3], 91, point, paint);   // K
+                    canvas.drawText(temp[4], 96, point, paint);   // AKTS
+                }
+
+                // table arraylist Daha once aldığım ders
+                for (int i = 0; i < exemptLessonList.size(); i++) {
+                    String[] temp = exemptLessonList.get(i).toString().split(";");
+                    point += 5;
+                    canvas.drawText(temp[0], 103, point, paint);   // Kod
+                    canvas.drawText(temp[1], 116, point, paint);   // Ad
+                    canvas.drawText(temp[2], 161, point, paint);   // T
+                    canvas.drawText(temp[3], 165, point, paint);   // U/L
+                    canvas.drawText(temp[4], 171, point, paint);   // K
+                    canvas.drawText(temp[4], 176, point, paint);   // AKTS
+                }
 
                 //table2 row
                 canvas.drawLine(30, 120, 180, 120, paint);
@@ -250,6 +273,7 @@ public class IntibakActivity extends AppCompatActivity {
         }
     }
 
+    // pdf kaydet
     private void setPdf(Uri uri, PdfDocument pdfDocument) {
         try {
             BufferedOutputStream stream = new BufferedOutputStream(Objects.requireNonNull(getContentResolver().openOutputStream(uri)));
@@ -257,7 +281,7 @@ public class IntibakActivity extends AppCompatActivity {
             pdfDocument.close();
             stream.flush();
             Toast.makeText(this, "Pdf oluşturuldu", Toast.LENGTH_LONG).show();
-
+            startActivity(new Intent(IntibakActivity.this, StudentHomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
         } catch (FileNotFoundException e) {
             Toast.makeText(this, "Dosya hatası bulunamadı", Toast.LENGTH_LONG).show();
         } catch (IOException e) {
@@ -275,7 +299,6 @@ public class IntibakActivity extends AppCompatActivity {
         } else {
             Toast.makeText(IntibakActivity.this, "Boş alanlar var", Toast.LENGTH_SHORT).show();
         }
-
     }
     // pdf end
 

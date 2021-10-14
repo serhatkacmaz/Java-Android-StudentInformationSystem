@@ -5,6 +5,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.yazilimlab.R;
+import com.example.yazilimlab.StudentHomeActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -384,7 +385,7 @@ public class YazOkuluActivity extends AppCompatActivity {
             pdfDocument.close();
             stream.flush();
             Toast.makeText(this, "Pdf oluşturuldu", Toast.LENGTH_LONG).show();
-
+            startActivity(new Intent(YazOkuluActivity.this, StudentHomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
         } catch (FileNotFoundException e) {
             Toast.makeText(this, "Dosya hatası bulunamadı", Toast.LENGTH_LONG).show();
         } catch (IOException e) {
