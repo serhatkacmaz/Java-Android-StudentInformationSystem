@@ -209,6 +209,16 @@ public class YazOkuluActivity extends AppCompatActivity {
             Toast.makeText(YazOkuluActivity.this, String.valueOf(tableRow) + " adet ekliyebilirsin", Toast.LENGTH_SHORT).show();
         }
     }
+
+    public void yazOkuluTakeLessonRemove(View view) {
+        if (takeLessonList.size() > 0) {
+            takeLessonList.remove(takeLessonList.size() - 1);
+            Toast.makeText(YazOkuluActivity.this, "Son Eklenen Kaldırıldı", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(YazOkuluActivity.this, "Liste bos", Toast.LENGTH_SHORT).show();
+        }
+    }
     // yaz okulunda alıncak end
 
 

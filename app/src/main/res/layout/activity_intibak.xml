@@ -10,6 +10,7 @@
         android:id="@+id/IntibakMainLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:orientation="vertical"
         android:padding="15dp">
 
@@ -137,6 +138,7 @@
             android:id="@+id/Intibak_linearLayoutLesson1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -145,7 +147,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
+                android:layout_marginRight="3dp"
                 app:boxCornerRadiusBottomEnd="20dp"
                 app:boxCornerRadiusTopStart="20dp"
                 app:boxStrokeColor="@color/kou_green"
@@ -166,7 +168,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="60dp"
+                android:layout_width="58dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 app:boxCornerRadiusBottomEnd="20dp"
@@ -212,7 +214,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="75dp"
+                android:layout_width="72dp"
                 android:layout_height="wrap_content"
                 app:boxCornerRadiusBottomEnd="20dp"
                 app:boxCornerRadiusTopStart="20dp"
@@ -234,13 +236,26 @@
 
             <Button
                 android:id="@+id/buttonIntibakOldLessonAdd"
-                android:layout_width="70dp"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="15dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:onClick="IntibakOldLessonAdd"
                 android:text="+"
+                android:textSize="16dp" />
+
+            <Button
+                android:id="@+id/buttonIntibakOldLessonRemove"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:onClick="IntibakOldLessonRemove"
+                android:text="-"
                 android:textSize="16dp" />
         </LinearLayout>
 
@@ -315,7 +330,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
+                android:layout_marginRight="3dp"
                 app:boxCornerRadiusBottomEnd="20dp"
                 app:boxCornerRadiusTopStart="20dp"
                 app:boxStrokeColor="@color/kou_green"
@@ -336,7 +351,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="60dp"
+                android:layout_width="58dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 app:boxCornerRadiusBottomEnd="20dp"
@@ -382,7 +397,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="75dp"
+                android:layout_width="72dp"
                 android:layout_height="wrap_content"
                 app:boxCornerRadiusBottomEnd="20dp"
                 app:boxCornerRadiusTopStart="20dp"
@@ -404,13 +419,26 @@
 
             <Button
                 android:id="@+id/buttonIntibakExemptLessonAdd"
-                android:layout_width="70dp"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="15dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:onClick="IntibakExemptLessonAdd"
                 android:text="+"
+                android:textSize="16dp" />
+
+            <Button
+                android:id="@+id/buttonIntibakExemptLessonRemove"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:onClick="IntibakExemptLessonRemove"
+                android:text="-"
                 android:textSize="16dp" />
         </LinearLayout>
 

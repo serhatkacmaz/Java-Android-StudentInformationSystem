@@ -363,8 +363,15 @@ public class IntibakActivity extends AppCompatActivity {
         } else {
             Toast.makeText(IntibakActivity.this, String.valueOf(tableRow) + " adet ekliyebilirsin", Toast.LENGTH_SHORT).show();
         }
+    }
 
-
+    public void IntibakOldLessonRemove(View view) {
+        if (oldLessonList.size() > 0) {
+            oldLessonList.remove(oldLessonList.size() - 1);
+            Toast.makeText(IntibakActivity.this, "Son Eklenen Kaldırıldı", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(IntibakActivity.this, "Liste bos", Toast.LENGTH_SHORT).show();
+        }
     }
     // daha önce aldığım end
 
@@ -415,6 +422,16 @@ public class IntibakActivity extends AppCompatActivity {
         } else {
             Toast.makeText(IntibakActivity.this, String.valueOf(tableRow) + " adet ekliyebilirsin", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void IntibakExemptLessonRemove(View view) {
+        if (exemptLessonList.size() > 0) {
+            exemptLessonList.remove(exemptLessonList.size() - 1);
+            Toast.makeText(IntibakActivity.this, "Son Eklenen Kaldırıldı", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(IntibakActivity.this, "Liste bos", Toast.LENGTH_SHORT).show();
+        }
+
     }
     // muaf olmak istediğim end
 
