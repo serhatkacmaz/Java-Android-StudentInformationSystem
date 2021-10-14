@@ -109,7 +109,7 @@ public class YazOkuluActivity extends AppCompatActivity {
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
                 String date = day + "/" + month + "/" + year;
-                System.out.println(date);
+                //System.out.println(date);
                 editYazOkuluSchoolDateStart.setText(date);
             }
         };
@@ -128,7 +128,7 @@ public class YazOkuluActivity extends AppCompatActivity {
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
                 String date = day + "/" + month + "/" + year;
-                System.out.println(date);
+                //System.out.println(date);
                 editYazOkuluSchoolDateFinish.setText(date);
             }
         };
@@ -143,6 +143,7 @@ public class YazOkuluActivity extends AppCompatActivity {
     }
 
 
+    // editText set str
     private void setTextString() {
         strTakeFaculty = editYazOkuluTakeFaculty.getText().toString();
         strTakeLessonName = editYazOkuluTakeLessonName.getText().toString();
@@ -157,7 +158,7 @@ public class YazOkuluActivity extends AppCompatActivity {
         strSchoolDateFinish = editYazOkuluSchoolDateFinish.getText().toString();
     }
 
-    // input bos kontrolu
+    // input EditText bos kontrolu
     private boolean isNotEmptyStrings() {
         setTextString();
         boolean result = TextUtils.isEmpty(strTeacherName) || TextUtils.isEmpty(strToSchool) || TextUtils.isEmpty(strSchoolDateStart) || TextUtils.isEmpty(strSchoolDateFinish)
@@ -219,6 +220,7 @@ public class YazOkuluActivity extends AppCompatActivity {
         startActivityForResult(intent, CREATEPDF);
     }
 
+    //pdf içinde şablon olusturma
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -268,11 +270,14 @@ public class YazOkuluActivity extends AppCompatActivity {
                 canvas.drawText("Öğrenci Adres", 35, 94, paint);
                 canvas.drawText("Öğrenci Gsm ", 35, 99, paint);
                 canvas.drawText("Öğrenci Danışmanı Adı Soyadı", 35, 104, paint);
+                canvas.drawText(strTeacherName, 95, 104, paint);
                 canvas.drawText("Yaz okulu için Başvurulan Üniversite", 35, 109, paint);
+                canvas.drawText(strToSchool, 95, 109, paint);
                 canvas.drawText("Yaz okulu başlama-bitiş tarihleri", 35, 114, paint);
+                canvas.drawText(strSchoolDateStart + " - " + strSchoolDateFinish, 95, 114, paint);
                 //table1 column
                 canvas.drawLine(30, 85, 30, 115, paint);
-                canvas.drawLine(93, 85, 93, 115, paint);
+                canvas.drawLine(93, 85, 93, 115, paint); //orts
                 canvas.drawLine(180, 85, 180, 115, paint);
 
 
@@ -283,6 +288,20 @@ public class YazOkuluActivity extends AppCompatActivity {
                 canvas.drawLine(30, 140, 180, 140, paint);
                 canvas.drawLine(30, 145, 180, 145, paint);
                 canvas.drawLine(30, 150, 180, 150, paint);
+
+                // table arraylist
+                int point = 134;
+                for (int i = 0; i < takeLessonList.size(); i++) {
+                    String[] temp = takeLessonList.get(i).toString().split(";");
+                    point += 5;
+                    canvas.drawText(temp[0], 31, point, paint);   // fakulte/-bolum
+                    canvas.drawText(temp[1], 71, point, paint);   // Dersin Adı ve Kodu
+                    canvas.drawText(temp[2], 144, point, paint);   // T
+                    canvas.drawText(temp[3], 154, point, paint);   // U
+                    canvas.drawText(temp[4], 164, point, paint);   // L
+                    canvas.drawText(temp[5], 174, point, paint);   // AKTS
+                }
+
                 //table3 context
                 canvas.drawText("Fakülte/Bölüm", 40, 134, paint);
                 canvas.drawText("Dersin Adı ve Kodu", 100, 134, paint);
@@ -290,6 +309,7 @@ public class YazOkuluActivity extends AppCompatActivity {
                 canvas.drawText("U", 154, 134, paint);
                 canvas.drawText("L", 164, 134, paint);
                 canvas.drawText("AKTS", 172, 134, paint);
+
                 //table3 column
                 canvas.drawLine(30, 130, 30, 150, paint);
                 canvas.drawLine(70, 130, 70, 150, paint);
@@ -353,8 +373,10 @@ public class YazOkuluActivity extends AppCompatActivity {
 
             }
         }
+
     }
 
+    // pdfi kaydet
     private void setPdf(Uri uri, PdfDocument pdfDocument) {
         try {
             BufferedOutputStream stream = new BufferedOutputStream(Objects.requireNonNull(getContentResolver().openOutputStream(uri)));
