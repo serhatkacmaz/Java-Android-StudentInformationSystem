@@ -33,12 +33,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-
             android:padding="5dp"
             app:boxCornerRadiusBottomEnd="20dp"
             app:boxCornerRadiusTopStart="20dp"
             app:boxStrokeColor="@color/kou_green"
             app:endIconMode="clear_text"
+            app:helperText="*Zorunlu Alan"
             app:helperTextTextColor="@color/red_helper">
 
             <EditText
@@ -61,12 +61,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-
             android:padding="5dp"
             app:boxCornerRadiusBottomEnd="20dp"
             app:boxCornerRadiusTopStart="20dp"
             app:boxStrokeColor="@color/kou_green"
             app:endIconMode="clear_text"
+            app:helperText="*Zorunlu Alan"
             app:helperTextTextColor="@color/red_helper">
 
             <EditText
@@ -96,30 +96,48 @@
             android:id="@+id/yazOkulu_linearLayoutDateBetween"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:gravity="center"
             android:orientation="horizontal"
             android:padding="15dp">
 
-
-            <TextView
-                android:id="@+id/editYazOkuluSchoolDateStart"
-                android:layout_width="125dp"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                android:background="@drawable/text_view_border"
-                android:ems="10"
-                android:gravity="center"
-                android:hint="Başlangıç"
-                android:inputType="date"
-                android:minHeight="48dp"
-                android:textColor="@color/black"
-                android:textSize="18dp"
-                tools:ignore="SpeakableTextPresentCheck" />
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/editYazOkuluSchoolDateStart"
+                    android:layout_width="125dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/text_view_border"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint="Başlangıç"
+                    android:inputType="date"
+                    android:minHeight="48dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/textViewGrayColor"
+                    android:textSize="18dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="18dp"
+                    android:text="*Zorunlu Alan"
+                    android:textColor="@color/red_helper"
+                    android:textSize="12dp" />
+            </LinearLayout>
 
 
             <TextView
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
                 android:backgroundTint="@color/black"
                 android:ems="10"
                 android:gravity="center"
@@ -130,20 +148,36 @@
                 android:textStyle="bold"
                 tools:ignore="SpeakableTextPresentCheck" />
 
-            <TextView
-                android:id="@+id/editYazOkuluSchoolDateFinish"
-                android:layout_width="125dp"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="50dp"
-                android:background="@drawable/text_view_border"
-                android:ems="10"
-                android:gravity="center"
-                android:hint="Bitiş"
-                android:inputType="date"
-                android:minHeight="48dp"
-                android:textColor="@color/black"
-                android:textSize="18dp"
-                tools:ignore="SpeakableTextPresentCheck" />
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/editYazOkuluSchoolDateFinish"
+                    android:layout_width="125dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/text_view_border"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint="Bitiş"
+                    android:inputType="date"
+                    android:minHeight="48dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/textViewGrayColor"
+                    android:textSize="18dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="8dp"
+                    android:text="*Zorunlu Alan"
+                    android:textColor="@color/red_helper"
+                    android:textSize="12dp" />
+            </LinearLayout>
 
 
         </LinearLayout>
@@ -169,6 +203,7 @@
             app:boxCornerRadiusBottomEnd="20dp"
             app:boxCornerRadiusTopStart="20dp"
             app:boxStrokeColor="@color/kou_green"
+            app:helperText="*Zorunlu Alan"
             app:helperTextTextColor="@color/red_helper">
 
             <EditText
@@ -189,11 +224,11 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:layout_marginTop="10dp"
             app:boxCornerRadiusBottomEnd="20dp"
             app:boxCornerRadiusTopStart="20dp"
             app:boxStrokeColor="@color/kou_green"
+            app:helperText="*Zorunlu Alan"
             app:helperTextTextColor="@color/red_helper">
 
             <EditText
@@ -311,27 +346,35 @@
             <Button
                 android:id="@+id/buttonYazOkuluTakeLessonAdd"
                 android:layout_width="40dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginLeft="5dp"
                 android:onClick="yazOkuluTakeLessonAdd"
                 android:text="+"
-                android:textSize="16dp" />
+                android:textSize="14dp" />
+
             <Button
                 android:id="@+id/buttonYazOkuluTakeLessonRemove"
                 android:layout_width="40dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
+                android:layout_marginLeft="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginLeft="5dp"
                 android:onClick="yazOkuluTakeLessonRemove"
                 android:text="-"
-                android:textSize="16dp" />
+                android:textSize="14dp" />
         </LinearLayout>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="25dp"
+            android:text="*Zorunlu Alan"
+            android:textColor="@color/red_helper"
+            android:textSize="12dp" />
 
         <Button
             android:layout_width="match_parent"

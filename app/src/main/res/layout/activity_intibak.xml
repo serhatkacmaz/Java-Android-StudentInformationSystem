@@ -36,6 +36,7 @@
             app:boxCornerRadiusTopStart="20dp"
             app:boxStrokeColor="@color/kou_green"
             app:endIconMode="clear_text"
+            app:helperText="*Zorunlu Alan"
             app:helperTextTextColor="@color/red_helper">
 
             <EditText
@@ -61,6 +62,7 @@
             app:boxCornerRadiusTopStart="20dp"
             app:boxStrokeColor="@color/kou_green"
             app:endIconMode="clear_text"
+            app:helperText="*Zorunlu Alan"
             app:helperTextTextColor="@color/red_helper">
 
             <EditText
@@ -86,6 +88,7 @@
             app:boxCornerRadiusTopStart="20dp"
             app:boxStrokeColor="@color/kou_green"
             app:endIconMode="clear_text"
+            app:helperText="*Zorunlu Alan"
             app:helperTextTextColor="@color/red_helper">
 
             <EditText
@@ -106,7 +109,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:gravity="center"
-            android:text="Daha Önce Aldığım Dersin"
+            android:text="Daha Önce Aldığım"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20dp"></TextView>
@@ -118,6 +121,7 @@
             android:layout_marginTop="20dp"
             app:boxCornerRadiusBottomEnd="20dp"
             app:boxCornerRadiusTopStart="20dp"
+            app:helperText="*Zorunlu Alan"
             app:boxStrokeColor="@color/kou_green"
             app:helperTextTextColor="@color/red_helper">
 
@@ -138,8 +142,8 @@
             android:id="@+id/Intibak_linearLayoutLesson1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
             android:gravity="center"
+            android:layout_margin="5dp"
             android:orientation="horizontal">
 
 
@@ -237,28 +241,38 @@
             <Button
                 android:id="@+id/buttonIntibakOldLessonAdd"
                 android:layout_width="40dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:onClick="IntibakOldLessonAdd"
                 android:text="+"
-                android:textSize="16dp" />
+                android:textSize="14dp" />
 
             <Button
                 android:id="@+id/buttonIntibakOldLessonRemove"
                 android:layout_width="40dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:onClick="IntibakOldLessonRemove"
                 android:text="-"
-                android:textSize="16dp" />
+                android:textSize="14dp" />
         </LinearLayout>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="-6dp"
+            android:text="*Zorunlu Alan"
+            android:textColor="@color/red_helper"
+            android:textSize="12dp" />
+
+        <!--Muaf olmak-->
         <TextView
             android:id="@+id/text_intibakActivity_title"
             android:layout_width="match_parent"
@@ -279,6 +293,7 @@
             android:layout_marginTop="20dp"
             app:boxCornerRadiusBottomEnd="20dp"
             app:boxCornerRadiusTopStart="20dp"
+            app:helperText="*Zorunlu Alan"
             app:boxStrokeColor="@color/kou_green"
             app:helperTextTextColor="@color/red_helper">
 
@@ -304,6 +319,7 @@
             app:boxCornerRadiusBottomEnd="20dp"
             app:boxCornerRadiusTopStart="20dp"
             app:boxStrokeColor="@color/kou_green"
+            app:helperText="*Zorunlu Alan"
             app:helperTextTextColor="@color/red_helper">
 
             <EditText
@@ -324,6 +340,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:layout_gravity="center"
             android:orientation="horizontal">
 
             <com.google.android.material.textfield.TextInputLayout
@@ -420,27 +437,36 @@
             <Button
                 android:id="@+id/buttonIntibakExemptLessonAdd"
                 android:layout_width="40dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:onClick="IntibakExemptLessonAdd"
                 android:text="+"
-                android:textSize="16dp" />
+                android:textSize="14dp" />
 
             <Button
                 android:id="@+id/buttonIntibakExemptLessonRemove"
                 android:layout_width="40dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:onClick="IntibakExemptLessonRemove"
                 android:text="-"
-                android:textSize="16dp" />
+                android:textSize="14dp" />
         </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="18dp"
+
+            android:text="*Zorunlu Alan"
+            android:textColor="@color/red_helper"
+            android:textSize="12dp" />
 
 
         <Button

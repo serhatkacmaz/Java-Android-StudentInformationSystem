@@ -48,29 +48,39 @@
 
         </LinearLayout>
 
+
         <TextView
             android:id="@+id/editTextRegisterBirthday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_margin="5dp"
             android:background="@drawable/text_view_border"
             android:ems="10"
             android:hint="Doğum Gününüzü Seçiniz"
             android:inputType="date"
             android:minHeight="48dp"
             android:padding="15dp"
-            android:layout_margin="10dp"
             android:textColor="@color/black"
-            android:textSize="18dp"
+            android:textColorHint="@color/textViewGrayColor"
+            android:textSize="16dp"
             tools:ignore="SpeakableTextPresentCheck" />
+        <TextView
+            android:layout_width="match_parent"
+            android:textColor="@color/red_helper"
+            android:text="*Zorunlu Alan"
+            android:layout_marginLeft="18dp"
+            android:textSize="12dp"
+            android:layout_height="match_parent"/>
+
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:padding="5dp"
             android:layout_marginTop="10dp"
+            android:padding="5dp"
             app:boxCornerRadiusBottomEnd="20dp"
             app:boxCornerRadiusTopStart="20dp"
             app:boxStrokeColor="@color/kou_green"

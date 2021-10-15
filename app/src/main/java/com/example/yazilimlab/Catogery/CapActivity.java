@@ -67,6 +67,7 @@ public class CapActivity extends AppCompatActivity {
     // Uri
     private Uri transcriptUri, pdfUri;
     private ImageView image_cap_fileStateTranscript;
+    private TextView textView_cap_fileStateTranscript;
 
     // input
     private EditText editTextCapFaculty, editTextCapBranch;
@@ -105,6 +106,7 @@ public class CapActivity extends AppCompatActivity {
 
         // file state
         image_cap_fileStateTranscript = (ImageView) findViewById(R.id.image_cap_fileStateTranscript);
+        textView_cap_fileStateTranscript=(TextView) findViewById(R.id.textView_cap_fileStateTranscript);
 
     }
 
@@ -301,6 +303,8 @@ public class CapActivity extends AppCompatActivity {
             transcriptUri = data.getData();
             //System.out.println(getMimeType(CapActivity.this,transcriptUri));
             image_cap_fileStateTranscript.setImageResource(R.drawable.yes);
+            textView_cap_fileStateTranscript.setText("Transkript Dosyasını Değiştir");
+
         }
     }
 
