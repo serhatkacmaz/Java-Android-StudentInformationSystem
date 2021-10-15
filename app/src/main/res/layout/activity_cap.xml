@@ -9,6 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:orientation="vertical"
         android:padding="15dp">
         <!--Baslik-->
@@ -116,13 +117,38 @@
                 android:textColor="@color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:layout_marginTop="30dp"
+                android:textAllCaps="false"
+                android:textColor="#302D2D"
+                android:backgroundTint="#D9D8D9"
+                android:onClick="selectFileTranscript"
+                android:text="Transkript Ekle"
+                android:textSize="16dp" />
+
+            <ImageView
+                android:id="@+id/image_cap_fileStateTranscript"
+                android:layout_width="50dp"
+                android:src="@drawable/no"
+                android:layout_margin="15dp"
+                android:layout_marginTop="30dp"
+                android:layout_height="50dp"/>
+        </LinearLayout>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:layout_marginTop="30dp"
-            android:onClick="createPdf"
-            android:text="Başvur"
+            android:layout_marginTop="100dp"
+            android:onClick="submitCAP"
+            android:text="Onayla"
             android:textSize="16dp" />
     </LinearLayout>
 
