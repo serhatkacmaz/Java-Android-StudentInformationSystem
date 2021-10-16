@@ -70,8 +70,6 @@ public class UsersData {
         firebaseFirestore = FirebaseFirestore.getInstance();
         fUser = fAuth.getCurrentUser();
         incomingData();
-
-        System.out.println(fUser.getUid());
     }
 
     private void incomingData() {

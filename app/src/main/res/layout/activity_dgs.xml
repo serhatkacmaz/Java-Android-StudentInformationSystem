@@ -5,12 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Catogery.DgsActivity">
+
     <LinearLayout
         android:id="@+id/IntibakMainLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="15dp">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -101,13 +103,92 @@
                 android:minHeight="48dp"
                 tools:ignore="SpeakableTextPresentCheck" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView_Dgs_fileStateTranscript"
+                android:layout_width="270dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/text_view_border"
+                android:onClick="selectFileTranscript"
+                android:padding="15dp"
+                android:text="Transkript Ekle"
+                android:textAllCaps="false"
+                android:textColor="@color/textViewGrayColor"
+                android:textSize="16dp" />
+
+            <ImageView
+                android:id="@+id/image_Dgs_fileStateTranscript"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="15dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/no" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="-12dp"
+            android:text="*Zorunlu Alan"
+            android:textColor="@color/red_helper"
+            android:textSize="12dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView_Dgs_fileStateLessonFile"
+                android:layout_width="270dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/text_view_border"
+                android:onClick="selectFileLessonFile"
+                android:padding="15dp"
+                android:text="Ders Listesi Ekle"
+                android:textAllCaps="false"
+                android:textColor="@color/textViewGrayColor"
+                android:textSize="16dp" />
+
+            <ImageView
+                android:id="@+id/image_Dgs_fileStateLessonFile"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="15dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/no" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="-12dp"
+            android:text="*Zorunlu Alan"
+            android:textColor="@color/red_helper"
+            android:textSize="12dp" />
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:layout_marginTop="30dp"
-            android:onClick="createDgsPdf"
-            android:text="BAŞVUR"
+            android:onClick="submitDGS"
+            android:text="Onayla"
             android:textSize="16dp" />
     </LinearLayout>
 </ScrollView>

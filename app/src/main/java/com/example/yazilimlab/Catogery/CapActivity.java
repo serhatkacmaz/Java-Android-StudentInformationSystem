@@ -67,6 +67,8 @@ public class CapActivity extends AppCompatActivity {
 
     // Uri
     private Uri transcriptUri, pdfUri;
+
+    // image file state
     private ImageView image_cap_fileStateTranscript;
     private TextView textView_cap_fileStateTranscript;
 
@@ -299,11 +301,9 @@ public class CapActivity extends AppCompatActivity {
         if (requestCode == CREATEPDF && resultCode == RESULT_OK && data.getData() != null && flagPdf) {
             pdfUri = data.getData();
             createPdf(pdfUri);
-            saveFileInStorage();
-        }
-
-        // dosya transkiript
-        if (requestCode == PICK_FILE && resultCode == RESULT_OK && data != null && data.getData() != null && flagFileTranscript) {
+            saveTranscriptFileInStorage();
+        } else if (requestCode == PICK_FILE && resultCode == RESULT_OK && data != null && data.getData() != null && flagFileTranscript) {
+            // dosya transkiript
             transcriptUri = data.getData();
             //System.out.println(getMimeType(CapActivity.this,transcriptUri));
             image_cap_fileStateTranscript.setImageResource(R.drawable.yes);
@@ -328,11 +328,11 @@ public class CapActivity extends AppCompatActivity {
     }
 
     // transkript firebase save
-    private void saveFileInStorage() {
+    private void saveTranscriptFileInStorage() {
         if (transcriptUri != null) {
             String extension = getMimeType(CapActivity.this, transcriptUri);
 
-            StorageReference reference = storageReference.child(extension + "/" + adjustFormat());
+            StorageReference reference = storageReference.child("CAP").child(extension).child("Transcript/" + adjustFormat());
             reference.putFile(transcriptUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -341,6 +341,8 @@ public class CapActivity extends AppCompatActivity {
                     while (!uriTask.isComplete()) ;
                     Uri linkUri = uriTask.getResult();
                     System.out.println(linkUri);
+                    System.out.println("Cap dosya Kayıt Tamam.");
+                    System.out.println("----------------------");
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
