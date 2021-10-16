@@ -3,6 +3,7 @@ package com.example.yazilimlab.Catogery;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -106,8 +107,7 @@ public class CapActivity extends AppCompatActivity {
 
         // file state
         image_cap_fileStateTranscript = (ImageView) findViewById(R.id.image_cap_fileStateTranscript);
-        textView_cap_fileStateTranscript=(TextView) findViewById(R.id.textView_cap_fileStateTranscript);
-
+        textView_cap_fileStateTranscript = (TextView) findViewById(R.id.textView_cap_fileStateTranscript);
     }
 
     @Override
@@ -136,6 +136,8 @@ public class CapActivity extends AppCompatActivity {
     }
 
     //->pdf Start
+
+    //https://github.com/LukeDaniel16/CreatePDFwithJavaOnAndroidStudio
     public void initPdf(String title) {
         Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -158,6 +160,7 @@ public class CapActivity extends AppCompatActivity {
         paint.setTextSize(4);
         paint.setFakeBoldText(false);
 
+        // aktif tarih
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         String strDate = formatter.format(date);
@@ -249,8 +252,9 @@ public class CapActivity extends AppCompatActivity {
         } catch (Exception e) {
             Toast.makeText(this, "Bilinmeyen hata" + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
         }
-
     }
+    // https://github.com/LukeDaniel16/CreatePDFwithJavaOnAndroidStudio
+
     //->pdf End
 
 
@@ -282,7 +286,6 @@ public class CapActivity extends AppCompatActivity {
             //If scheme is a File
             //This will replace white spaces with %20 and also other special characters. This will avoid returning null values on file name with spaces and special characters.
             extension = MimeTypeMap.getFileExtensionFromUrl(Uri.fromFile(new File(uri.getPath())).toString());
-
         }
         return extension;
     }
@@ -293,9 +296,10 @@ public class CapActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         // pdf
-        if (requestCode == CREATEPDF && data.getData() != null && flagPdf) {
+        if (requestCode == CREATEPDF && resultCode == RESULT_OK && data.getData() != null && flagPdf) {
             pdfUri = data.getData();
             createPdf(pdfUri);
+            saveFileInStorage();
         }
 
         // dosya transkiript
@@ -304,7 +308,6 @@ public class CapActivity extends AppCompatActivity {
             //System.out.println(getMimeType(CapActivity.this,transcriptUri));
             image_cap_fileStateTranscript.setImageResource(R.drawable.yes);
             textView_cap_fileStateTranscript.setText("Transkript Dosyasını Değiştir");
-
         }
     }
 
@@ -333,6 +336,7 @@ public class CapActivity extends AppCompatActivity {
             reference.putFile(transcriptUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    // uri alma
                     Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
                     while (!uriTask.isComplete()) ;
                     Uri linkUri = uriTask.getResult();
@@ -351,9 +355,9 @@ public class CapActivity extends AppCompatActivity {
     public void submitCAP(View view) {
         if (isNotEmptyStrings() && transcriptUri != null) {
             initPdf("CapBasvurusu");    // pdf
-            saveFileInStorage();
         } else {
             Toast.makeText(CapActivity.this, "Boş alanlar var", Toast.LENGTH_SHORT).show();
         }
     }
+
 }

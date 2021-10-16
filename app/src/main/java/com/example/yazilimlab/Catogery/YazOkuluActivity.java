@@ -214,8 +214,7 @@ public class YazOkuluActivity extends AppCompatActivity {
         if (takeLessonList.size() > 0) {
             takeLessonList.remove(takeLessonList.size() - 1);
             Toast.makeText(YazOkuluActivity.this, "Son Eklenen Kaldırıldı", Toast.LENGTH_SHORT).show();
-        }
-        else{
+        } else {
             Toast.makeText(YazOkuluActivity.this, "Liste bos", Toast.LENGTH_SHORT).show();
         }
     }
@@ -235,7 +234,7 @@ public class YazOkuluActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CREATEPDF) {
+        if (requestCode == CREATEPDF && resultCode == RESULT_OK) {
             if (data.getData() != null) {
 
                 Uri uri = data.getData();

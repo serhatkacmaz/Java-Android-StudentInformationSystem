@@ -60,7 +60,7 @@ public class DgsActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CREATEPDF) {
+        if (requestCode == CREATEPDF && resultCode == RESULT_OK) {
             if (data.getData() != null) {
 
                 Uri uri = data.getData();
