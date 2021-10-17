@@ -26,7 +26,22 @@ public class UsersData {
     private DocumentReference docRef;
 
     // incoming data
-    private String incomingFaculty, incomingDepartment, incomingNumber, incomingName, incomingLastName, incomingClass, incomingPhone, incomingMail, incomingAddress;
+    private String incomingFaculty;
+    private String incomingDepartment;
+    private String incomingNumber;
+    private String incomingName;
+    private String incomingLastName;
+    private String incomingClass;
+    private String incomingPhone;
+    private String incomingMail;
+    private String incomingAddress;
+    private String incomingBirthday;
+
+    public String getIncomingIdentity() {
+        return incomingIdentity;
+    }
+
+    private String incomingIdentity;
 
     public String getIncomingFaculty() {
         return incomingFaculty;
@@ -64,6 +79,10 @@ public class UsersData {
         return incomingAddress;
     }
 
+    public String getIncomingBirthday() {
+        return incomingBirthday;
+    }
+
     public UsersData() {
         //Firebase
         fAuth = FirebaseAuth.getInstance();
@@ -88,6 +107,8 @@ public class UsersData {
                 incomingPhone = documentSnapshot.getData().get("strPhone").toString();
                 incomingMail = documentSnapshot.getData().get("strMail").toString();
                 incomingAddress = documentSnapshot.getData().get("strAddress").toString();
+                incomingIdentity = documentSnapshot.getData().get("strIdentity").toString();
+                incomingBirthday = documentSnapshot.getData().get("strBirthday").toString();
             }
         });
     }

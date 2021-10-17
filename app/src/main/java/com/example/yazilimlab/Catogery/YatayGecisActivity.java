@@ -290,6 +290,7 @@ public class YatayGecisActivity extends AppCompatActivity {
 
     // pdf icerik hazırla
     private void createPdf(Uri uri) {
+
         PdfDocument pdfDocument = new PdfDocument();
         Paint paint = new Paint();
         Paint s = new Paint();
@@ -298,8 +299,15 @@ public class YatayGecisActivity extends AppCompatActivity {
         Canvas canvas = page.getCanvas();
         paint.setTextAlign(Paint.Align.CENTER);
         paint.setTextSize(4);
-        paint.setFakeBoldText(true);
+        paint.setFakeBoldText(false);
 
+        // aktif tarih
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String strDate = formatter.format(date);
+
+        canvas.drawText(strDate, 190, 12, paint);
+        paint.setFakeBoldText(true);
         canvas.drawText("T.C.", pageInfo.getPageWidth() / 2, 20, paint);
         canvas.drawText("KOCAELİ ÜNİVERSİTESİ", pageInfo.getPageWidth() / 2, 26, paint);
         canvas.drawText("YATAY GEÇİŞ BAŞVURU FORMU", pageInfo.getPageWidth() / 2, 32, paint);
@@ -318,22 +326,20 @@ public class YatayGecisActivity extends AppCompatActivity {
         paint.setFakeBoldText(true);
         canvas.drawText("II- KİŞİSEL BİLGİLER", 30, 60, paint);
         paint.setFakeBoldText(false);
-        canvas.drawText("ADI SOYADI:", 30, 65, paint);
-        canvas.drawText("T.C. KİMLİK NO:", 30, 70, paint);
-        canvas.drawText("DOĞUM TARİHİ:", 120, 70, paint);
-        canvas.drawText("E-POSTA ADRESİ:", 30, 75, paint);
-        canvas.drawText("TELEFON (GSM):", 30, 80, paint);
-        canvas.drawText("TELEFON (EV/İŞ):", 120, 80, paint);
-        canvas.drawText("DOĞUM TARİHİ:", 120, 70, paint);
-        canvas.drawText("TEBLİGAT ADRES:", 30, 85, paint);
+        canvas.drawText("ADI SOYADI: " + usersData.getIncomingName() + usersData.getIncomingLastName(), 30, 65, paint);
+        canvas.drawText("T.C. KİMLİK NO: " + usersData.getIncomingIdentity(), 30, 70, paint);
+        canvas.drawText("DOĞUM TARİHİ: " + usersData.getIncomingBirthday(), 120, 70, paint);
+        canvas.drawText("E-POSTA ADRESİ: " + usersData.getIncomingMail(), 30, 75, paint);
+        canvas.drawText("TELEFON (GSM): " + usersData.getIncomingPhone(), 30, 80, paint);
+        canvas.drawText("TEBLİGAT ADRES: " + usersData.getIncomingAddress(), 30, 85, paint);
 
         //text3
         paint.setFakeBoldText(true);
         canvas.drawText("III- ÖĞRENİMİNE İLİŞKİN BİLGİLER", 30, 95, paint);
         paint.setFakeBoldText(false);
-        canvas.drawText("HALEN KAYITLI OLDUĞU ÜNİVERSİTE:   ", 30, 100, paint);
-        canvas.drawText("HALEN KAYITLI OLDUĞU FAKÜLTE / YÜKSEKOKUL: ", 30, 105, paint);
-        canvas.drawText("HALEN KAYITLI OLDUĞU BÖLÜM / PROGRAM:  ", 30, 110, paint);
+        canvas.drawText("HALEN KAYITLI OLDUĞU ÜNİVERSİTE: Kocaeli Üniversitesi", 30, 100, paint);
+        canvas.drawText("HALEN KAYITLI OLDUĞU FAKÜLTE / YÜKSEKOKUL: " + usersData.getIncomingFaculty(), 30, 105, paint);
+        canvas.drawText("HALEN KAYITLI OLDUĞU BÖLÜM / PROGRAM: " + usersData.getIncomingDepartment(), 30, 110, paint);
         canvas.drawText("ÖĞRETİM TÜRÜ:  " + strEducationType, 30, 115, paint);
         canvas.drawText("SINIF/ YARIYIL:    " + strTerm, 120, 115, paint);
         canvas.drawText("DİSİPLİN CEZASI ALIP ALMADIĞI: " + strDisciplineType, 30, 120, paint);
@@ -357,8 +363,7 @@ public class YatayGecisActivity extends AppCompatActivity {
         canvas.drawText("halinde hakkımda cezai işlemlerin yürütüleceğini ve kaydım yapılmış olsa dahi silineceğini bildiğimi kabul ", 30, 195, paint);
         canvas.drawText("ediyorum.", 30, 200, paint);
 
-        canvas.drawText("Tarih:", 30, 200, paint);
-        canvas.drawText("Adayın Adı Soyadı:", 130, 205, paint);
+        canvas.drawText("Adayın Adı Soyadı: " + usersData.getIncomingName() + " " + usersData.getIncomingLastName(), 130, 205, paint);
         canvas.drawText("İmzası:", 140, 210, paint);
 
         canvas.drawText("BU BÖLÜM ÜNİVERSİTE YETKİLİ BİRİMLERİNCE DOLDURULACAKTIR.", 30, 220, paint);
