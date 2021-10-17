@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.Window;
 
 import com.example.yazilimlab.LoginFragment.AdminLoginFragment;
 import com.example.yazilimlab.LoginFragment.StudentLoginFragment;
@@ -53,5 +55,6 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
     }
     //https://www.youtube.com/watch?v=VUHMdkKUXxk&list=PL20Zn-5nPIPHvLPq5xJTTImOd0qeNd9rW&index=92
+
 
 }

@@ -142,8 +142,6 @@
             android:id="@+id/Intibak_linearLayoutLesson1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_margin="5dp"
             android:orientation="horizontal">
 
 
@@ -243,7 +241,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="18dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:onClick="IntibakOldLessonAdd"
@@ -267,7 +265,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="18dp"
-            android:layout_marginTop="-6dp"
+            android:layout_marginTop="4dp"
             android:text="*Zorunlu Alan"
             android:textColor="@color/red_helper"
             android:textSize="12dp" />
@@ -339,8 +337,6 @@
             android:id="@+id/Intibak_linearLayoutTakeLesson1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_gravity="center"
             android:orientation="horizontal">
 
             <com.google.android.material.textfield.TextInputLayout
@@ -439,7 +435,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="18dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:onClick="IntibakExemptLessonAdd"
@@ -451,7 +447,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:onClick="IntibakExemptLessonRemove"
@@ -463,7 +459,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="18dp"
-
+            android:layout_marginTop="4dp"
             android:text="*Zorunlu Alan"
             android:textColor="@color/red_helper"
             android:textSize="12dp" />
