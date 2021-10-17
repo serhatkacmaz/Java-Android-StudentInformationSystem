@@ -1,9 +1,12 @@
 package com.example.yazilimlab.Catogery;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -16,20 +19,31 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.yazilimlab.Model.UsersData;
 import com.example.yazilimlab.R;
 import com.example.yazilimlab.StudentHomeActivity;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -67,6 +81,28 @@ public class YatayGecisActivity extends AppCompatActivity {
     ArrayList<String> arrayListScoreType2;
     ArrayAdapter<String> arrayAdapterScoreType2;
 
+
+    //Firebase
+    FirebaseStorage storage;
+    StorageReference storageReference;
+    UsersData usersData;
+
+    // Uri
+    private Uri transcriptUri, pdfUri;
+
+    // image file state
+    private ImageView image_yatayGecis_fileStateTranscript;
+    private TextView textView_yatayGecis_fileStateTranscript;
+
+    // Code
+    private static final int CREATE_PDF = 1;
+    private static final int PICK_FILE = 1;
+
+    // flag for activityResult
+    private boolean flagPdf, flagFileTranscript;
+
+
+    // EditText
     private EditText editTextYatayGecisTerm, editTextYatayGecisNoteGrade, editTextYatayGecisYear, editTextYatayGecisScore, editTextYatayGecisEnglish;
     private EditText editTextYatayGecisFaculty, editTextYatayGecisBranch, editTextYatayGecisScore2;
     private String strTerm, strNoteGrade, strYear, strScore, strScore2, strEnglish, strFaculty, strBranch;
@@ -77,9 +113,20 @@ public class YatayGecisActivity extends AppCompatActivity {
     private String strNo;
 
     private TextInputLayout editTextYatayGecisNoWrap;
-    private static final int CREATEPDF = 1;
 
+
+    // init
     private void init() {
+
+        //Firebase
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+        usersData = new UsersData();
+
+        // file state
+        image_yatayGecis_fileStateTranscript = (ImageView) findViewById(R.id.image_yatayGecis_fileStateTranscript);
+        textView_yatayGecis_fileStateTranscript = (TextView) findViewById(R.id.textView_yatayGecis_fileStateTranscript);
+
 
         //kurum içi
         editTextYatayGecisNoWrap = (TextInputLayout) findViewById(R.id.editTextYatayGecisNoWrap);
@@ -229,110 +276,106 @@ public class YatayGecisActivity extends AppCompatActivity {
         return true;
     }
 
-    //pdf start
+    // pdf start
+    //https://github.com/LukeDaniel16/CreatePDFwithJavaOnAndroidStudio
     public void initPdf(String title) {
+        flagPdf = true;
+        flagFileTranscript = false;
         Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType("application/pdf");
         intent.putExtra(Intent.EXTRA_TITLE, title);
-        startActivityForResult(intent, CREATEPDF);
+        startActivityForResult(intent, CREATE_PDF);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CREATEPDF && resultCode == RESULT_OK) {
-            if (data.getData() != null) {
+    // pdf icerik hazırla
+    private void createPdf(Uri uri) {
+        PdfDocument pdfDocument = new PdfDocument();
+        Paint paint = new Paint();
+        Paint s = new Paint();
+        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(210, 297, 1).create();
+        PdfDocument.Page page = pdfDocument.startPage(pageInfo);
+        Canvas canvas = page.getCanvas();
+        paint.setTextAlign(Paint.Align.CENTER);
+        paint.setTextSize(4);
+        paint.setFakeBoldText(true);
 
-                Uri uri = data.getData();
+        canvas.drawText("T.C.", pageInfo.getPageWidth() / 2, 20, paint);
+        canvas.drawText("KOCAELİ ÜNİVERSİTESİ", pageInfo.getPageWidth() / 2, 26, paint);
+        canvas.drawText("YATAY GEÇİŞ BAŞVURU FORMU", pageInfo.getPageWidth() / 2, 32, paint);
 
-                PdfDocument pdfDocument = new PdfDocument();
-                Paint paint = new Paint();
-                Paint s = new Paint();
-                PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(210, 297, 1).create();
-                PdfDocument.Page page = pdfDocument.startPage(pageInfo);
-                Canvas canvas = page.getCanvas();
-                paint.setTextAlign(Paint.Align.CENTER);
-                paint.setTextSize(4);
-                paint.setFakeBoldText(true);
+        paint.setTextAlign(Paint.Align.LEFT);
+        paint.setTextSize(3);
+        paint.setFakeBoldText(false);
 
-                canvas.drawText("T.C.", pageInfo.getPageWidth() / 2, 20, paint);
-                canvas.drawText("KOCAELİ ÜNİVERSİTESİ", pageInfo.getPageWidth() / 2, 26, paint);
-                canvas.drawText("YATAY GEÇİŞ BAŞVURU FORMU", pageInfo.getPageWidth() / 2, 32, paint);
+        // text1
+        paint.setFakeBoldText(true);
+        canvas.drawText("I- BAŞVURU TÜRÜ", 30, 45, paint);
+        paint.setFakeBoldText(false);
+        canvas.drawText(strMakeApplicationType, 30, 50, paint);
 
-                paint.setTextAlign(Paint.Align.LEFT);
-                paint.setTextSize(3);
-                paint.setFakeBoldText(false);
+        //text2
+        paint.setFakeBoldText(true);
+        canvas.drawText("II- KİŞİSEL BİLGİLER", 30, 60, paint);
+        paint.setFakeBoldText(false);
+        canvas.drawText("ADI SOYADI:", 30, 65, paint);
+        canvas.drawText("T.C. KİMLİK NO:", 30, 70, paint);
+        canvas.drawText("DOĞUM TARİHİ:", 120, 70, paint);
+        canvas.drawText("E-POSTA ADRESİ:", 30, 75, paint);
+        canvas.drawText("TELEFON (GSM):", 30, 80, paint);
+        canvas.drawText("TELEFON (EV/İŞ):", 120, 80, paint);
+        canvas.drawText("DOĞUM TARİHİ:", 120, 70, paint);
+        canvas.drawText("TEBLİGAT ADRES:", 30, 85, paint);
 
-                // text1
-                paint.setFakeBoldText(true);
-                canvas.drawText("I- BAŞVURU TÜRÜ", 30, 45, paint);
-                paint.setFakeBoldText(false);
-                canvas.drawText(strMakeApplicationType, 30, 50, paint);
+        //text3
+        paint.setFakeBoldText(true);
+        canvas.drawText("III- ÖĞRENİMİNE İLİŞKİN BİLGİLER", 30, 95, paint);
+        paint.setFakeBoldText(false);
+        canvas.drawText("HALEN KAYITLI OLDUĞU ÜNİVERSİTE:   ", 30, 100, paint);
+        canvas.drawText("HALEN KAYITLI OLDUĞU FAKÜLTE / YÜKSEKOKUL: ", 30, 105, paint);
+        canvas.drawText("HALEN KAYITLI OLDUĞU BÖLÜM / PROGRAM:  ", 30, 110, paint);
+        canvas.drawText("ÖĞRETİM TÜRÜ:  " + strEducationType, 30, 115, paint);
+        canvas.drawText("SINIF/ YARIYIL:    " + strTerm, 120, 115, paint);
+        canvas.drawText("DİSİPLİN CEZASI ALIP ALMADIĞI: " + strDisciplineType, 30, 120, paint);
+        canvas.drawText("GENEL AKADEMİK BAŞARI NOT ORTALAMASI:  " + strNoteGrade, 30, 125, paint);
+        canvas.drawText("ÖĞRENCİ NUMARASI (KOCAELİ  ÜNİVERSİTESİ ÖĞRENCİLERİ İÇİN): " + strNo, 30, 130, paint);
+        canvas.drawText("HALEN KAYITLI OLDUĞU YÜKSEKÖĞRETİM KURUMUNA YERLEŞTİRİLDİĞİ YIL:   " + strYear, 30, 135, paint);
+        canvas.drawText("HALEN KAYITLI OLUNAN PROGRAMA YERLEŞTİRMEDE KULLANILAN PUAN TÜRÜ VE PUANI: " + strScoreTypeDropDown1 + " / " + strScore, 30, 140, paint);
+        canvas.drawText("ZORUNLU HAZIRLIK SINIFI BULUNAN PROGRAMLARA BAŞVURAN ADAYLAR İÇİN YABANCI DİL PUANI:  " + strEnglish, 30, 145, paint);
 
-                //text2
-                paint.setFakeBoldText(true);
-                canvas.drawText("II- KİŞİSEL BİLGİLER", 30, 60, paint);
-                paint.setFakeBoldText(false);
-                canvas.drawText("ADI SOYADI:", 30, 65, paint);
-                canvas.drawText("T.C. KİMLİK NO:", 30, 70, paint);
-                canvas.drawText("DOĞUM TARİHİ:", 120, 70, paint);
-                canvas.drawText("E-POSTA ADRESİ:", 30, 75, paint);
-                canvas.drawText("TELEFON (GSM):", 30, 80, paint);
-                canvas.drawText("TELEFON (EV/İŞ):", 120, 80, paint);
-                canvas.drawText("DOĞUM TARİHİ:", 120, 70, paint);
-                canvas.drawText("TEBLİGAT ADRES:", 30, 85, paint);
+        //text4
+        paint.setFakeBoldText(true);
+        canvas.drawText("IV – ADAYIN BAŞVURDUĞU YÜKSEKÖĞRETİM PROGRAMINA İLİŞKİN BİLGİLER", 30, 160, paint);
+        paint.setFakeBoldText(false);
+        canvas.drawText("FAKÜLTE / YÜKSEKOKUL/MYO. ADI: " + strFaculty, 30, 165, paint);
+        canvas.drawText("BÖLÜM / PROGRAM ADI:   " + strBranch, 30, 170, paint);
+        canvas.drawText("ÖĞRETİM TÜRÜ:  " + strScoreTypeDropDown2, 30, 175, paint);
+        canvas.drawText("BAŞVURULAN PROGRAMIN HALEN KAYITLI OLUNAN PROGRAMA YERLEŞTİRME YAPILDIĞI PUAN TÜRÜ VE PUANI: " + strScoreTypeDropDown2 + " / " + strScore2, 30, 180, paint);
 
-                //text3
-                paint.setFakeBoldText(true);
-                canvas.drawText("III- ÖĞRENİMİNE İLİŞKİN BİLGİLER", 30, 95, paint);
-                paint.setFakeBoldText(false);
-                canvas.drawText("HALEN KAYITLI OLDUĞU ÜNİVERSİTE:   ", 30, 100, paint);
-                canvas.drawText("HALEN KAYITLI OLDUĞU FAKÜLTE / YÜKSEKOKUL: ", 30, 105, paint);
-                canvas.drawText("HALEN KAYITLI OLDUĞU BÖLÜM / PROGRAM:  ", 30, 110, paint);
-                canvas.drawText("ÖĞRETİM TÜRÜ:  " + strEducationType, 30, 115, paint);
-                canvas.drawText("SINIF/ YARIYIL:    " + strTerm, 120, 115, paint);
-                canvas.drawText("DİSİPLİN CEZASI ALIP ALMADIĞI: " + strDisciplineType, 30, 120, paint);
-                canvas.drawText("GENEL AKADEMİK BAŞARI NOT ORTALAMASI:  " + strNoteGrade, 30, 125, paint);
-                canvas.drawText("ÖĞRENCİ NUMARASI (KOCAELİ  ÜNİVERSİTESİ ÖĞRENCİLERİ İÇİN): " + strNo, 30, 130, paint);
-                canvas.drawText("HALEN KAYITLI OLDUĞU YÜKSEKÖĞRETİM KURUMUNA YERLEŞTİRİLDİĞİ YIL:   " + strYear, 30, 135, paint);
-                canvas.drawText("HALEN KAYITLI OLUNAN PROGRAMA YERLEŞTİRMEDE KULLANILAN PUAN TÜRÜ VE PUANI: " + strScoreTypeDropDown1 + " / " + strScore, 30, 140, paint);
-                canvas.drawText("ZORUNLU HAZIRLIK SINIFI BULUNAN PROGRAMLARA BAŞVURAN ADAYLAR İÇİN YABANCI DİL PUANI:  " + strEnglish, 30, 145, paint);
+        //text5
+        canvas.drawText("Beyan ettiğim bilgilerin veya belgelerin gerçeğe aykırı olması veya daha önce yatay geçiş yapmış olmam ", 30, 190, paint);
+        canvas.drawText("halinde hakkımda cezai işlemlerin yürütüleceğini ve kaydım yapılmış olsa dahi silineceğini bildiğimi kabul ", 30, 195, paint);
+        canvas.drawText("ediyorum.", 30, 200, paint);
 
-                //text4
-                paint.setFakeBoldText(true);
-                canvas.drawText("IV – ADAYIN BAŞVURDUĞU YÜKSEKÖĞRETİM PROGRAMINA İLİŞKİN BİLGİLER", 30, 160, paint);
-                paint.setFakeBoldText(false);
-                canvas.drawText("FAKÜLTE / YÜKSEKOKUL/MYO. ADI: " + strFaculty, 30, 165, paint);
-                canvas.drawText("BÖLÜM / PROGRAM ADI:   " + strBranch, 30, 170, paint);
-                canvas.drawText("ÖĞRETİM TÜRÜ:  " + strScoreTypeDropDown2, 30, 175, paint);
-                canvas.drawText("BAŞVURULAN PROGRAMIN HALEN KAYITLI OLUNAN PROGRAMA YERLEŞTİRME YAPILDIĞI PUAN TÜRÜ VE PUANI: " + strScoreTypeDropDown2 + " / " + strScore2, 30, 180, paint);
+        canvas.drawText("Tarih:", 30, 200, paint);
+        canvas.drawText("Adayın Adı Soyadı:", 130, 205, paint);
+        canvas.drawText("İmzası:", 140, 210, paint);
 
-                //text5
-                canvas.drawText("Beyan ettiğim bilgilerin veya belgelerin gerçeğe aykırı olması veya daha önce yatay geçiş yapmış olmam ", 30, 190, paint);
-                canvas.drawText("halinde hakkımda cezai işlemlerin yürütüleceğini ve kaydım yapılmış olsa dahi silineceğini bildiğimi kabul ", 30, 195, paint);
-                canvas.drawText("ediyorum.", 30, 200, paint);
+        canvas.drawText("BU BÖLÜM ÜNİVERSİTE YETKİLİ BİRİMLERİNCE DOLDURULACAKTIR.", 30, 220, paint);
+        canvas.drawText("BAŞVURUSU UYGUN DEĞİLDİR:", 30, 230, paint);
+        canvas.drawText("BAŞVURUSU UYGUNDUR:", 120, 235, paint);
 
-                canvas.drawText("Tarih:", 30, 200, paint);
-                canvas.drawText("Adayın Adı Soyadı:", 130, 205, paint);
-                canvas.drawText("İmzası:", 140, 210, paint);
-
-                canvas.drawText("BU BÖLÜM ÜNİVERSİTE YETKİLİ BİRİMLERİNCE DOLDURULACAKTIR.", 30, 220, paint);
-                canvas.drawText("BAŞVURUSU UYGUN DEĞİLDİR:", 30, 230, paint);
-                canvas.drawText("BAŞVURUSU UYGUNDUR:", 120, 235, paint);
-
-                paint.setFakeBoldText(true);
-                canvas.drawText("Başvuruyu Alan Görevlinin:", 120, 245, paint);
-                canvas.drawText("Adı Soyadı:", 120, 255, paint);
-                canvas.drawText("Unvanı:", 120, 260, paint);
-                canvas.drawText("İmza:", 120, 265, paint);
-                canvas.drawText("Tarih:", 120, 270, paint);
-                pdfDocument.finishPage(page);
-                setPdf(uri, pdfDocument);
-            }
-        }
+        paint.setFakeBoldText(true);
+        canvas.drawText("Başvuruyu Alan Görevlinin:", 120, 245, paint);
+        canvas.drawText("Adı Soyadı:", 120, 255, paint);
+        canvas.drawText("Unvanı:", 120, 260, paint);
+        canvas.drawText("İmza:", 120, 265, paint);
+        canvas.drawText("Tarih:", 120, 270, paint);
+        pdfDocument.finishPage(page);
+        setPdf(uri, pdfDocument);
     }
 
+    // pdf kaydet
     private void setPdf(Uri uri, PdfDocument pdfDocument) {
         try {
             BufferedOutputStream stream = new BufferedOutputStream(Objects.requireNonNull(getContentResolver().openOutputStream(uri)));
@@ -348,15 +391,116 @@ public class YatayGecisActivity extends AppCompatActivity {
         } catch (Exception e) {
             Toast.makeText(this, "Bilinmeyen hata" + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
         }
+    }
+    //https://github.com/LukeDaniel16/CreatePDFwithJavaOnAndroidStudio
+    // pdf end
 
+
+    //https://stackoverflow.com/questions/9758151/get-the-file-extension-from-images-picked-from-gallery-or-camera-as-string
+    public String getMimeType(Context context, Uri uri) {
+        //seçilen dosya uzantısı tespit etme
+        String extension;
+        //Check uri format to avoid null
+        if (uri.getScheme().equals(ContentResolver.SCHEME_CONTENT)) {
+            //If scheme is a content
+            final MimeTypeMap mime = MimeTypeMap.getSingleton();
+            extension = mime.getExtensionFromMimeType(context.getContentResolver().getType(uri));
+        } else {
+            //If scheme is a File
+            //This will replace white spaces with %20 and also other special characters. This will avoid returning null values on file name with spaces and special characters.
+            extension = MimeTypeMap.getFileExtensionFromUrl(Uri.fromFile(new File(uri.getPath())).toString());
+        }
+        return extension;
+    }
+    //https://stackoverflow.com/questions/9758151/get-the-file-extension-from-images-picked-from-gallery-or-camera-as-string
+
+
+    // dosya kayıt format isimlendirme
+    private String adjustFormat() {
+        String number, name, lastName;
+        number = usersData.getIncomingNumber();
+        name = usersData.getIncomingName();
+        lastName = usersData.getIncomingLastName();
+
+        // https://www.javatpoint.com/java-get-current-date
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("ddMMyyyyHHmm");
+        String strDate = formatter.format(date);
+        // https://www.javatpoint.com/java-get-current-date
+
+        return number + "_" + name + "_" + lastName + "_" + strDate;
     }
 
-    public void createPdf(View view) {
-        if (isNotEmptyStrings()) {
+    // dosya sec sayfası
+    private void selectFile() {
+        Intent intent = new Intent();
+        //https://stackoverflow.com/questions/1698050/multiple-mime-types-in-android
+        intent.setType("*/*");
+        String[] mimetypes = {"application/msword", "application/pdf", "application/vnd.ms-excel", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"};
+        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimetypes);
+        //https://stackoverflow.com/questions/1698050/multiple-mime-types-in-android
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Dosya Seç"), PICK_FILE);
+    }
+
+
+    // transkript dosya sec
+    public void selectFileTranscript(View view) {
+        flagPdf = false;
+        flagFileTranscript = true;
+        selectFile();
+    }
+
+
+    // onayla buton
+    public void submitYatayGecis(View view) {
+        if (isNotEmptyStrings() && transcriptUri != null) {
             initPdf("YatayGecisBasvurusu");
         } else {
             Toast.makeText(YatayGecisActivity.this, "Boş alanlar var", Toast.LENGTH_SHORT).show();
         }
     }
-    //pdf end
+
+    // transkript firebase save
+    private void saveTranscriptFileInStorage() {
+        if (transcriptUri != null) {
+            String extension = getMimeType(YatayGecisActivity.this, transcriptUri);
+
+            StorageReference reference = storageReference.child("YatayGecis").child(extension).child("Transcript/" + adjustFormat());
+            reference.putFile(transcriptUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    // uri alma
+                    Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+                    while (!uriTask.isComplete()) ;
+                    Uri linkUri = uriTask.getResult();
+                    System.out.println(linkUri);
+                    System.out.println("YatayGecis dosya Kayıt Tamam.");
+                    System.out.println("----------------------");
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(YatayGecisActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CREATE_PDF && resultCode == RESULT_OK && data.getData() != null && flagPdf) {
+
+            pdfUri = data.getData();
+            createPdf(pdfUri); // pdf kaydet cihaz
+            saveTranscriptFileInStorage();
+        } else if (requestCode == PICK_FILE && resultCode == RESULT_OK && data != null && data.getData() != null && flagFileTranscript) {
+            // dosya transkiript
+            transcriptUri = data.getData();
+            //System.out.println(getMimeType(CapActivity.this,transcriptUri));
+            image_yatayGecis_fileStateTranscript.setImageResource(R.drawable.yes);
+            textView_yatayGecis_fileStateTranscript.setText("Transkript Dosyasını Değiştir");
+        }
+    }
 }

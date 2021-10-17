@@ -436,13 +436,54 @@
                     android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
+
+        <!--Transkript-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView_yatayGecis_fileStateTranscript"
+                android:layout_width="270dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/text_view_border"
+                android:onClick="selectFileTranscript"
+                android:padding="15dp"
+                android:text="Transkript Ekle"
+                android:textAllCaps="false"
+                android:textColor="@color/textViewGrayColor"
+                android:textSize="16dp" />
+
+            <ImageView
+                android:id="@+id/image_yatayGecis_fileStateTranscript"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="15dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/no" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="-12dp"
+            android:text="*Zorunlu Alan"
+            android:textColor="@color/red_helper"
+            android:textSize="12dp" />
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:layout_marginTop="30dp"
-            android:text="BAŞVUR"
-            android:onClick="createPdf"
+            android:text="Onayla"
+            android:onClick="submitYatayGecis"
             android:textSize="16dp" />
     </LinearLayout>
 </ScrollView>
