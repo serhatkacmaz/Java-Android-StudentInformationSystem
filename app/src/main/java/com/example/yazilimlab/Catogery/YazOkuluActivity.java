@@ -547,7 +547,7 @@ public class YazOkuluActivity extends AppCompatActivity {
         }
     }
 
-    // // firebase save files
+    // firebase save files
     private void saveFileInStorage() {
         if (fileUriList.size() == 3) {
 
