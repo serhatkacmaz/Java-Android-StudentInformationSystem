@@ -171,8 +171,8 @@ public class CapActivity extends AppCompatActivity {
         paint.setFakeBoldText(true);
         canvas.drawText("T.C.", pageInfo.getPageWidth() / 2, 20, paint);
         canvas.drawText("KOCAELİ ÜNİVERSİTESİ", pageInfo.getPageWidth() / 2, 26, paint);
-        canvas.drawText(usersData.getIncomingFaculty(), pageInfo.getPageWidth() / 2, 32, paint);
-        canvas.drawText(usersData.getIncomingDepartment() + " BÖLÜM BAŞKANLIĞINA", pageInfo.getPageWidth() / 2, 38, paint);
+        canvas.drawText(usersData.getIncomingFaculty().toUpperCase(), pageInfo.getPageWidth() / 2, 32, paint);
+        canvas.drawText(usersData.getIncomingDepartment().toUpperCase() + " BÖLÜM BAŞKANLIĞINA", pageInfo.getPageWidth() / 2, 38, paint);
 
         paint.setTextAlign(Paint.Align.LEFT);
         paint.setTextSize(3);

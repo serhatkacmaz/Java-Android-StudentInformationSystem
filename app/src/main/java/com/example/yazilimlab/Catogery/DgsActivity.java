@@ -238,11 +238,8 @@ public class DgsActivity extends AppCompatActivity {
         return number + "_" + name + "_" + lastName + "_" + strDate;
     }
 
-    // transkript dosyasi seç buton
-    public void selectFileTranscript(View view) {
-        flagPdf = false;
-        flagFileTranscript = true;
-        flagFileLesson = false;
+    // dosya sec sayfası
+    private void selectFile() {
         Intent intent = new Intent();
         //https://stackoverflow.com/questions/1698050/multiple-mime-types-in-android
         intent.setType("*/*");
@@ -250,7 +247,16 @@ public class DgsActivity extends AppCompatActivity {
         intent.putExtra(Intent.EXTRA_MIME_TYPES, mimetypes);
         //https://stackoverflow.com/questions/1698050/multiple-mime-types-in-android
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Transkript Seç"), PICK_FILE);
+        startActivityForResult(Intent.createChooser(intent, "Dosya Seç"), PICK_FILE);
+    }
+
+    // transkript dosyasi seç buton
+    public void selectFileTranscript(View view) {
+        flagPdf = false;
+        flagFileTranscript = true;
+        flagFileLesson = false;
+        Intent intent = new Intent();
+        selectFile();
     }
 
     // ders listesi dosyasi seç buton
@@ -259,13 +265,7 @@ public class DgsActivity extends AppCompatActivity {
         flagFileTranscript = false;
         flagFileLesson = true;
         Intent intent = new Intent();
-        //https://stackoverflow.com/questions/1698050/multiple-mime-types-in-android
-        intent.setType("*/*");
-        String[] mimetypes = {"application/msword", "application/pdf", "application/vnd.ms-excel", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"};
-        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimetypes);
-        //https://stackoverflow.com/questions/1698050/multiple-mime-types-in-android
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Ders Listesi Seç"), PICK_FILE);
+        selectFile();
     }
 
     // Dgs onayla butonu
