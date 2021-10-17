@@ -2,11 +2,13 @@ package com.example.yazilimlab.Catogery;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -356,10 +358,24 @@ public class CapActivity extends AppCompatActivity {
     // onayla butonu
     public void submitCAP(View view) {
         if (isNotEmptyStrings() && transcriptUri != null) {
-            initPdf("CapBasvurusu");    // pdf
+            AlertDialog.Builder checkAlertDialog = new AlertDialog.Builder(CapActivity.this);
+            checkAlertDialog.setTitle("Onaylama");
+            checkAlertDialog.setMessage("Başvurunuzu tamamlamak istiyor musunuz?");
+            checkAlertDialog.setPositiveButton("Evet", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    initPdf("CapBasvurusu");    // pdf
+                }
+            });
+            checkAlertDialog.setNegativeButton("Hayır", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    System.out.println("Hayır Bastın");
+                }
+            });
+            checkAlertDialog.create().show();
         } else {
             Toast.makeText(CapActivity.this, "Boş alanlar var", Toast.LENGTH_SHORT).show();
         }
     }
-
 }

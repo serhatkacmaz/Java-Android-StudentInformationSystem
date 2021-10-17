@@ -3,6 +3,7 @@ package com.example.yazilimlab.Catogery;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.yazilimlab.Model.UsersData;
@@ -24,6 +25,7 @@ import com.google.firebase.storage.UploadTask;
 import android.app.DatePickerDialog;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -541,7 +543,22 @@ public class YazOkuluActivity extends AppCompatActivity {
     // onayla butonu
     public void submitYazOkul(View view) {
         if (isNotEmptyStrings() && transcriptUri != null && lessonUri != null && subScoreUri != null) {
-            initPdf("YazOkuluBasvuru");
+            AlertDialog.Builder checkAlertDialog = new AlertDialog.Builder(YazOkuluActivity.this);
+            checkAlertDialog.setTitle("Onaylama");
+            checkAlertDialog.setMessage("Başvurunuzu tamamlamak istiyor musunuz?");
+            checkAlertDialog.setPositiveButton("Evet", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    initPdf("YazOkuluBasvuru");
+                }
+            });
+            checkAlertDialog.setNegativeButton("Hayır", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    System.out.println("Hayır Bastın");
+                }
+            });
+            checkAlertDialog.create().show();
         } else {
             Toast.makeText(YazOkuluActivity.this, "Boş alanlar var", Toast.LENGTH_SHORT).show();
         }

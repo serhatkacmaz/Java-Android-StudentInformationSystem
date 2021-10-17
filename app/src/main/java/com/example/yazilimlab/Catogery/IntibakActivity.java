@@ -2,10 +2,12 @@ package com.example.yazilimlab.Catogery;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -499,6 +501,7 @@ public class IntibakActivity extends AppCompatActivity {
         }
         return extension;
     }
+    //https://stackoverflow.com/questions/9758151/get-the-file-extension-from-images-picked-from-gallery-or-camera-as-string
 
     // dosya kayıt format isimlendirme
     private String adjustFormat() {
@@ -546,8 +549,24 @@ public class IntibakActivity extends AppCompatActivity {
 
     // onayla buton
     public void submitIntibak(View view) {
+
         if (isNotEmptyString() && transcriptUri != null && lessonUri != null) {
-            initPdf("intibak");
+            AlertDialog.Builder checkAlertDialog = new AlertDialog.Builder(IntibakActivity.this);
+            checkAlertDialog.setTitle("Onaylama");
+            checkAlertDialog.setMessage("Başvurunuzu tamamlamak istiyor musunuz?");
+            checkAlertDialog.setPositiveButton("Evet", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    initPdf("intibak");
+                }
+            });
+            checkAlertDialog.setNegativeButton("Hayır", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    System.out.println("Hayır Bastın");
+                }
+            });
+            checkAlertDialog.create().show();
         } else {
             Toast.makeText(IntibakActivity.this, "Boş alanlar var", Toast.LENGTH_SHORT).show();
         }
