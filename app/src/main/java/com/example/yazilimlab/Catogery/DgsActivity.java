@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.example.yazilimlab.Model.UsersData;
 import com.example.yazilimlab.R;
 import com.example.yazilimlab.StudentHomeActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -43,15 +44,25 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.Optional;
 
 public class DgsActivity extends AppCompatActivity {
 
-
     //Firebase
+    private FirebaseAuth fAuth;
+    private FirebaseUser fUser;
+    private FirebaseFirestore firebaseFirestore;
+    private DocumentReference docRef;
     FirebaseStorage storage;
     StorageReference storageReference;
+
+    // hashMap
+    private HashMap<String, String> resourcesAdd;
+
+    // path
+    private String transcriptPath, lessonPath;
 
     private ArrayList<Uri> fileUriList;
     private ArrayList<String> fileType;
@@ -89,6 +100,8 @@ public class DgsActivity extends AppCompatActivity {
         fileType.add("LessonContents/");
 
         //Firebase
+        fAuth = FirebaseAuth.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
         usersData = new UsersData();
@@ -296,12 +309,39 @@ public class DgsActivity extends AppCompatActivity {
         }
     }
 
+
+    // basvurular firebase save
+    private void saveResources() {
+        fUser = fAuth.getCurrentUser();
+        resourcesAdd = new HashMap<String, String>();
+        resourcesAdd.put("type", "DGS");
+        resourcesAdd.put("userUid", fUser.getUid());
+        resourcesAdd.put("state", "0");
+        resourcesAdd.put("transcriptPath", transcriptPath);
+        resourcesAdd.put("lessonPath", lessonPath);
+
+        firebaseFirestore.collection("Resources").document()
+                .set(resourcesAdd).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                System.out.println("Resourcers kayıt ok");
+            }
+        });
+    }
+
     // firebase save files
     private void saveFileInStorage() {
         if (fileUriList.size() == 2) {
 
             for (int i = 0; i < fileUriList.size(); i++) {
                 String extension = getMimeType(DgsActivity.this, fileUriList.get(i));
+
+                if (i == 0) {
+                    transcriptPath = "DGS/" + extension + "/" + fileType.get(i) + adjustFormat();
+                } else if (i == 1) {
+                    lessonPath = "DGS/" + extension + "/" + fileType.get(i) + adjustFormat();
+                }
+
                 StorageReference reference = storageReference.child("DGS").child(extension).child(fileType.get(i) + adjustFormat());
 
                 reference.putFile(fileUriList.get(i)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -325,7 +365,6 @@ public class DgsActivity extends AppCompatActivity {
         }
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -335,6 +374,7 @@ public class DgsActivity extends AppCompatActivity {
             pdfUri = data.getData();
             createPdf(pdfUri);  // pdf
             saveFileInStorage();  // file save
+            saveResources();
         } else if (requestCode == PICK_FILE && resultCode == RESULT_OK && data != null && data.getData() != null && flagFileTranscript) {
 
             // dosya transkiript seçme

@@ -33,10 +33,15 @@ import android.widget.Toast;
 import com.example.yazilimlab.Model.UsersData;
 import com.example.yazilimlab.R;
 import com.example.yazilimlab.StudentHomeActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -49,6 +54,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class YatayGecisActivity extends AppCompatActivity {
@@ -85,6 +91,10 @@ public class YatayGecisActivity extends AppCompatActivity {
 
 
     //Firebase
+    private FirebaseAuth fAuth;
+    private FirebaseUser fUser;
+    private FirebaseFirestore firebaseFirestore;
+    private DocumentReference docRef;
     FirebaseStorage storage;
     StorageReference storageReference;
     UsersData usersData;
@@ -102,6 +112,12 @@ public class YatayGecisActivity extends AppCompatActivity {
 
     // flag for activityResult
     private boolean flagPdf, flagFileTranscript;
+
+    // hashMap
+    private HashMap<String, String> resourcesAdd;
+
+    // path
+    private String transcriptPath;
 
 
     // EditText
@@ -121,9 +137,12 @@ public class YatayGecisActivity extends AppCompatActivity {
     private void init() {
 
         //Firebase
+        fAuth = FirebaseAuth.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
         usersData = new UsersData();
+
 
         // file state
         image_yatayGecis_fileStateTranscript = (ImageView) findViewById(R.id.image_yatayGecis_fileStateTranscript);
@@ -484,11 +503,31 @@ public class YatayGecisActivity extends AppCompatActivity {
         }
     }
 
+    // basvurular firebase save
+    private void saveResources() {
+        fUser = fAuth.getCurrentUser();
+        resourcesAdd = new HashMap<String, String>();
+        resourcesAdd.put("type", "YatayGecis");
+        resourcesAdd.put("userUid", fUser.getUid());
+        resourcesAdd.put("state", "0");
+        resourcesAdd.put("transcriptPath", transcriptPath);
+
+        firebaseFirestore.collection("Resources").document()
+                .set(resourcesAdd).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                System.out.println("Resourcers kayıt ok");
+            }
+        });
+    }
+
+
     // transkript firebase save
     private void saveTranscriptFileInStorage() {
         if (transcriptUri != null) {
             String extension = getMimeType(YatayGecisActivity.this, transcriptUri);
 
+            transcriptPath = "YatayGecis/" + extension + "/Transcript/" + adjustFormat();
             StorageReference reference = storageReference.child("YatayGecis").child(extension).child("Transcript/" + adjustFormat());
             reference.putFile(transcriptUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -514,10 +553,10 @@ public class YatayGecisActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CREATE_PDF && resultCode == RESULT_OK && data.getData() != null && flagPdf) {
-
             pdfUri = data.getData();
             createPdf(pdfUri); // pdf kaydet cihaz
             saveTranscriptFileInStorage();
+            saveResources();
         } else if (requestCode == PICK_FILE && resultCode == RESULT_OK && data != null && data.getData() != null && flagFileTranscript) {
             // dosya transkiript
             transcriptUri = data.getData();

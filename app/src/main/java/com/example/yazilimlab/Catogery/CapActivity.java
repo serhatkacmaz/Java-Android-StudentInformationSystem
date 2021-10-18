@@ -34,6 +34,7 @@ import com.example.yazilimlab.R;
 import com.example.yazilimlab.RegisterActivity;
 import com.example.yazilimlab.StudentHomeActivity;
 import com.example.yazilimlab.StudentHomeFragment.MakeApplicationFragment;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -54,6 +55,7 @@ import java.sql.SQLOutput;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class CapActivity extends AppCompatActivity {
@@ -64,8 +66,18 @@ public class CapActivity extends AppCompatActivity {
     ArrayAdapter<String> arrayAdapterCapEducationType;
 
     //Firebase
+    private FirebaseAuth fAuth;
+    private FirebaseUser fUser;
+    private FirebaseFirestore firebaseFirestore;
+    private DocumentReference docRef;
     FirebaseStorage storage;
     StorageReference storageReference;
+
+    // hashMap
+    private HashMap<String, String> resourcesAdd;
+
+    // path
+    private String transcriptPath;
 
     // Uri
     private Uri transcriptUri, pdfUri;
@@ -79,7 +91,7 @@ public class CapActivity extends AppCompatActivity {
     private String strEducationCapType, strEducationCapTypePass, strCapFaculty, strCapBranch;
 
     // code
-    private static final int CREATEPDF = 1;
+    private static final int CREATE_PDF = 1;
     private static final int PICK_FILE = 1;
 
     // flag for activityResult
@@ -105,6 +117,8 @@ public class CapActivity extends AppCompatActivity {
         editTextCapBranch = (EditText) findViewById(R.id.editTextCapBranch);
 
         //Firebase
+        fAuth = FirebaseAuth.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
         usersData = new UsersData();
@@ -149,7 +163,7 @@ public class CapActivity extends AppCompatActivity {
         flagPdf = true;
         flagFileTranscript = false;
         intent.putExtra(Intent.EXTRA_TITLE, title);
-        startActivityForResult(intent, CREATEPDF);
+        startActivityForResult(intent, CREATE_PDF);
     }
 
     //pdf içeriği
@@ -295,23 +309,6 @@ public class CapActivity extends AppCompatActivity {
     }
     //https://stackoverflow.com/questions/9758151/get-the-file-extension-from-images-picked-from-gallery-or-camera-as-string
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        // pdf
-        if (requestCode == CREATEPDF && resultCode == RESULT_OK && data.getData() != null && flagPdf) {
-            pdfUri = data.getData();
-            createPdf(pdfUri);
-            saveTranscriptFileInStorage();
-        } else if (requestCode == PICK_FILE && resultCode == RESULT_OK && data != null && data.getData() != null && flagFileTranscript) {
-            // dosya transkiript
-            transcriptUri = data.getData();
-            //System.out.println(getMimeType(CapActivity.this,transcriptUri));
-            image_cap_fileStateTranscript.setImageResource(R.drawable.yes);
-            textView_cap_fileStateTranscript.setText("Transkript Dosyasını Değiştir");
-        }
-    }
 
     // dosya kayıt format isimlendirme
     private String adjustFormat() {
@@ -329,11 +326,32 @@ public class CapActivity extends AppCompatActivity {
         return number + "_" + name + "_" + lastName + "_" + strDate;
     }
 
+
+    // basvurular firebase save
+    private void saveResources() {
+        fUser = fAuth.getCurrentUser();
+        resourcesAdd = new HashMap<String, String>();
+        resourcesAdd.put("type", "CAP");
+        resourcesAdd.put("userUid", fUser.getUid());
+        resourcesAdd.put("state", "0");
+        resourcesAdd.put("transcriptPath", transcriptPath);
+
+        firebaseFirestore.collection("Resources").document()
+                .set(resourcesAdd).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                System.out.println("Resourcers kayıt ok");
+            }
+        });
+    }
+
+
     // transkript firebase save
     private void saveTranscriptFileInStorage() {
         if (transcriptUri != null) {
             String extension = getMimeType(CapActivity.this, transcriptUri);
 
+            transcriptPath = "CAP/" + extension + "/Transcript/" + adjustFormat();
             StorageReference reference = storageReference.child("CAP").child(extension).child("Transcript/" + adjustFormat());
             reference.putFile(transcriptUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -376,6 +394,25 @@ public class CapActivity extends AppCompatActivity {
             checkAlertDialog.create().show();
         } else {
             Toast.makeText(CapActivity.this, "Boş alanlar var", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // pdf
+        if (requestCode == CREATE_PDF && resultCode == RESULT_OK && data.getData() != null && flagPdf) {
+            pdfUri = data.getData();
+            createPdf(pdfUri);
+            saveTranscriptFileInStorage();
+            saveResources();
+        } else if (requestCode == PICK_FILE && resultCode == RESULT_OK && data != null && data.getData() != null && flagFileTranscript) {
+            // dosya transkiript
+            transcriptUri = data.getData();
+            //System.out.println(getMimeType(CapActivity.this,transcriptUri));
+            image_cap_fileStateTranscript.setImageResource(R.drawable.yes);
+            textView_cap_fileStateTranscript.setText("Transkript Dosyasını Değiştir");
         }
     }
 }

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.yazilimlab.Model.UsersData;
 import com.example.yazilimlab.R;
 import com.example.yazilimlab.StudentHomeActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -68,9 +69,19 @@ public class YazOkuluActivity extends AppCompatActivity {
     private ArrayList<String> fileType;
 
     //Firebase
+    private FirebaseAuth fAuth;
+    private FirebaseUser fUser;
+    private FirebaseFirestore firebaseFirestore;
+    private DocumentReference docRef;
     FirebaseStorage storage;
     StorageReference storageReference;
     UsersData usersData;
+
+    // hashMap
+    private HashMap<String, String> resourcesAdd;
+
+    // path
+    private String transcriptPath, lessonPath, subScorePath;
 
     // Uri
     private Uri transcriptUri, lessonUri, subScoreUri, pdfUri;
@@ -131,6 +142,8 @@ public class YazOkuluActivity extends AppCompatActivity {
         editYazOkuluTakeLessonAKTS = (EditText) findViewById(R.id.editYazOkuluTakeLessonAKTS);
 
         //Firebase
+        fAuth = FirebaseAuth.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
         usersData = new UsersData();
@@ -564,12 +577,41 @@ public class YazOkuluActivity extends AppCompatActivity {
         }
     }
 
+    // basvurular firebase save
+    private void saveResources() {
+        fUser = fAuth.getCurrentUser();
+        resourcesAdd = new HashMap<String, String>();
+        resourcesAdd.put("type", "YazOkul");
+        resourcesAdd.put("userUid", fUser.getUid());
+        resourcesAdd.put("state", "0");
+        resourcesAdd.put("transcriptPath", transcriptPath);
+        resourcesAdd.put("lessonPath", lessonPath);
+        resourcesAdd.put("subScorePath", subScorePath);
+
+        firebaseFirestore.collection("Resources").document()
+                .set(resourcesAdd).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                System.out.println("Resourcers kayıt ok");
+            }
+        });
+    }
+
     // firebase save files
     private void saveFileInStorage() {
         if (fileUriList.size() == 3) {
 
             for (int i = 0; i < fileUriList.size(); i++) {
                 String extension = getMimeType(YazOkuluActivity.this, fileUriList.get(i));
+
+                if (i == 0) {
+                    transcriptPath = "YazOkul/" + extension + "/" + fileType.get(i) + adjustFormat();
+                } else if (i == 1) {
+                    lessonPath = "YazOkul/" + extension + "/" + fileType.get(i) + adjustFormat();
+                } else if (i == 2) {
+                    subScorePath = "YazOkul/" + extension + "/" + fileType.get(i) + adjustFormat();
+                }
+
                 StorageReference reference = storageReference.child("YazOkul").child(extension).child(fileType.get(i) + adjustFormat());
 
                 reference.putFile(fileUriList.get(i)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -593,14 +635,15 @@ public class YazOkuluActivity extends AppCompatActivity {
         }
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CREATE_PDF && resultCode == RESULT_OK && data.getData() != null && flagPdf) {
-
             pdfUri = data.getData();
             createPdf(pdfUri); // pdf olustur kaydet
             saveFileInStorage(); // dosyalari kaydet
+            saveResources();
         } else if (requestCode == PICK_FILE && resultCode == RESULT_OK && data != null && data.getData() != null && flagFileTranscript) {
             // dosya transkiript
             transcriptUri = data.getData();
@@ -623,6 +666,5 @@ public class YazOkuluActivity extends AppCompatActivity {
             image_yazOkul_fileStateSubScore.setImageResource(R.drawable.yes);
             textView_yazOkul_fileStateSubScore.setText("Taban Puan Değiştir");
         }
-
     }
 }

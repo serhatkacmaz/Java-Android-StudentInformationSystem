@@ -52,6 +52,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class IntibakActivity extends AppCompatActivity {
@@ -64,9 +65,19 @@ public class IntibakActivity extends AppCompatActivity {
     private ArrayList<String> fileType;
 
     //Firebase
+    private FirebaseAuth fAuth;
+    private FirebaseUser fUser;
+    private FirebaseFirestore firebaseFirestore;
+    private DocumentReference docRef;
     FirebaseStorage storage;
     StorageReference storageReference;
     UsersData usersData;
+
+    // hashMap
+    private HashMap<String, String> resourcesAdd;
+
+    // path
+    private String transcriptPath, lessonPath;
 
     // Uri
     private Uri transcriptUri, lessonUri, pdfUri;
@@ -99,6 +110,8 @@ public class IntibakActivity extends AppCompatActivity {
     private void init() {
 
         //Firebase
+        fAuth = FirebaseAuth.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
         usersData = new UsersData();
@@ -361,7 +374,6 @@ public class IntibakActivity extends AppCompatActivity {
         return true;
     }
 
-
     // daha önce aldığım start
     private void setTextStringOldLesson() {
         strOldLessonName = editIntibakOldLesson.getText().toString();
@@ -572,12 +584,39 @@ public class IntibakActivity extends AppCompatActivity {
         }
     }
 
+
+    // basvurular firebase save
+    private void saveResources() {
+        fUser = fAuth.getCurrentUser();
+        resourcesAdd = new HashMap<String, String>();
+        resourcesAdd.put("type", "Intibak");
+        resourcesAdd.put("userUid", fUser.getUid());
+        resourcesAdd.put("state", "0");
+        resourcesAdd.put("transcriptPath", transcriptPath);
+        resourcesAdd.put("lessonPath", lessonPath);
+
+        firebaseFirestore.collection("Resources").document()
+                .set(resourcesAdd).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                System.out.println("Resourcers kayıt ok");
+            }
+        });
+    }
+
     // firebase save files
     private void saveFileInStorage() {
         if (fileUriList.size() == 2) {
 
             for (int i = 0; i < fileUriList.size(); i++) {
                 String extension = getMimeType(IntibakActivity.this, fileUriList.get(i));
+
+                if (i == 0) {
+                    transcriptPath = "Intibak/" + extension + "/" + fileType.get(i) + adjustFormat();
+                } else if (i == 1) {
+                    lessonPath = "Intibak/" + extension + "/" + fileType.get(i) + adjustFormat();
+                }
+
                 StorageReference reference = storageReference.child("Intibak").child(extension).child(fileType.get(i) + adjustFormat());
 
                 reference.putFile(fileUriList.get(i)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -609,6 +648,7 @@ public class IntibakActivity extends AppCompatActivity {
             pdfUri = data.getData();
             createPdf(pdfUri); // pdf kaydet cihaz
             saveFileInStorage(); // dosyaları yukle firebase
+            saveResources();
         } else if (requestCode == PICK_FILE && resultCode == RESULT_OK && data != null && data.getData() != null && flagFileTranscript) {
             // dosya transkiript
             transcriptUri = data.getData();
