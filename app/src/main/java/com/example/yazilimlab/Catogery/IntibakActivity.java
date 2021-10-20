@@ -77,10 +77,10 @@ public class IntibakActivity extends AppCompatActivity {
     private HashMap<String, String> resourcesAdd;
 
     // path
-    private String transcriptPath, lessonPath;
+    private String transcriptPath, lessonPath, petitionPath;
 
     // Uri
-    private Uri transcriptUri, lessonUri, pdfUri;
+    private Uri transcriptUri, lessonUri, pdfUri, petitionUri;
     // file state
     private TextView textView_intibak_fileStateTranscript, textView_intibak_fileStateLesson;
     private ImageView image_intibak_fileStateTranscript, image_intibak_fileStateLesson;
@@ -121,6 +121,7 @@ public class IntibakActivity extends AppCompatActivity {
         fileType = new ArrayList<String>();
         fileType.add("Transcript/");
         fileType.add("LessonContents/");
+        fileType.add("Petition/");
 
         // file state
         textView_intibak_fileStateTranscript = (TextView) findViewById(R.id.textView_intibak_fileStateTranscript);
@@ -344,6 +345,7 @@ public class IntibakActivity extends AppCompatActivity {
             pdfDocument.close();
             stream.flush();
             Toast.makeText(this, "Pdf oluşturuldu", Toast.LENGTH_LONG).show();
+            petitionUri = uri;
             startActivity(new Intent(IntibakActivity.this, StudentHomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
         } catch (FileNotFoundException e) {
             Toast.makeText(this, "Dosya hatası bulunamadı", Toast.LENGTH_LONG).show();
@@ -601,7 +603,8 @@ public class IntibakActivity extends AppCompatActivity {
         resourcesAdd.put("state", "0");
         resourcesAdd.put("transcriptPath", transcriptPath);
         resourcesAdd.put("lessonPath", lessonPath);
-        resourcesAdd.put("date",strDate);
+        resourcesAdd.put("petitionPath", petitionPath);
+        resourcesAdd.put("date", strDate);
 
         firebaseFirestore.collection("Resources").document()
                 .set(resourcesAdd).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -614,7 +617,9 @@ public class IntibakActivity extends AppCompatActivity {
 
     // firebase save files
     private void saveFileInStorage() {
-        if (fileUriList.size() == 2) {
+
+        fileUriList.add(2, petitionUri);
+        if (fileUriList.size() == 3) {
 
             for (int i = 0; i < fileUriList.size(); i++) {
                 String extension = getMimeType(IntibakActivity.this, fileUriList.get(i));
@@ -623,6 +628,8 @@ public class IntibakActivity extends AppCompatActivity {
                     transcriptPath = "Intibak/" + extension + "/" + fileType.get(i) + adjustFormat();
                 } else if (i == 1) {
                     lessonPath = "Intibak/" + extension + "/" + fileType.get(i) + adjustFormat();
+                } else if (i == 2) {
+                    petitionPath = "Intibak/" + extension + "/" + fileType.get(i) + adjustFormat();
                 }
 
                 StorageReference reference = storageReference.child("Intibak").child(extension).child(fileType.get(i) + adjustFormat());
@@ -648,6 +655,7 @@ public class IntibakActivity extends AppCompatActivity {
         }
     }
 
+    private boolean t1 = false, t2 = false;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -660,14 +668,30 @@ public class IntibakActivity extends AppCompatActivity {
         } else if (requestCode == PICK_FILE && resultCode == RESULT_OK && data != null && data.getData() != null && flagFileTranscript) {
             // dosya transkiript
             transcriptUri = data.getData();
-            fileUriList.add(transcriptUri);
+
+            if (fileUriList.size() > 0 && t1) {
+                fileUriList.remove(0);
+                fileUriList.add(0, transcriptUri);
+            } else {
+                fileUriList.add(0, transcriptUri);
+                t1 = true;
+            }
+
             //System.out.println(getMimeType(CapActivity.this,transcriptUri));
             image_intibak_fileStateTranscript.setImageResource(R.drawable.yes);
             textView_intibak_fileStateTranscript.setText("Transkript Dosyasını Değiştir");
         } else if (requestCode == PICK_FILE && resultCode == RESULT_OK && data != null && data.getData() != null && flagFileLesson) {
             // dosya ders icerik
             lessonUri = data.getData();
-            fileUriList.add(lessonUri);
+
+            if (fileUriList.size() > 0 && t2) {
+                fileUriList.remove(1);
+                fileUriList.add(1, lessonUri);
+            } else {
+                fileUriList.add(1, lessonUri);
+                t2 = true;
+            }
+
             //System.out.println(getMimeType(CapActivity.this,transcriptUri));
             image_intibak_fileStateLesson.setImageResource(R.drawable.yes);
             textView_intibak_fileStateLesson.setText("Onaylı Ders Listesi Değiştir");

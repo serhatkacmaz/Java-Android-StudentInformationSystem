@@ -100,7 +100,7 @@ public class YatayGecisActivity extends AppCompatActivity {
     UsersData usersData;
 
     // Uri
-    private Uri transcriptUri, pdfUri;
+    private Uri transcriptUri, pdfUri, petitionUri;
 
     // image file state
     private ImageView image_yatayGecis_fileStateTranscript;
@@ -117,7 +117,7 @@ public class YatayGecisActivity extends AppCompatActivity {
     private HashMap<String, String> resourcesAdd;
 
     // path
-    private String transcriptPath;
+    private String transcriptPath, petitionPath;
 
 
     // EditText
@@ -129,6 +129,10 @@ public class YatayGecisActivity extends AppCompatActivity {
     // visibility
     private EditText editTextYatayGecisNo;
     private String strNo;
+
+    // ArrayList
+    private ArrayList<Uri> fileUriList;
+    private ArrayList<String> fileType;
 
     private TextInputLayout editTextYatayGecisNoWrap;
 
@@ -142,6 +146,13 @@ public class YatayGecisActivity extends AppCompatActivity {
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
         usersData = new UsersData();
+
+
+        //arrayList
+        fileUriList = new ArrayList<Uri>();
+        fileType = new ArrayList<String>();
+        fileType.add("Transcript/");
+        fileType.add("Petition/");
 
 
         // file state
@@ -409,6 +420,7 @@ public class YatayGecisActivity extends AppCompatActivity {
             pdfDocument.close();
             stream.flush();
             Toast.makeText(this, "Pdf oluşturuldu.\n", Toast.LENGTH_LONG).show();
+            petitionUri = uri;
             startActivity(new Intent(YatayGecisActivity.this, StudentHomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
         } catch (FileNotFoundException e) {
             Toast.makeText(this, "Dosya hatası bulunamadı", Toast.LENGTH_LONG).show();
@@ -518,7 +530,8 @@ public class YatayGecisActivity extends AppCompatActivity {
         resourcesAdd.put("userUid", fUser.getUid());
         resourcesAdd.put("state", "0");
         resourcesAdd.put("transcriptPath", transcriptPath);
-        resourcesAdd.put("date",strDate);
+        resourcesAdd.put("petitionPath", petitionPath);
+        resourcesAdd.put("date", strDate);
 
         firebaseFirestore.collection("Resources").document()
                 .set(resourcesAdd).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -532,30 +545,43 @@ public class YatayGecisActivity extends AppCompatActivity {
 
     // transkript firebase save
     private void saveTranscriptFileInStorage() {
-        if (transcriptUri != null) {
-            String extension = getMimeType(YatayGecisActivity.this, transcriptUri);
 
-            transcriptPath = "YatayGecis/" + extension + "/Transcript/" + adjustFormat();
-            StorageReference reference = storageReference.child("YatayGecis").child(extension).child("Transcript/" + adjustFormat());
-            reference.putFile(transcriptUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    // uri alma
-                    Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                    while (!uriTask.isComplete()) ;
-                    Uri linkUri = uriTask.getResult();
-                    System.out.println(linkUri);
-                    System.out.println("YatayGecis dosya Kayıt Tamam.");
-                    System.out.println("----------------------");
+        fileUriList.add(1, petitionUri);
+        if (fileUriList.size() == 2) {
+
+            for (int i = 0; i < fileUriList.size(); i++) {
+                String extension = getMimeType(YatayGecisActivity.this, fileUriList.get(i));
+
+                if (i == 0) {
+                    transcriptPath = "YatayGecis/" + extension + "/" + fileType.get(i) + adjustFormat();
+                } else if (i == 1) {
+                    petitionPath = "YatayGecis/" + extension + "/" + fileType.get(i) + adjustFormat();
                 }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(YatayGecisActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
+
+                StorageReference reference = storageReference.child("YatayGecis").child(extension).child(fileType.get(i) + adjustFormat());
+
+                reference.putFile(fileUriList.get(i)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // path alma
+                        Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+                        while (!uriTask.isComplete()) ;
+                        String linkUri = uriTask.getResult().getPath();
+                        System.out.println("Uri: " + String.valueOf(linkUri));
+                        System.out.println("YatayGecis dosya Kayıt Tamam.");
+                        System.out.println("----------------------");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(YatayGecisActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
         }
     }
+
+    private boolean t1 = false;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -568,6 +594,14 @@ public class YatayGecisActivity extends AppCompatActivity {
         } else if (requestCode == PICK_FILE && resultCode == RESULT_OK && data != null && data.getData() != null && flagFileTranscript) {
             // dosya transkiript
             transcriptUri = data.getData();
+
+            if (fileUriList.size() > 0 && t1) {
+                fileUriList.remove(0);
+                fileUriList.add(0, transcriptUri);
+            } else {
+                fileUriList.add(0, transcriptUri);
+                t1 = true;
+            }
             //System.out.println(getMimeType(CapActivity.this,transcriptUri));
             image_yatayGecis_fileStateTranscript.setImageResource(R.drawable.yes);
             textView_yatayGecis_fileStateTranscript.setText("Transkript Dosyasını Değiştir");

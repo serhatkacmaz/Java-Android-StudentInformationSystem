@@ -77,14 +77,15 @@ public class YazOkuluActivity extends AppCompatActivity {
     StorageReference storageReference;
     UsersData usersData;
 
+
     // hashMap
     private HashMap<String, String> resourcesAdd;
 
     // path
-    private String transcriptPath, lessonPath, subScorePath;
+    private String transcriptPath, lessonPath, subScorePath, petitionPath;
 
     // Uri
-    private Uri transcriptUri, lessonUri, subScoreUri, pdfUri;
+    private Uri transcriptUri, lessonUri, subScoreUri, pdfUri, petitionUri;
 
     // image file state
     private ImageView image_yazOkul_fileStateTranscript, image_yazOkul_fileStateLesson, image_yazOkul_fileStateSubScore;
@@ -130,6 +131,7 @@ public class YazOkuluActivity extends AppCompatActivity {
         fileType.add("Transcript/");
         fileType.add("LessonContents/");
         fileType.add("SubScore/");
+        fileType.add("Petition/");
 
 
         //yaz okulunda alıncak
@@ -466,6 +468,7 @@ public class YazOkuluActivity extends AppCompatActivity {
             pdfDocument.close();
             stream.flush();
             Toast.makeText(this, "Pdf oluşturuldu", Toast.LENGTH_LONG).show();
+            petitionUri = uri;
             startActivity(new Intent(YazOkuluActivity.this, StudentHomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
         } catch (FileNotFoundException e) {
             Toast.makeText(this, "Dosya hatası bulunamadı", Toast.LENGTH_LONG).show();
@@ -580,7 +583,6 @@ public class YazOkuluActivity extends AppCompatActivity {
     // basvurular firebase save
     private void saveResources() {
 
-
         // https://www.javatpoint.com/java-get-current-date
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -595,7 +597,8 @@ public class YazOkuluActivity extends AppCompatActivity {
         resourcesAdd.put("transcriptPath", transcriptPath);
         resourcesAdd.put("lessonPath", lessonPath);
         resourcesAdd.put("subScorePath", subScorePath);
-        resourcesAdd.put("date",strDate);
+        resourcesAdd.put("petitionPath", petitionPath);
+        resourcesAdd.put("date", strDate);
 
         firebaseFirestore.collection("Resources").document()
                 .set(resourcesAdd).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -608,7 +611,9 @@ public class YazOkuluActivity extends AppCompatActivity {
 
     // firebase save files
     private void saveFileInStorage() {
-        if (fileUriList.size() == 3) {
+
+        fileUriList.add(3, petitionUri);
+        if (fileUriList.size() == 4) {
 
             for (int i = 0; i < fileUriList.size(); i++) {
                 String extension = getMimeType(YazOkuluActivity.this, fileUriList.get(i));
@@ -619,6 +624,8 @@ public class YazOkuluActivity extends AppCompatActivity {
                     lessonPath = "YazOkul/" + extension + "/" + fileType.get(i) + adjustFormat();
                 } else if (i == 2) {
                     subScorePath = "YazOkul/" + extension + "/" + fileType.get(i) + adjustFormat();
+                } else if (i == 3) {
+                    petitionPath = "YazOkul/" + extension + "/" + fileType.get(i) + adjustFormat();
                 }
 
                 StorageReference reference = storageReference.child("YazOkul").child(extension).child(fileType.get(i) + adjustFormat());
@@ -645,6 +652,8 @@ public class YazOkuluActivity extends AppCompatActivity {
     }
 
 
+    private boolean t1 = false, t2 = false, t3 = false;
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -656,21 +665,48 @@ public class YazOkuluActivity extends AppCompatActivity {
         } else if (requestCode == PICK_FILE && resultCode == RESULT_OK && data != null && data.getData() != null && flagFileTranscript) {
             // dosya transkiript
             transcriptUri = data.getData();
-            fileUriList.add(transcriptUri);
+
+            if (fileUriList.size() > 0 && t1) {
+                fileUriList.remove(0);
+                fileUriList.add(0, transcriptUri);
+            } else {
+                fileUriList.add(0, transcriptUri);
+                t1 = true;
+            }
+
+
             //System.out.println(getMimeType(CapActivity.this,transcriptUri));
             image_yazOkul_fileStateTranscript.setImageResource(R.drawable.yes);
             textView_yazOkul_fileStateTranscript.setText("Transkript Dosyasını Değiştir");
         } else if (requestCode == PICK_FILE && resultCode == RESULT_OK && data != null && data.getData() != null && flagFileLesson) {
             // dosya ders icerik
             lessonUri = data.getData();
-            fileUriList.add(lessonUri);
+
+            if (fileUriList.size() > 0 && t2) {
+                fileUriList.remove(1);
+                fileUriList.add(1, lessonUri);
+            } else {
+                fileUriList.add(1, lessonUri);
+                t2 = true;
+            }
+
+
             //System.out.println(getMimeType(CapActivity.this,transcriptUri));
             image_yazOkul_fileStateLesson.setImageResource(R.drawable.yes);
             textView_yazOkul_fileStateLesson.setText("Ders Listesi Değiştir");
         } else if (requestCode == PICK_FILE && resultCode == RESULT_OK && data != null && data.getData() != null && flagFileSubScore) {
             // dosya taban puan
             subScoreUri = data.getData();
-            fileUriList.add(subScoreUri);
+
+            if (fileUriList.size() > 0 && t3) {
+                fileUriList.remove(2);
+                fileUriList.add(2, subScoreUri);
+            } else {
+                fileUriList.add(2, subScoreUri);
+                t3 = true;
+            }
+
+
             //System.out.println(getMimeType(CapActivity.this,transcriptUri));
             image_yazOkul_fileStateSubScore.setImageResource(R.drawable.yes);
             textView_yazOkul_fileStateSubScore.setText("Taban Puan Değiştir");

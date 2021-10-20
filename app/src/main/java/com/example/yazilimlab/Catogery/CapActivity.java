@@ -73,14 +73,18 @@ public class CapActivity extends AppCompatActivity {
     FirebaseStorage storage;
     StorageReference storageReference;
 
+    // ArrayList
+    private ArrayList<Uri> fileUriList;
+    private ArrayList<String> fileType;
+
     // hashMap
     private HashMap<String, String> resourcesAdd;
 
     // path
-    private String transcriptPath;
+    private String transcriptPath, petitionPath;
 
     // Uri
-    private Uri transcriptUri, pdfUri;
+    private Uri transcriptUri, pdfUri, petitionUri;
 
     // image file state
     private ImageView image_cap_fileStateTranscript;
@@ -111,6 +115,12 @@ public class CapActivity extends AppCompatActivity {
         arrayAdapterCapEducationType = new ArrayAdapter<String>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, arrayListCapEducationType);
         educationCapTypeDropDown.setAdapter(arrayAdapterCapEducationType);
         educationCapTypePassDropDown.setAdapter(arrayAdapterCapEducationType);
+
+        //arrayList
+        fileUriList = new ArrayList<Uri>();
+        fileType = new ArrayList<String>();
+        fileType.add("Transcript/");
+        fileType.add("Petition/");
 
         //editText
         editTextCapFaculty = (EditText) findViewById(R.id.editTextCapFaculty);
@@ -196,7 +206,7 @@ public class CapActivity extends AppCompatActivity {
 
         canvas.drawText("   " + usersData.getIncomingFaculty() + " " + usersData.getIncomingDepartment() + " Bölümü " + strEducationCapType, 30, 45, paint);
         canvas.drawText(usersData.getIncomingNumber() + " numaralı " + usersData.getIncomingName() + " " + usersData.getIncomingLastName() + " isimli öğrencisiyim.", 30, 50, paint);
-        canvas.drawText("       Kocaeli Üniversitesi Ön Lisans ve Lisans Eğitim ve Öğretim Yönetmeliği’nin 43. maddesi", 30, 60, paint);
+        canvas.drawText("       Kocaeli Üniversitesi Ön Lisans ve Lisans Eğitim ve Öğretim Yönetmeliği’nin 43.maddesi", 30, 60, paint);
         canvas.drawText("uyarınca, " + strCapFaculty + " Fakülteniz " + strCapBranch + " Bölümü aşağıda belirtmiş", 30, 65, paint);
         canvas.drawText("olduğum " + strEducationCapTypePass + " Çift Anadal Programı (ÇAP) kapsamında öğrenim görme talebimin kabul", 30, 70, paint);
         canvas.drawText("edilmesini arz ederim.", 30, 75, paint);
@@ -261,6 +271,7 @@ public class CapActivity extends AppCompatActivity {
             pdfDocument.close();
             stream.flush();
             Toast.makeText(this, "Pdf oluşturuldu", Toast.LENGTH_LONG).show();
+            petitionUri = uri;
             startActivity(new Intent(CapActivity.this, StudentHomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
 
         } catch (FileNotFoundException e) {
@@ -342,7 +353,8 @@ public class CapActivity extends AppCompatActivity {
         resourcesAdd.put("userUid", fUser.getUid());
         resourcesAdd.put("state", "0");
         resourcesAdd.put("transcriptPath", transcriptPath);
-        resourcesAdd.put("date",strDate);
+        resourcesAdd.put("petitionPath",petitionPath);
+        resourcesAdd.put("date", strDate);
 
         firebaseFirestore.collection("Resources").document()
                 .set(resourcesAdd).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -356,30 +368,43 @@ public class CapActivity extends AppCompatActivity {
 
     // transkript firebase save
     private void saveTranscriptFileInStorage() {
-        if (transcriptUri != null) {
-            String extension = getMimeType(CapActivity.this, transcriptUri);
 
-            transcriptPath = "CAP/" + extension + "/Transcript/" + adjustFormat();
-            StorageReference reference = storageReference.child("CAP").child(extension).child("Transcript/" + adjustFormat());
-            reference.putFile(transcriptUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    // uri alma
-                    Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                    while (!uriTask.isComplete()) ;
-                    Uri linkUri = uriTask.getResult();
-                    System.out.println(linkUri);
-                    System.out.println("Cap dosya Kayıt Tamam.");
-                    System.out.println("----------------------");
+        fileUriList.add(1, petitionUri);
+        System.out.println();
+        if (fileUriList.size() == 2) {
+
+            for (int i = 0; i < fileUriList.size(); i++) {
+                String extension = getMimeType(CapActivity.this, fileUriList.get(i));
+
+                if (i == 0) {
+                    transcriptPath = "CAP/" + extension + "/" + fileType.get(i) + adjustFormat();
+                } else if (i == 1) {
+                    petitionPath = "CAP/" + extension + "/" + fileType.get(i) + adjustFormat();
                 }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(CapActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
+
+                StorageReference reference = storageReference.child("CAP").child(extension).child(fileType.get(i) + adjustFormat());
+
+                reference.putFile(fileUriList.get(i)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // path alma
+                        Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+                        while (!uriTask.isComplete()) ;
+                        String linkUri = uriTask.getResult().getPath();
+                        System.out.println("Uri: " + String.valueOf(linkUri));
+                        System.out.println("Cap dosya Kayıt Tamam.");
+                        System.out.println("----------------------");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(CapActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
         }
     }
+
 
     // onayla butonu
     public void submitCAP(View view) {
@@ -405,6 +430,8 @@ public class CapActivity extends AppCompatActivity {
         }
     }
 
+    private boolean t1 = false;
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -418,6 +445,15 @@ public class CapActivity extends AppCompatActivity {
         } else if (requestCode == PICK_FILE && resultCode == RESULT_OK && data != null && data.getData() != null && flagFileTranscript) {
             // dosya transkiript
             transcriptUri = data.getData();
+
+            if (fileUriList.size() > 0 && t1) {
+                fileUriList.remove(0);
+                fileUriList.add(0, transcriptUri);
+            } else {
+                fileUriList.add(0, transcriptUri);
+                t1 = true;
+            }
+
             //System.out.println(getMimeType(CapActivity.this,transcriptUri));
             image_cap_fileStateTranscript.setImageResource(R.drawable.yes);
             textView_cap_fileStateTranscript.setText("Transkript Dosyasını Değiştir");
