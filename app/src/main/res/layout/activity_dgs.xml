@@ -104,35 +104,36 @@
                 tools:ignore="SpeakableTextPresentCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <LinearLayout
+        <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:layout_marginStart="5dp">
 
-            <TextView
-                android:id="@+id/textView_Dgs_fileStateTranscript"
-                android:layout_width="270dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/text_view_border"
-                android:onClick="selectFileTranscript"
-                android:padding="15dp"
-                android:text="Transkript Ekle"
-                android:textAllCaps="false"
-                android:textColor="@color/textViewGrayColor"
-                android:textSize="16dp" />
+            <TableRow android:gravity="center">
 
-            <ImageView
-                android:id="@+id/image_Dgs_fileStateTranscript"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_margin="15dp"
-                android:layout_marginTop="30dp"
-                android:src="@drawable/no" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/textView_Dgs_fileStateTranscript"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:background="@drawable/text_view_border"
+                    android:onClick="selectFileTranscript"
+                    android:padding="15dp"
+                    android:text="Transkript Ekle"
+                    android:textAllCaps="false"
+                    android:textColor="@color/textViewGrayColor"
+                    android:textSize="15dp" />
+
+                <ImageView
+                    android:id="@+id/image_Dgs_fileStateTranscript"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="15dp"
+                    android:layout_marginTop="30dp"
+                    android:src="@drawable/no" />
+            </TableRow>
+        </TableLayout>
+
 
         <TextView
             android:layout_width="match_parent"
@@ -143,35 +144,35 @@
             android:textColor="@color/red_helper"
             android:textSize="12dp" />
 
-        <LinearLayout
+        <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:layout_marginStart="5dp">
 
-            <TextView
-                android:id="@+id/textView_Dgs_fileStateLessonFile"
-                android:layout_width="270dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/text_view_border"
-                android:onClick="selectFileLessonFile"
-                android:padding="15dp"
-                android:text="Ders Listesi Ekle"
-                android:textAllCaps="false"
-                android:textColor="@color/textViewGrayColor"
-                android:textSize="16dp" />
+            <TableRow android:gravity="center">
 
-            <ImageView
-                android:id="@+id/image_Dgs_fileStateLessonFile"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_margin="15dp"
-                android:layout_marginTop="30dp"
-                android:src="@drawable/no" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/textView_Dgs_fileStateLessonFile"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:background="@drawable/text_view_border"
+                    android:onClick="selectFileLessonFile"
+                    android:padding="15dp"
+                    android:text="Ders Listesi Ekle"
+                    android:textAllCaps="false"
+                    android:textColor="@color/textViewGrayColor"
+                    android:textSize="15dp" />
+
+                <ImageView
+                    android:id="@+id/image_Dgs_fileStateLessonFile"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="15dp"
+                    android:layout_marginTop="30dp"
+                    android:src="@drawable/no" />
+            </TableRow>
+        </TableLayout>
 
         <TextView
             android:layout_width="match_parent"

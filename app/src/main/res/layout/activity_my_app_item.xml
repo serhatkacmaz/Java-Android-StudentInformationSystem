@@ -57,7 +57,7 @@
                 android:layout_height="50dp"
                 android:layout_marginRight="5dp"
                 android:background="@drawable/border_my_app_item"
-                android:backgroundTint="@color/ItemSelectedColor"
+                android:backgroundTint="@color/kou_green"
                 android:padding="10dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/file_upload"></ImageButton>
@@ -67,7 +67,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@drawable/border_my_app_item"
-                android:backgroundTint="@color/kou_green"
+                android:backgroundTint="@color/ItemSelectedColor"
                 android:padding="10dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/filedownb"></ImageButton>

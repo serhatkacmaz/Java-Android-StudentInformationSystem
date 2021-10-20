@@ -210,61 +210,65 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <LinearLayout
+        <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
-            <!-- hala kayıtlı olduğu kuruma kayıt puanı  -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/editTextYatayGecisScoreWrap"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="230dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:padding="5dp"
-                app:boxCornerRadiusBottomEnd="20dp"
-                app:boxCornerRadiusTopStart="20dp"
-                app:boxStrokeColor="@color/kou_green"
-                app:endIconMode="clear_text"
-                app:helperText="*Zorunlu Alan"
-                app:helperTextTextColor="@color/red_helper">
+            android:layout_marginStart="5dp">
 
-                <EditText
-                    android:id="@+id/editTextYatayGecisScore"
-                    android:layout_width="match_parent"
+            <TableRow android:gravity="center">
+                <!-- hala kayıtlı olduğu kuruma kayıt puanı  -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/editTextYatayGecisScoreWrap"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/black"
-                    android:ems="10"
-                    android:hint="Kayıtlı Olduğu Kuruma Yerleşme Puanı"
-                    android:inputType="number"
-                    android:minHeight="48dp"
-                    tools:ignore="SpeakableTextPresentCheck" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_gravity="center"
+                    android:layout_weight="4"
+                    android:padding="5dp"
+                    app:boxCornerRadiusBottomEnd="20dp"
+                    app:boxCornerRadiusTopStart="20dp"
+                    app:boxStrokeColor="@color/kou_green"
+                    app:endIconMode="clear_text"
+                    app:helperText="*Zorunlu Alan"
+                    app:helperTextTextColor="@color/red_helper">
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:hint="Puan Türü"
-                android:padding="5dp"
-                app:boxCornerRadiusBottomEnd="20dp"
-                app:boxCornerRadiusTopStart="20dp"
-                app:boxStrokeColor="@color/kou_green"
-                app:helperText="*Zorunlu Alan"
-                app:helperTextTextColor="@color/red_helper">
+                    <EditText
+                        android:id="@+id/editTextYatayGecisScore"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/black"
+                        android:ems="10"
+                        android:hint="Kayıtlı Olduğu Kuruma Yerleşme Puanı"
+                        android:inputType="number"
+                        android:minHeight="48dp"
+                        tools:ignore="SpeakableTextPresentCheck" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <AutoCompleteTextView
-                    android:id="@+id/autoCompleteYatayGecispScoreType1"
-                    android:layout_width="match_parent"
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:enabled="false"
-                    android:inputType="none"
-                    android:textColor="@color/black" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
+                    android:layout_gravity="center"
+                    android:layout_weight="2.75"
+                    android:hint="Puan Türü"
+                    android:padding="5dp"
+                    app:boxCornerRadiusBottomEnd="20dp"
+                    app:boxCornerRadiusTopStart="20dp"
+                    app:boxStrokeColor="@color/kou_green"
+                    app:helperText="*Zorunlu Alan"
+                    app:helperTextTextColor="@color/red_helper">
 
+                    <AutoCompleteTextView
+                        android:id="@+id/autoCompleteYatayGecispScoreType1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:inputType="none"
+                        android:textColor="@color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </TableRow>
+        </TableLayout>
 
 
         <!-- yabancı dil puanı -->
@@ -382,91 +386,97 @@
 
 
         <!-- başvurulacak bölüme ait puan -->
-        <LinearLayout
+        <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/editTextYatayGecisScore2Wrap"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="230dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:padding="5dp"
-                app:boxCornerRadiusBottomEnd="20dp"
-                app:boxCornerRadiusTopStart="20dp"
-                app:boxStrokeColor="@color/kou_green"
-                app:endIconMode="clear_text"
-                app:helperText="*Zorunlu Alan"
-                app:helperTextTextColor="@color/red_helper">
+            android:layout_marginStart="5dp">
 
-                <EditText
-                    android:id="@+id/editTextYatayGecisScore2"
+            <TableRow android:gravity="center">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/editTextYatayGecisScore2Wrap"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="6"
+                    android:padding="5dp"
+                    app:boxCornerRadiusBottomEnd="20dp"
+                    app:boxCornerRadiusTopStart="20dp"
+                    app:boxStrokeColor="@color/kou_green"
+                    app:endIconMode="clear_text"
+                    app:helperText="*Zorunlu Alan"
+                    app:helperTextTextColor="@color/red_helper">
+
+                    <EditText
+                        android:id="@+id/editTextYatayGecisScore2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/black"
+                        android:ems="10"
+                        android:hint="Başurulacak Bölüme Ait Puan"
+                        android:inputType="number"
+                        tools:ignore="SpeakableTextPresentCheck" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/black"
-                    android:ems="10"
-                    android:hint="Başurulacak Bölüme Ait Puan"
-                    android:inputType="number"
-                    android:minHeight="48dp"
-                    tools:ignore="SpeakableTextPresentCheck" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:hint="Puan Türü"
+                    android:maxWidth="20dp"
+                    android:padding="5dp"
+                    app:boxCornerRadiusBottomEnd="20dp"
+                    app:boxCornerRadiusTopStart="20dp"
+                    app:boxStrokeColor="@color/kou_green"
+                    app:helperText="*Zorunlu Alan"
+                    app:helperTextTextColor="@color/red_helper">
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:hint="Puan Türü"
-                android:padding="5dp"
-                app:boxCornerRadiusBottomEnd="20dp"
-                app:boxCornerRadiusTopStart="20dp"
-                app:boxStrokeColor="@color/kou_green"
-                android:maxWidth="20dp"
-                app:helperText="*Zorunlu Alan"
-                app:helperTextTextColor="@color/red_helper">
-
-                <AutoCompleteTextView
-                    android:id="@+id/autoCompleteYatayGecispScoreType2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:enabled="false"
-                    android:inputType="none"
-                    android:textColor="@color/black" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
+                    <AutoCompleteTextView
+                        android:id="@+id/autoCompleteYatayGecispScoreType2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:inputType="none"
+                        android:textColor="@color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </TableRow>
+        </TableLayout>
 
         <!--Transkript-->
-        <LinearLayout
+        <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:layout_marginStart="5dp">
 
-            <TextView
-                android:id="@+id/textView_yatayGecis_fileStateTranscript"
-                android:layout_width="270dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/text_view_border"
-                android:onClick="selectFileTranscript"
-                android:padding="15dp"
-                android:text="Transkript Ekle"
-                android:textAllCaps="false"
-                android:textColor="@color/textViewGrayColor"
-                android:textSize="16dp" />
+            <TableRow android:gravity="center">
 
-            <ImageView
-                android:id="@+id/image_yatayGecis_fileStateTranscript"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_margin="15dp"
-                android:layout_marginTop="30dp"
-                android:src="@drawable/no" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/textView_yatayGecis_fileStateTranscript"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_weight="5"
+                    android:background="@drawable/text_view_border"
+                    android:onClick="selectFileTranscript"
+                    android:padding="15dp"
+                    android:text="Transkript Ekle"
+                    android:textAllCaps="false"
+                    android:textColor="@color/textViewGrayColor"
+                    android:textSize="16dp" />
+
+                <ImageView
+                    android:id="@+id/image_yatayGecis_fileStateTranscript"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="15dp"
+                    android:layout_marginTop="30dp"
+                    android:src="@drawable/no" />
+            </TableRow>
+        </TableLayout>
 
         <TextView
             android:layout_width="match_parent"
@@ -482,8 +492,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:layout_marginTop="30dp"
-            android:text="Onayla"
             android:onClick="submitYatayGecis"
+            android:text="Onayla"
             android:textSize="16dp" />
     </LinearLayout>
 </ScrollView>
