@@ -1,15 +1,29 @@
 package com.example.yazilimlab.Model;
 
 public class MyAppItemInfo {
-    String type,state,date;
+    String type;
+    String state;
+    String date;
 
-    public MyAppItemInfo(){
+    public String getPetitionPath() {
+        return petitionPath;
+    }
+
+    public void setPetitionPath(String petitionPath) {
+        this.petitionPath = petitionPath;
+    }
+
+    String petitionPath;
+
+    public MyAppItemInfo() {
 
     }
-    public MyAppItemInfo(String type, String state, String userUid) {
+
+    public MyAppItemInfo(String type, String state, String userUid, String petitionPath) {
         this.type = type;
         this.state = state;
         this.date = userUid;
+        this.petitionPath = petitionPath;
     }
 
     public String getType() {
