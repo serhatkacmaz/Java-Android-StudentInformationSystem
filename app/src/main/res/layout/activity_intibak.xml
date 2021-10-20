@@ -138,128 +138,136 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <LinearLayout
-            android:id="@+id/Intibak_linearLayoutLesson1"
+        <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginStart="5dp">
+
+            <TableRow android:gravity="center">
 
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="3dp"
-                app:boxCornerRadiusBottomEnd="20dp"
-                app:boxCornerRadiusTopStart="20dp"
-                app:boxStrokeColor="@color/kou_green"
-                app:helperTextTextColor="@color/red_helper">
-
-                <EditText
-                    android:id="@+id/editIntibakOldLessonT"
-                    android:layout_width="match_parent"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_weight="4"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/black"
-                    android:ems="10"
-                    android:hint="T"
-                    android:inputType="number"
-                    android:minHeight="48dp"
-                    tools:ignore="SpeakableTextPresentCheck" />
+                    android:layout_marginRight="3dp"
+                    app:boxCornerRadiusBottomEnd="20dp"
+                    app:boxCornerRadiusTopStart="20dp"
+                    app:boxStrokeColor="@color/kou_green"
+                    app:helperTextTextColor="@color/red_helper">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <EditText
+                        android:id="@+id/editIntibakOldLessonT"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/black"
+                        android:ems="10"
+                        android:hint="T"
+                        android:inputType="number"
+                        android:minHeight="48dp"
+                        tools:ignore="SpeakableTextPresentCheck" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="58dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                app:boxCornerRadiusBottomEnd="20dp"
-                app:boxCornerRadiusTopStart="20dp"
-                app:boxStrokeColor="@color/kou_green"
-                app:helperTextTextColor="@color/red_helper">
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <EditText
-                    android:id="@+id/editIntibakOldLessonUL"
-                    android:layout_width="match_parent"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_weight="5"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/black"
-                    android:ems="10"
-                    android:hint="U/L"
-                    android:inputType="number"
-                    android:minHeight="48dp"
-                    tools:ignore="SpeakableTextPresentCheck" />
+                    android:layout_marginRight="5dp"
+                    app:boxCornerRadiusBottomEnd="20dp"
+                    app:boxCornerRadiusTopStart="20dp"
+                    app:boxStrokeColor="@color/kou_green"
+                    app:helperTextTextColor="@color/red_helper">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <EditText
+                        android:id="@+id/editIntibakOldLessonUL"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/black"
+                        android:ems="10"
+                        android:hint="U/L"
+                        android:inputType="number"
+                        android:minHeight="48dp"
+                        tools:ignore="SpeakableTextPresentCheck" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                app:boxCornerRadiusBottomEnd="20dp"
-                app:boxCornerRadiusTopStart="20dp"
-                app:boxStrokeColor="@color/kou_green"
-                app:helperTextTextColor="@color/red_helper">
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <EditText
-                    android:id="@+id/editIntibakOldLessonK"
-                    android:layout_width="match_parent"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_weight="4"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/black"
-                    android:ems="10"
-                    android:hint="K"
-                    android:inputType="number"
-                    android:minHeight="48dp"
-                    tools:ignore="SpeakableTextPresentCheck" />
+                    android:layout_marginRight="5dp"
+                    app:boxCornerRadiusBottomEnd="20dp"
+                    app:boxCornerRadiusTopStart="20dp"
+                    app:boxStrokeColor="@color/kou_green"
+                    app:helperTextTextColor="@color/red_helper">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <EditText
+                        android:id="@+id/editIntibakOldLessonK"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/black"
+                        android:ems="10"
+                        android:hint="K"
+                        android:inputType="number"
+                        android:minHeight="48dp"
+                        tools:ignore="SpeakableTextPresentCheck" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="72dp"
-                android:layout_height="wrap_content"
-                app:boxCornerRadiusBottomEnd="20dp"
-                app:boxCornerRadiusTopStart="20dp"
-                app:boxStrokeColor="@color/kou_green"
-                app:helperTextTextColor="@color/red_helper">
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <EditText
-                    android:id="@+id/editIntibakOldLessonAKTS"
-                    android:layout_width="match_parent"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_weight="6"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/black"
-                    android:ems="10"
-                    android:hint="AKTS"
-                    android:inputType="number"
-                    android:minHeight="48dp"
-                    tools:ignore="SpeakableTextPresentCheck" />
+                    app:boxCornerRadiusBottomEnd="20dp"
+                    app:boxCornerRadiusTopStart="20dp"
+                    app:boxStrokeColor="@color/kou_green"
+                    app:helperTextTextColor="@color/red_helper">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <EditText
+                        android:id="@+id/editIntibakOldLessonAKTS"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/black"
+                        android:ems="10"
+                        android:hint="AKTS"
+                        android:inputType="number"
+                        android:minHeight="48dp"
+                        tools:ignore="SpeakableTextPresentCheck" />
 
-            <Button
-                android:id="@+id/buttonIntibakOldLessonAdd"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="18dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:onClick="IntibakOldLessonAdd"
-                android:text="+"
-                android:textSize="14dp" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-            <Button
-                android:id="@+id/buttonIntibakOldLessonRemove"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:onClick="IntibakOldLessonRemove"
-                android:text="-"
-                android:textSize="14dp" />
-        </LinearLayout>
+                <Button
+                    android:id="@+id/buttonIntibakOldLessonAdd"
+                    android:layout_width="0dp"
+                    android:layout_weight="4"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:onClick="IntibakOldLessonAdd"
+                    android:text="+"
+                    android:textSize="20dp" />
+
+                <Button
+                    android:id="@+id/buttonIntibakOldLessonRemove"
+                    android:layout_width="0dp"
+                    android:layout_weight="4"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:onClick="IntibakOldLessonRemove"
+                    android:text="-"
+                    android:textSize="22dp" />
+            </TableRow>
+        </TableLayout>
 
         <TextView
             android:layout_width="match_parent"
@@ -333,127 +341,135 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <LinearLayout
-            android:id="@+id/Intibak_linearLayoutTakeLesson1"
+        <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginStart="5dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="3dp"
-                app:boxCornerRadiusBottomEnd="20dp"
-                app:boxCornerRadiusTopStart="20dp"
-                app:boxStrokeColor="@color/kou_green"
-                app:helperTextTextColor="@color/red_helper">
+            <TableRow android:gravity="center">
 
-                <EditText
-                    android:id="@+id/editIntibakExemptLessonT"
-                    android:layout_width="match_parent"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_weight="4"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/black"
-                    android:ems="10"
-                    android:hint="T"
-                    android:inputType="number"
-                    android:minHeight="48dp"
-                    tools:ignore="SpeakableTextPresentCheck" />
+                    android:layout_marginRight="3dp"
+                    app:boxCornerRadiusBottomEnd="20dp"
+                    app:boxCornerRadiusTopStart="20dp"
+                    app:boxStrokeColor="@color/kou_green"
+                    app:helperTextTextColor="@color/red_helper">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <EditText
+                        android:id="@+id/editIntibakExemptLessonT"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/black"
+                        android:ems="10"
+                        android:hint="T"
+                        android:inputType="number"
+                        android:minHeight="48dp"
+                        tools:ignore="SpeakableTextPresentCheck" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="58dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                app:boxCornerRadiusBottomEnd="20dp"
-                app:boxCornerRadiusTopStart="20dp"
-                app:boxStrokeColor="@color/kou_green"
-                app:helperTextTextColor="@color/red_helper">
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <EditText
-                    android:id="@+id/editIntibakExemptLessonUL"
-                    android:layout_width="match_parent"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_weight="5"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/black"
-                    android:ems="10"
-                    android:hint="U/L"
-                    android:inputType="number"
-                    android:minHeight="48dp"
-                    tools:ignore="SpeakableTextPresentCheck" />
+                    android:layout_marginRight="5dp"
+                    app:boxCornerRadiusBottomEnd="20dp"
+                    app:boxCornerRadiusTopStart="20dp"
+                    app:boxStrokeColor="@color/kou_green"
+                    app:helperTextTextColor="@color/red_helper">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <EditText
+                        android:id="@+id/editIntibakExemptLessonUL"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/black"
+                        android:ems="10"
+                        android:hint="U/L"
+                        android:inputType="number"
+                        android:minHeight="48dp"
+                        tools:ignore="SpeakableTextPresentCheck" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                app:boxCornerRadiusBottomEnd="20dp"
-                app:boxCornerRadiusTopStart="20dp"
-                app:boxStrokeColor="@color/kou_green"
-                app:helperTextTextColor="@color/red_helper">
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <EditText
-                    android:id="@+id/editIntibakExemptLessonK"
-                    android:layout_width="match_parent"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_weight="4"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/black"
-                    android:ems="10"
-                    android:hint="K"
-                    android:inputType="number"
-                    android:minHeight="48dp"
-                    tools:ignore="SpeakableTextPresentCheck" />
+                    android:layout_marginRight="5dp"
+                    app:boxCornerRadiusBottomEnd="20dp"
+                    app:boxCornerRadiusTopStart="20dp"
+                    app:boxStrokeColor="@color/kou_green"
+                    app:helperTextTextColor="@color/red_helper">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <EditText
+                        android:id="@+id/editIntibakExemptLessonK"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/black"
+                        android:ems="10"
+                        android:hint="K"
+                        android:inputType="number"
+                        android:minHeight="48dp"
+                        tools:ignore="SpeakableTextPresentCheck" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="72dp"
-                android:layout_height="wrap_content"
-                app:boxCornerRadiusBottomEnd="20dp"
-                app:boxCornerRadiusTopStart="20dp"
-                app:boxStrokeColor="@color/kou_green"
-                app:helperTextTextColor="@color/red_helper">
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <EditText
-                    android:id="@+id/editIntibakExemptLessonAKTS"
-                    android:layout_width="match_parent"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_weight="6"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/black"
-                    android:ems="10"
-                    android:hint="AKTS"
-                    android:inputType="number"
-                    android:minHeight="48dp"
-                    tools:ignore="SpeakableTextPresentCheck" />
+                    app:boxCornerRadiusBottomEnd="20dp"
+                    app:boxCornerRadiusTopStart="20dp"
+                    app:boxStrokeColor="@color/kou_green"
+                    app:helperTextTextColor="@color/red_helper">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <EditText
+                        android:id="@+id/editIntibakExemptLessonAKTS"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/black"
+                        android:ems="10"
+                        android:hint="AKTS"
+                        android:inputType="number"
+                        android:minHeight="48dp"
+                        tools:ignore="SpeakableTextPresentCheck" />
 
-            <Button
-                android:id="@+id/buttonIntibakExemptLessonAdd"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="18dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:onClick="IntibakExemptLessonAdd"
-                android:text="+"
-                android:textSize="14dp" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-            <Button
-                android:id="@+id/buttonIntibakExemptLessonRemove"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:onClick="IntibakExemptLessonRemove"
-                android:text="-"
-                android:textSize="14dp" />
-        </LinearLayout>
+                <Button
+                    android:id="@+id/buttonIntibakExemptLessonAdd"
+                    android:layout_width="0dp"
+                    android:layout_weight="4"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:onClick="IntibakExemptLessonAdd"
+                    android:text="+"
+                    android:textSize="20dp" />
+
+                <Button
+                    android:id="@+id/buttonIntibakExemptLessonRemove"
+                    android:layout_width="0dp"
+                    android:layout_weight="4"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:onClick="IntibakExemptLessonRemove"
+                    android:text="-"
+                    android:textSize="22dp" />
+            </TableRow>
+        </TableLayout>
 
         <TextView
             android:layout_width="match_parent"
@@ -465,35 +481,37 @@
             android:textSize="12dp" />
 
         <!--Transkript-->
-        <LinearLayout
+        <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:layout_marginStart="5dp">
 
-            <TextView
-                android:id="@+id/textView_intibak_fileStateTranscript"
-                android:layout_width="270dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/text_view_border"
-                android:onClick="selectFileTranscript"
-                android:padding="15dp"
-                android:text="Transkript Ekle"
-                android:textAllCaps="false"
-                android:textColor="@color/textViewGrayColor"
-                android:textSize="16dp" />
+            <TableRow android:gravity="center">
 
-            <ImageView
-                android:id="@+id/image_intibak_fileStateTranscript"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_margin="15dp"
-                android:layout_marginTop="30dp"
-                android:src="@drawable/no" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/textView_intibak_fileStateTranscript"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_weight="4"
+                    android:background="@drawable/text_view_border"
+                    android:onClick="selectFileTranscript"
+                    android:padding="15dp"
+                    android:text="Transkript Ekle"
+                    android:textAllCaps="false"
+                    android:textColor="@color/textViewGrayColor"
+                    android:textSize="16dp" />
+
+                <ImageView
+                    android:id="@+id/image_intibak_fileStateTranscript"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="15dp"
+                    android:layout_marginTop="30dp"
+                    android:src="@drawable/no" />
+            </TableRow>
+        </TableLayout>
 
         <TextView
             android:layout_width="match_parent"
@@ -505,35 +523,37 @@
             android:textSize="12dp" />
 
         <!--Onaylı Ders-->
-        <LinearLayout
+        <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:layout_marginStart="5dp">
 
-            <TextView
-                android:id="@+id/textView_intibak_fileStateLesson"
-                android:layout_width="270dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/text_view_border"
-                android:onClick="selectFileLesson"
-                android:padding="15dp"
-                android:text="Onaylı Ders Liste Ekle"
-                android:textAllCaps="false"
-                android:textColor="@color/textViewGrayColor"
-                android:textSize="16dp" />
+            <TableRow android:gravity="center">
 
-            <ImageView
-                android:id="@+id/image_intibak_fileStateLesson"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_margin="15dp"
-                android:layout_marginTop="30dp"
-                android:src="@drawable/no" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/textView_intibak_fileStateLesson"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_weight="4"
+                    android:background="@drawable/text_view_border"
+                    android:onClick="selectFileLesson"
+                    android:padding="15dp"
+                    android:text="Onaylı Ders Liste Ekle"
+                    android:textAllCaps="false"
+                    android:textColor="@color/textViewGrayColor"
+                    android:textSize="16dp" />
+
+                <ImageView
+                    android:id="@+id/image_intibak_fileStateLesson"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="15dp"
+                    android:layout_marginTop="30dp"
+                    android:src="@drawable/no" />
+            </TableRow>
+        </TableLayout>
 
         <TextView
             android:layout_width="match_parent"
