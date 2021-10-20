@@ -154,6 +154,7 @@
                 <TextView
                     android:id="@+id/textView_Dgs_fileStateLessonFile"
                     android:layout_width="0dp"
+                    android:enabled="false"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
                     android:background="@drawable/text_view_border"
