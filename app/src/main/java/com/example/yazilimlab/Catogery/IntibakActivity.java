@@ -596,7 +596,7 @@ public class IntibakActivity extends AppCompatActivity {
 
         fUser = fAuth.getCurrentUser();
         resourcesAdd = new HashMap<String, String>();
-        resourcesAdd.put("type", "Intibak");
+        resourcesAdd.put("type", "İntibak");
         resourcesAdd.put("userUid", fUser.getUid());
         resourcesAdd.put("state", "0");
         resourcesAdd.put("transcriptPath", transcriptPath);

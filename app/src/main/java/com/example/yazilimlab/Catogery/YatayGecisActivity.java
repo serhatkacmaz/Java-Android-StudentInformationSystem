@@ -514,7 +514,7 @@ public class YatayGecisActivity extends AppCompatActivity {
 
         fUser = fAuth.getCurrentUser();
         resourcesAdd = new HashMap<String, String>();
-        resourcesAdd.put("type", "YatayGecis");
+        resourcesAdd.put("type", "Yatay Geciş");
         resourcesAdd.put("userUid", fUser.getUid());
         resourcesAdd.put("state", "0");
         resourcesAdd.put("transcriptPath", transcriptPath);

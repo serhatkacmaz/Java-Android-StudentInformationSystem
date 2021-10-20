@@ -37,10 +37,10 @@ public class MyAppItemAdapter extends RecyclerView.Adapter<MyAppItemAdapter.Item
     @Override
     public void onBindViewHolder(@NonNull ItemInfoHolder holder, int position) {
 
-        MyAppItemInfo myAppItemInfo=myAppItemInfoArrayList.get(position);
-        holder.myApplicationItem_typeText.setText(myAppItemInfo.type);
+        MyAppItemInfo myAppItemInfo = myAppItemInfoArrayList.get(position);
+        holder.myApplicationItem_typeText.setText(myAppItemInfo.type + " \nBaşvurusu");
         holder.myApplicationItem_dateText.setText(myAppItemInfo.date);
-        holder.myApplicationItem_stateText.setText(myAppItemInfo.state);
+        holder.stateText(myAppItemInfo.state);
     }
 
     // liste boyutu
@@ -60,6 +60,24 @@ public class MyAppItemAdapter extends RecyclerView.Adapter<MyAppItemAdapter.Item
             myApplicationItem_stateText = (TextView) itemView.findViewById(R.id.myApplicationItem_stateText);
             myApplicationItem_dateText = (TextView) itemView.findViewById(R.id.myApplicationItem_dateText);
         }
+
+        public void stateText(String strState) {
+            switch (strState) {
+                case "0":
+                    this.myApplicationItem_stateText.setText("İmza Bekleniyor");
+                    break;
+                case "1":
+                    this.myApplicationItem_stateText.setText("Onay Bekleniyor");
+                    break;
+                case "2":
+                    this.myApplicationItem_stateText.setText("Başvuru Onaylandı");
+                    break;
+                case "3":
+                    this.myApplicationItem_stateText.setText("Başvuru Reddedildi");
+                    break;
+            }
+        }
+
 
         public void setData(MyAppItemInfo myAppItemInfo) {
             this.myApplicationItem_typeText.setText(myAppItemInfo.getType());

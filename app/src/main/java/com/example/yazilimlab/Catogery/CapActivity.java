@@ -338,7 +338,7 @@ public class CapActivity extends AppCompatActivity {
 
         fUser = fAuth.getCurrentUser();
         resourcesAdd = new HashMap<String, String>();
-        resourcesAdd.put("type", "CAP");
+        resourcesAdd.put("type", "Çap");
         resourcesAdd.put("userUid", fUser.getUid());
         resourcesAdd.put("state", "0");
         resourcesAdd.put("transcriptPath", transcriptPath);

@@ -321,7 +321,7 @@ public class DgsActivity extends AppCompatActivity {
 
         fUser = fAuth.getCurrentUser();
         resourcesAdd = new HashMap<String, String>();
-        resourcesAdd.put("type", "DGS");
+        resourcesAdd.put("type", "Dgs");
         resourcesAdd.put("userUid", fUser.getUid());
         resourcesAdd.put("state", "0");
         resourcesAdd.put("transcriptPath", transcriptPath);

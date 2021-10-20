@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.yazilimlab.Model.MyAppItemAdapter;
 import com.example.yazilimlab.Model.MyAppItemInfo;
@@ -31,6 +32,8 @@ public class MyApplicationFragment extends Fragment {
     ArrayList<MyAppItemInfo> myAppItemInfoArrayList;
     MyAppItemAdapter myAppItemAdapter;
 
+    private TextView myApplicationItem_stateText;
+    private String strState;
     private FirebaseAuth fAuth;
     private FirebaseUser fUser;
     FirebaseFirestore firebaseFirestore;
@@ -46,6 +49,7 @@ public class MyApplicationFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        myApplicationItem_stateText = (TextView) view.findViewById(R.id.myApplicationItem_stateText);
         recyclerView = (RecyclerView) view.findViewById(R.id.myApp_recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -58,11 +62,11 @@ public class MyApplicationFragment extends Fragment {
         myAppItemAdapter = new MyAppItemAdapter(myAppItemInfoArrayList, getActivity());
 
         recyclerView.setAdapter(myAppItemAdapter);
-        EventChangeListener();
-
+        eventChangeListener();
     }
 
-    private void EventChangeListener() {
+
+    private void eventChangeListener() {
         fUser = fAuth.getCurrentUser();
         firebaseFirestore.collection("Resources").whereEqualTo("userUid", fUser.getUid())
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {

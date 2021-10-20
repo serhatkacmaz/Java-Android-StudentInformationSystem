@@ -589,7 +589,7 @@ public class YazOkuluActivity extends AppCompatActivity {
 
         fUser = fAuth.getCurrentUser();
         resourcesAdd = new HashMap<String, String>();
-        resourcesAdd.put("type", "YazOkul");
+        resourcesAdd.put("type", "Yaz Okulu");
         resourcesAdd.put("userUid", fUser.getUid());
         resourcesAdd.put("state", "0");
         resourcesAdd.put("transcriptPath", transcriptPath);
