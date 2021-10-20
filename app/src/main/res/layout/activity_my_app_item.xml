@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    app:cardElevation="8dp"
+    tools:context=".StudentHomeFragment.MyAppItem">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="6dp"
+        android:layout_marginStart="16dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/myApplicationItem_typeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Intibak Başvurusu"
+                android:textSize="26dp"
+                android:textStyle="bold" />
+
+            <!--state-->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/myApplicationItem_stateText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="imza Bekleniyor"
+                    android:textAlignment="center"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/myApplicationItem_stateImage"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/clock" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/myApplicationItem_dateText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="21/07/2021"
+                android:textAlignment="center"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/myApplicationItem_sendDownlandImage"
+            android:layout_width="50dp"
+            android:layout_height="125dp"
+            android:background="#3F51B5"
+            android:padding="6dp"
+            android:src="@drawable/file_dowland_logo" />
+
+        <ImageView
+            android:id="@+id/myApplicationItem_sendFileImage"
+            android:layout_width="50dp"
+            android:layout_height="125dp"
+            android:background="@color/kou_green"
+            android:padding="5dp"
+            android:src="@drawable/signature_logo" />
+
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>
