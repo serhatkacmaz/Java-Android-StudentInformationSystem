@@ -4,92 +4,71 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp"
+    android:layout_margin="3dp"
     app:cardElevation="8dp"
     tools:context=".StudentHomeFragment.MyAppItem">
 
-    <LinearLayout
+
+    <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="6dp"
-        android:layout_marginStart="16dp"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_margin="10dp">
 
-        <LinearLayout
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/myApplicationItem_typeText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Intibak Başvurusu"
-                android:textSize="26dp"
-                android:textStyle="bold" />
-
-            <!--state-->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/myApplicationItem_stateText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:text="imza Bekleniyor"
-                    android:textAlignment="center"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:id="@+id/myApplicationItem_stateImage"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/clock" />
-
-            </LinearLayout>
-
+        <TableRow android:gravity="center">
 
             <TextView
                 android:id="@+id/myApplicationItem_dateText"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="21/07/2021"
-                android:textAlignment="center"
-                android:textSize="18dp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/myApplicationItem_sendDownlandImage"
-            android:layout_width="50dp"
-            android:layout_height="125dp"
-            android:background="#3F51B5"
-            android:padding="6dp"
-            android:src="@drawable/file_dowland_logo" />
-
-        <ImageView
-            android:id="@+id/myApplicationItem_sendFileImage"
-            android:layout_width="50dp"
-            android:layout_height="125dp"
-            android:background="@color/kou_green"
-            android:padding="5dp"
-            android:src="@drawable/signature_logo" />
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:text="21/02/2012"
+                android:textColor="@color/black"
+                android:textSize="14dp" />
 
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/myApplicationItem_typeText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:text="Intibak Başvurusu"
+                android:textColor="@color/black"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/myApplicationItem_stateText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:text="İmza Bekleniyor"
+                android:textColor="@color/black"
+                android:textSize="14dp" />
+
+            <ImageButton
+
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/border_my_app_item"
+                android:backgroundTint="@color/SearchFragmentBgColor"
+                android:padding="10dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/signature_logo"></ImageButton>
+
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/border_my_app_item"
+                android:backgroundTint="@color/kou_green"
+                android:padding="10dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/filedownb"></ImageButton>
+        </TableRow>
+    </TableLayout>
 
 
 </androidx.cardview.widget.CardView>

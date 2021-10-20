@@ -579,6 +579,14 @@ public class YazOkuluActivity extends AppCompatActivity {
 
     // basvurular firebase save
     private void saveResources() {
+
+
+        // https://www.javatpoint.com/java-get-current-date
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String strDate = formatter.format(date);
+        // https://www.javatpoint.com/java-get-current-date
+
         fUser = fAuth.getCurrentUser();
         resourcesAdd = new HashMap<String, String>();
         resourcesAdd.put("type", "YazOkul");
@@ -587,6 +595,7 @@ public class YazOkuluActivity extends AppCompatActivity {
         resourcesAdd.put("transcriptPath", transcriptPath);
         resourcesAdd.put("lessonPath", lessonPath);
         resourcesAdd.put("subScorePath", subScorePath);
+        resourcesAdd.put("date",strDate);
 
         firebaseFirestore.collection("Resources").document()
                 .set(resourcesAdd).addOnCompleteListener(new OnCompleteListener<Void>() {

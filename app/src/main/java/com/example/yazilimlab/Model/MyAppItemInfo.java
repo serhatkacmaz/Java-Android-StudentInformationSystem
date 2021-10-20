@@ -1,7 +1,7 @@
 package com.example.yazilimlab.Model;
 
 public class MyAppItemInfo {
-    String type,state,userUid;
+    String type,state,date;
 
     public MyAppItemInfo(){
 
@@ -9,7 +9,7 @@ public class MyAppItemInfo {
     public MyAppItemInfo(String type, String state, String userUid) {
         this.type = type;
         this.state = state;
-        this.userUid = userUid;
+        this.date = userUid;
     }
 
     public String getType() {
@@ -28,11 +28,11 @@ public class MyAppItemInfo {
         this.state = state;
     }
 
-    public String getUserUid() {
-        return userUid;
+    public String getDate() {
+        return date;
     }
 
-    public void setUserUid(String userUid) {
-        this.userUid = userUid;
+    public void setDate(String userUid) {
+        this.date = userUid;
     }
 }

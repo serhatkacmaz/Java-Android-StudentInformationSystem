@@ -39,7 +39,7 @@ public class MyAppItemAdapter extends RecyclerView.Adapter<MyAppItemAdapter.Item
 
         MyAppItemInfo myAppItemInfo=myAppItemInfoArrayList.get(position);
         holder.myApplicationItem_typeText.setText(myAppItemInfo.type);
-        holder.myApplicationItem_dateText.setText(myAppItemInfo.userUid);
+        holder.myApplicationItem_dateText.setText(myAppItemInfo.date);
         holder.myApplicationItem_stateText.setText(myAppItemInfo.state);
     }
 
@@ -64,7 +64,7 @@ public class MyAppItemAdapter extends RecyclerView.Adapter<MyAppItemAdapter.Item
         public void setData(MyAppItemInfo myAppItemInfo) {
             this.myApplicationItem_typeText.setText(myAppItemInfo.getType());
             this.myApplicationItem_stateText.setText(myAppItemInfo.getState());
-            this.myApplicationItem_dateText.setText(myAppItemInfo.getUserUid());
+            this.myApplicationItem_dateText.setText(myAppItemInfo.getDate());
 
         }
     }
