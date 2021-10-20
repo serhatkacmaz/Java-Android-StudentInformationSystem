@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.yazilimlab.Model.MyAppItemAdapter;
 import com.example.yazilimlab.Model.MyAppItemInfo;
@@ -63,6 +64,23 @@ public class MyApplicationFragment extends Fragment {
 
         recyclerView.setAdapter(myAppItemAdapter);
         eventChangeListener();
+
+        myAppItemAdapter.setOnItemClickListener(new MyAppItemAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(MyAppItemInfo myAppItemInfo, int position) {
+                System.out.println("item");
+            }
+
+            @Override
+            public void onDownloadClick(MyAppItemInfo myAppItemInfo, int position) {
+                System.out.println("dowland");
+            }
+
+            @Override
+            public void onUploadClick(MyAppItemInfo myAppItemInfo, int position) {
+                System.out.println("upload");
+            }
+        });
     }
 
 

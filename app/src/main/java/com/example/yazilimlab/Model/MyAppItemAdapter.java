@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,8 @@ public class MyAppItemAdapter extends RecyclerView.Adapter<MyAppItemAdapter.Item
 
     ArrayList<MyAppItemInfo> myAppItemInfoArrayList;
     private Context context;
+
+    private OnItemClickListener listener;
 
     public MyAppItemAdapter(ArrayList<MyAppItemInfo> myAppItemInfoArrayList, Context context) {
         this.myAppItemInfoArrayList = myAppItemInfoArrayList;
@@ -52,6 +55,7 @@ public class MyAppItemAdapter extends RecyclerView.Adapter<MyAppItemAdapter.Item
     class ItemInfoHolder extends RecyclerView.ViewHolder {
 
         TextView myApplicationItem_typeText, myApplicationItem_stateText, myApplicationItem_dateText;
+        ImageButton myApplicationItem_fileUploadButton, myApplicationItem_fileDownloadButton;
 
         public ItemInfoHolder(@NonNull View itemView) {
             super(itemView);
@@ -59,6 +63,45 @@ public class MyAppItemAdapter extends RecyclerView.Adapter<MyAppItemAdapter.Item
             myApplicationItem_typeText = (TextView) itemView.findViewById(R.id.myApplicationItem_typeText);
             myApplicationItem_stateText = (TextView) itemView.findViewById(R.id.myApplicationItem_stateText);
             myApplicationItem_dateText = (TextView) itemView.findViewById(R.id.myApplicationItem_dateText);
+            myApplicationItem_fileUploadButton = (ImageButton) itemView.findViewById(R.id.myApplicationItem_fileUploadButton);
+            myApplicationItem_fileDownloadButton = (ImageButton) itemView.findViewById(R.id.myApplicationItem_fileDownloadButton);
+
+
+            // item
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(myAppItemInfoArrayList.get(position), position);
+                    }
+                }
+            });
+
+            // download
+            myApplicationItem_fileDownloadButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onDownloadClick(myAppItemInfoArrayList.get(position), position);
+                    }
+                }
+            });
+
+            // Upload
+            myApplicationItem_fileUploadButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onUploadClick(myAppItemInfoArrayList.get(position), position);
+                    }
+                }
+            });
         }
 
         public void stateText(String strState) {
@@ -85,5 +128,17 @@ public class MyAppItemAdapter extends RecyclerView.Adapter<MyAppItemAdapter.Item
             this.myApplicationItem_dateText.setText(myAppItemInfo.getDate());
 
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(MyAppItemInfo myAppItemInfo, int position);
+
+        void onDownloadClick(MyAppItemInfo myAppItemInfo, int position);
+
+        void onUploadClick(MyAppItemInfo myAppItemInfo, int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 }
