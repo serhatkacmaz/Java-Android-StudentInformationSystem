@@ -53,10 +53,10 @@
                 android:layout_height="50dp"
                 android:layout_marginRight="5dp"
                 android:background="@drawable/border_my_app_item"
-                android:backgroundTint="@color/SearchFragmentBgColor"
+                android:backgroundTint="@color/ItemSelectedColor"
                 android:padding="10dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/signature_logo"></ImageButton>
+                android:src="@drawable/file_upload"></ImageButton>
 
 
             <ImageButton
