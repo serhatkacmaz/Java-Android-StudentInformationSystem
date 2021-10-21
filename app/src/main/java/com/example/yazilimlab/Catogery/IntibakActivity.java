@@ -619,6 +619,7 @@ public class IntibakActivity extends AppCompatActivity {
         resourcesAdd.put("type", "İntibak");
         resourcesAdd.put("userUid", fUser.getUid());
         resourcesAdd.put("state", "0");
+        resourcesAdd.put("uploadState","0");
         resourcesAdd.put("transcriptPath", transcriptPath);
         resourcesAdd.put("lessonPath", lessonPath);
         resourcesAdd.put("petitionPath", petitionPath);
