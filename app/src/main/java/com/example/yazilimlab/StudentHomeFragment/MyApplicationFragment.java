@@ -59,7 +59,6 @@ public class MyApplicationFragment extends Fragment {
     MyAppItemAdapter myAppItemAdapter;
 
     // basvuru durumu
-    private TextView myApplicationItem_stateText;
     private String strState;
 
     // firebase
@@ -116,7 +115,6 @@ public class MyApplicationFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // RecyclerView
-        myApplicationItem_stateText = (TextView) view.findViewById(R.id.myApplicationItem_stateText);
         recyclerView = (RecyclerView) view.findViewById(R.id.myApp_recyclerView);
         init();
 
@@ -180,12 +178,10 @@ public class MyApplicationFragment extends Fragment {
         intent.setType("application/pdf");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Dosya Seç"), PICK_FILE);
-        deleteNotSignatureFile(myAppItemInfo);  // sistemden eski dosyayıi sil
     }
 
     // firebase uzerinde eski dosyayı sil
     private void deleteNotSignatureFile(MyAppItemInfo myAppItemInfo) {
-        mInfo = myAppItemInfo;
         StorageReference reference = storageReference.child(myAppItemInfo.getPetitionPath());
 
         reference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -302,6 +298,7 @@ public class MyApplicationFragment extends Fragment {
 
         if (requestCode == PICK_FILE && resultCode == RESULT_OK && data.getData() != null) {
             uploadFileUri = data.getData();
+            deleteNotSignatureFile(mInfo);  // sistemden eski dosyayıi sil
             saveUploadFile(mInfo);
             updateField(mInfo);  // field güncelleme
             // refresh
