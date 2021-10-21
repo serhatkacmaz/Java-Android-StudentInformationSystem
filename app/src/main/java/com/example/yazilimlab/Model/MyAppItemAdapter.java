@@ -2,6 +2,7 @@ package com.example.yazilimlab.Model;
 
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -114,9 +115,15 @@ public class MyAppItemAdapter extends RecyclerView.Adapter<MyAppItemAdapter.Item
                     break;
                 case "2":
                     this.myApplicationItem_stateText.setText("Başvuru Onaylandı");
+                    //this.myApplicationItem_fileUploadButton.setVisibility(View.GONE);
+                    myApplicationItem_fileUploadButton.setBackgroundColor(Color.TRANSPARENT);
+                    myApplicationItem_fileUploadButton.setEnabled(false);
                     break;
                 case "3":
                     this.myApplicationItem_stateText.setText("Başvuru Reddedildi");
+                    //this.myApplicationItem_fileUploadButton.setVisibility(View.GONE);
+                    myApplicationItem_fileUploadButton.setBackgroundColor(Color.TRANSPARENT);
+                    myApplicationItem_fileUploadButton.setEnabled(false);
                     break;
             }
         }

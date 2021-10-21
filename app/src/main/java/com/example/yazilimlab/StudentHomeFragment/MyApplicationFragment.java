@@ -6,20 +6,26 @@ import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Environment;
+import android.transition.AutoTransition;
+import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,10 +59,15 @@ import java.util.Date;
 
 public class MyApplicationFragment extends Fragment {
 
-    // RecyclerView
-    RecyclerView recyclerView;
-    ArrayList<MyAppItemInfo> myAppItemInfoArrayList;
-    MyAppItemAdapter myAppItemAdapter;
+    // RecyclerViewOnGoing
+    RecyclerView myApp_recyclerViewOnGoing;
+    ArrayList<MyAppItemInfo> myAppItemInfoOnGoingArrayList;
+    MyAppItemAdapter myAppItemOnGoingAdapter;
+
+    // RecyclerViewOnGoing
+    RecyclerView myApp_recyclerViewEnd;
+    ArrayList<MyAppItemInfo> myAppItemInfoEndArrayList;
+    MyAppItemAdapter myAppItemEndAdapter;
 
     // basvuru durumu
     private String strState;
@@ -78,8 +89,12 @@ public class MyApplicationFragment extends Fragment {
 
     // dosya isimleri,yolları
     private String fileName, uploadFilePathName;
-    private MyAppItemInfo mInfo;
+    private MyAppItemInfo mInfoOnGoing;
     private String getStateUpload;
+
+    // CardView Extand
+    private CardView myApp_CardViewOnGoing, myApp_CardViewEnd;
+    private LinearLayout myApp_linearLayoutOnGoing, myApp_linearLayoutEnd;
 
 
     @Override
@@ -90,24 +105,29 @@ public class MyApplicationFragment extends Fragment {
     }
 
     private void init() {
-
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-
-        //Firebase
+        // Firebase
         fAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
-        myAppItemInfoArrayList = new ArrayList<MyAppItemInfo>();
-        myAppItemAdapter = new MyAppItemAdapter(myAppItemInfoArrayList, getActivity());
-
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
         usersData = new UsersData();
 
-        recyclerView.setAdapter(myAppItemAdapter);
-        eventChangeListener();
 
+        // recyclerViewOnGoing
+        myApp_recyclerViewOnGoing.setHasFixedSize(true);
+        myApp_recyclerViewOnGoing.setLayoutManager(new LinearLayoutManager(getActivity()));
+        myAppItemInfoOnGoingArrayList = new ArrayList<MyAppItemInfo>();
+        myAppItemOnGoingAdapter = new MyAppItemAdapter(myAppItemInfoOnGoingArrayList, getActivity());
+        myApp_recyclerViewOnGoing.setAdapter(myAppItemOnGoingAdapter);
+        eventChangeListenerOnGoing();
+
+
+        // recyclerViewEnd
+        myApp_recyclerViewEnd.setHasFixedSize(true);
+        myApp_recyclerViewEnd.setLayoutManager(new LinearLayoutManager(getActivity()));
+        myAppItemInfoEndArrayList = new ArrayList<MyAppItemInfo>();
+        myAppItemEndAdapter = new MyAppItemAdapter(myAppItemInfoEndArrayList, getActivity());
+        myApp_recyclerViewEnd.setAdapter(myAppItemEndAdapter);
     }
 
     @Override
@@ -115,15 +135,52 @@ public class MyApplicationFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // RecyclerView
-        recyclerView = (RecyclerView) view.findViewById(R.id.myApp_recyclerView);
+        myApp_recyclerViewOnGoing = (RecyclerView) view.findViewById(R.id.myApp_recyclerViewOnGoing);
+        myApp_recyclerViewEnd = (RecyclerView) view.findViewById(R.id.myApp_recyclerViewEnd);
+
+        // CardView
+        myApp_CardViewOnGoing = (CardView) view.findViewById(R.id.myApp_CardViewOnGoing);
+        myApp_CardViewEnd = (CardView) view.findViewById(R.id.myApp_CardViewEnd);
+
+        // LinearLayout
+        myApp_linearLayoutOnGoing = (LinearLayout) view.findViewById(R.id.myApp_linearLayoutOnGoing);
+        myApp_linearLayoutEnd = (LinearLayout) view.findViewById(R.id.myApp_linearLayoutEnd);
+
         init();
 
 
-        // card click
-        myAppItemAdapter.setOnItemClickListener(new MyAppItemAdapter.OnItemClickListener() {
+        // devam eden CardView extend event
+        myApp_CardViewOnGoing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            public void onClick(View view) {
+                // https://www.youtube.com/watch?v=qIJ_U51s4ls&list=PLY0RqCbhFOzJZCQQ07rTTIt2YCGIxsR5-&index=18&t=421s
+                int v = (myApp_recyclerViewOnGoing.getVisibility() == View.GONE) ? View.VISIBLE : View.GONE;
+                TransitionManager.beginDelayedTransition(myApp_linearLayoutOnGoing, new AutoTransition());
+                myApp_recyclerViewOnGoing.setVisibility(v);
+                // https://www.youtube.com/watch?v=qIJ_U51s4ls&list=PLY0RqCbhFOzJZCQQ07rTTIt2YCGIxsR5-&index=18&t=421s
+            }
+        });
+
+        // biten CardView extend event
+        myApp_CardViewEnd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            public void onClick(View view) {
+                // https://www.youtube.com/watch?v=qIJ_U51s4ls&list=PLY0RqCbhFOzJZCQQ07rTTIt2YCGIxsR5-&index=18&t=421s
+                int v = (myApp_recyclerViewEnd.getVisibility() == View.GONE) ? View.VISIBLE : View.GONE;
+                TransitionManager.beginDelayedTransition(myApp_linearLayoutEnd, new AutoTransition());
+                myApp_recyclerViewEnd.setVisibility(v);
+                // https://www.youtube.com/watch?v=qIJ_U51s4ls&list=PLY0RqCbhFOzJZCQQ07rTTIt2YCGIxsR5-&index=18&t=421s
+            }
+        });
+
+
+        // devam eden item click
+        myAppItemOnGoingAdapter.setOnItemClickListener(new MyAppItemAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(MyAppItemInfo myAppItemInfo, int position) {
-                System.out.println("item");
+                System.out.println("item devam eden");
             }
 
             @Override
@@ -133,11 +190,30 @@ public class MyApplicationFragment extends Fragment {
 
             @Override
             public void onUploadClick(MyAppItemInfo myAppItemInfo, int position) {
-                mInfo = myAppItemInfo;
+                mInfoOnGoing = myAppItemInfo;
                 getStateField(myAppItemInfo);
+            }
+        });
+
+        // biten item click
+        myAppItemEndAdapter.setOnItemClickListener(new MyAppItemAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(MyAppItemInfo myAppItemInfo, int position) {
+                System.out.println("item biten");
+            }
+
+            @Override
+            public void onDownloadClick(MyAppItemInfo myAppItemInfo, int position) {
+
+            }
+
+            @Override
+            public void onUploadClick(MyAppItemInfo myAppItemInfo, int position) {
 
             }
         });
+
+
     }
 
     // imzalı yada imzasız güncel pdf dosyasını indirme
@@ -259,7 +335,7 @@ public class MyApplicationFragment extends Fragment {
                     System.out.println(documentSnapshot.getData().get("state").toString());
                     getStateUpload = documentSnapshot.getData().get("state").toString();
                     if (getStateUpload.equals("0")) {
-                        selectFile(mInfo);
+                        selectFile(mInfoOnGoing);
                     } else {
                         Toast.makeText(getActivity(), "Dosya gönderilmiş durumda", Toast.LENGTH_SHORT).show();
                     }
@@ -269,7 +345,7 @@ public class MyApplicationFragment extends Fragment {
     }
 
     // yapılan başvuruları listeleme
-    private void eventChangeListener() {
+    private void eventChangeListenerOnGoing() {
         fUser = fAuth.getCurrentUser();
         firebaseFirestore.collection("Resources").whereEqualTo("userUid", fUser.getUid())
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -284,9 +360,9 @@ public class MyApplicationFragment extends Fragment {
                                 docRef.update("documentId", dc.getDocument().getId());
 
                                 System.out.println(dc.getDocument().toObject(MyAppItemInfo.class));
-                                myAppItemInfoArrayList.add(dc.getDocument().toObject(MyAppItemInfo.class));
+                                myAppItemInfoOnGoingArrayList.add(dc.getDocument().toObject(MyAppItemInfo.class));
                             }
-                            myAppItemAdapter.notifyDataSetChanged();
+                            myAppItemOnGoingAdapter.notifyDataSetChanged();
                         }
                     }
                 });
@@ -298,12 +374,13 @@ public class MyApplicationFragment extends Fragment {
 
         if (requestCode == PICK_FILE && resultCode == RESULT_OK && data.getData() != null) {
             uploadFileUri = data.getData();
-            deleteNotSignatureFile(mInfo);  // sistemden eski dosyayıi sil
-            saveUploadFile(mInfo);
-            updateField(mInfo);  // field güncelleme
+            deleteNotSignatureFile(mInfoOnGoing);  // sistemden eski dosyayıi sil
+            saveUploadFile(mInfoOnGoing);
+            updateField(mInfoOnGoing);  // field güncelleme
+
             // refresh
-            myAppItemInfoArrayList.clear();
-            eventChangeListener();
+            myAppItemInfoOnGoingArrayList.clear();
+            eventChangeListenerOnGoing();
         }
     }
 }

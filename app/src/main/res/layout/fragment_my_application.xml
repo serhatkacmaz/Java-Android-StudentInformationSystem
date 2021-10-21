@@ -2,91 +2,92 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/myApp_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/myApp_fragment"
     tools:context=".StudentHomeFragment.MyApplicationFragment">
 
-    <androidx.cardview.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="2.5dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="8dp">
-
-        <TableLayout
+        android:orientation="vertical">
+        <!--Devam Eden Başvurular-->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/myApp_CardViewOnGoing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp">
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="2.5dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="8dp"
+            app:contentPadding="15dp">
 
-            <TableRow android:gravity="center">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:gravity="center_horizontal"
-                    android:layout_marginStart="14dp"
-                    android:text="Tarih"
-                    android:textColor="@color/black"
-                    android:textSize="14dp"
-                    android:textStyle="bold" />
-
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="5"
-                    android:gravity="center_horizontal"
-                    android:text="Başvuru Türü"
-                    android:layout_marginStart="34dp"
-                    android:textColor="@color/black"
-                    android:textSize="14dp"
-                    android:textStyle="bold" />
+            <LinearLayout
+                android:id="@+id/myApp_linearLayoutOnGoing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:gravity="center_horizontal"
-                    android:layout_marginStart="30dp"
-                    android:text="Durum"
-                    android:textColor="@color/black"
-                    android:textSize="14dp"
+                    android:layout_marginBottom="3dp"
+                    android:text="Devam Eden Başvurular"
+                    android:textSize="20dp"
                     android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/myApp_recyclerViewOnGoing"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="3dp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <!--Biten Başvurular-->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/myApp_CardViewEnd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="2.5dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="8dp"
+            app:contentPadding="15dp">
+
+            <LinearLayout
+                android:id="@+id/myApp_linearLayoutEnd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:gravity="center_horizontal"
-                    android:layout_marginStart="24dp"
-                    android:text="Yükle"
-                    android:textColor="@color/black"
-                    android:textSize="14dp"
+                    android:layout_marginBottom="3dp"
+                    android:text="Biten Başvurular"
+                    android:textSize="20dp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:gravity="center_horizontal"
-                    android:text="İndir"
-                    android:textColor="@color/black"
-                    android:textSize="14dp"
-                    android:textStyle="bold" />
-            </TableRow>
-        </TableLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/myApp_recyclerViewEnd"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="3dp"
+                    android:visibility="gone" />
+            </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/myApp_recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="75dp" />
+
 </FrameLayout>
