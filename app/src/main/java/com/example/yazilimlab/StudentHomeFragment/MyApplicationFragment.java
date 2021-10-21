@@ -128,6 +128,7 @@ public class MyApplicationFragment extends Fragment {
         myAppItemInfoEndArrayList = new ArrayList<MyAppItemInfo>();
         myAppItemEndAdapter = new MyAppItemAdapter(myAppItemInfoEndArrayList, getActivity());
         myApp_recyclerViewEnd.setAdapter(myAppItemEndAdapter);
+        eventChangeListenerEnd();
     }
 
     @Override
@@ -154,6 +155,7 @@ public class MyApplicationFragment extends Fragment {
             @Override
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             public void onClick(View view) {
+                refreshOnGoingCardView();
                 // https://www.youtube.com/watch?v=qIJ_U51s4ls&list=PLY0RqCbhFOzJZCQQ07rTTIt2YCGIxsR5-&index=18&t=421s
                 int v = (myApp_recyclerViewOnGoing.getVisibility() == View.GONE) ? View.VISIBLE : View.GONE;
                 TransitionManager.beginDelayedTransition(myApp_linearLayoutOnGoing, new AutoTransition());
@@ -167,6 +169,7 @@ public class MyApplicationFragment extends Fragment {
             @Override
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             public void onClick(View view) {
+                refreshEndCardView();
                 // https://www.youtube.com/watch?v=qIJ_U51s4ls&list=PLY0RqCbhFOzJZCQQ07rTTIt2YCGIxsR5-&index=18&t=421s
                 int v = (myApp_recyclerViewEnd.getVisibility() == View.GONE) ? View.VISIBLE : View.GONE;
                 TransitionManager.beginDelayedTransition(myApp_linearLayoutEnd, new AutoTransition());
@@ -204,7 +207,7 @@ public class MyApplicationFragment extends Fragment {
 
             @Override
             public void onDownloadClick(MyAppItemInfo myAppItemInfo, int position) {
-
+                downloadFile(myAppItemInfo);
             }
 
             @Override
@@ -344,7 +347,7 @@ public class MyApplicationFragment extends Fragment {
         });
     }
 
-    // yapılan başvuruları listeleme
+    // devam eden başvuruları listeleme
     private void eventChangeListenerOnGoing() {
         fUser = fAuth.getCurrentUser();
         firebaseFirestore.collection("Resources").whereEqualTo("userUid", fUser.getUid())
@@ -358,11 +361,38 @@ public class MyApplicationFragment extends Fragment {
                                 // document ıd ekleme işlemi field olarak ekleme
                                 DocumentReference docRef = firebaseFirestore.collection("Resources").document(dc.getDocument().getId());
                                 docRef.update("documentId", dc.getDocument().getId());
+                                System.out.println(dc.getDocument().getData().get("state"));
 
-                                System.out.println(dc.getDocument().toObject(MyAppItemInfo.class));
-                                myAppItemInfoOnGoingArrayList.add(dc.getDocument().toObject(MyAppItemInfo.class));
+                                // imzalancak ve onay bekleyen basvurular
+                                if (dc.getDocument().getData().get("state").equals("0") || dc.getDocument().getData().get("state").equals("1")) {
+                                    System.out.println(dc.getDocument().toObject(MyAppItemInfo.class));
+                                    myAppItemInfoOnGoingArrayList.add(dc.getDocument().toObject(MyAppItemInfo.class));
+                                }
                             }
                             myAppItemOnGoingAdapter.notifyDataSetChanged();
+                        }
+                    }
+                });
+    }
+
+    // biten başvuruları listeleme
+    private void eventChangeListenerEnd() {
+        fUser = fAuth.getCurrentUser();
+        firebaseFirestore.collection("Resources").whereEqualTo("userUid", fUser.getUid())
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                        for (DocumentChange dc : value.getDocumentChanges()) {
+                            if (dc.getType() == DocumentChange.Type.ADDED) {
+
+                                // onaylanan ve red edilen basvurular
+                                if (dc.getDocument().getData().get("state").equals("2") || dc.getDocument().getData().get("state").equals("3")) {
+                                    System.out.println(dc.getDocument().toObject(MyAppItemInfo.class));
+                                    myAppItemInfoEndArrayList.add(dc.getDocument().toObject(MyAppItemInfo.class));
+                                }
+                            }
+                            myAppItemEndAdapter.notifyDataSetChanged();
                         }
                     }
                 });
@@ -378,9 +408,18 @@ public class MyApplicationFragment extends Fragment {
             saveUploadFile(mInfoOnGoing);
             updateField(mInfoOnGoing);  // field güncelleme
 
-            // refresh
-            myAppItemInfoOnGoingArrayList.clear();
-            eventChangeListenerOnGoing();
+            refreshOnGoingCardView();
         }
+    }
+
+    // refresh
+    private void refreshOnGoingCardView() {
+        myAppItemInfoOnGoingArrayList.clear();
+        eventChangeListenerOnGoing();
+    }
+
+    private void refreshEndCardView() {
+        myAppItemInfoEndArrayList.clear();
+        eventChangeListenerEnd();
     }
 }
