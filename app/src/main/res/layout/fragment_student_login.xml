@@ -71,70 +71,69 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:layout_marginBottom="30dp"
-        android:gravity="center"
-        android:orientation="horizontal">
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <Switch
-            android:id="@+id/switch_studentLogin_RememberMe"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="3dp"
-            android:layout_gravity="left"
-            android:textColor="@color/textViewGrayColor"
-            android:textSize="10dp"
-            android:textStyle="bold" />
+        <TableRow android:gravity="left">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="buttonRegisterPage"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="Beni Hatırla"
-            android:textColor="@color/textViewGrayColor"
-            android:textSize="10dp"
-            android:layout_marginRight="75dp"
-            android:textStyle="bold"
-            tools:ignore="TouchTargetSizeCheck" />
+            <Switch
+                android:id="@+id/switch_studentLogin_RememberMe"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/textViewGrayColor"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/buttonStudentLoginRegisterPage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="3dp"
-            android:onClick="buttonRegisterPage"
-            android:text="Kayıt Ol "
-            android:textColor="#000000"
-            android:textSize="12dp"
-            android:textStyle="bold"
-            tools:ignore="TouchTargetSizeCheck" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:enabled="false"
+                android:onClick="buttonRegisterPage"
+                android:text="Beni Hatırla"
+                android:textColor="@color/textViewGrayColor"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                tools:ignore="TouchTargetSizeCheck" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" / "
-            android:textSize="13dp"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/buttonStudentLoginRegisterPage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="70dp"
+                android:onClick="buttonRegisterPage"
+                android:text="Kayıt Ol "
+                android:textColor="#000000"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                tools:ignore="TouchTargetSizeCheck" />
 
-        <TextView
-            android:id="@+id/textStudentLoginForgetPassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="3dp"
-            android:onClick="buttonForgetPasswordPage"
-            android:text="Şifremi Unuttum!"
-            android:textColor="#000000"
-            android:textSize="12dp"
-            android:layout_marginRight="10dp"
-            android:textStyle="bold"
-            tools:ignore="TouchTargetSizeCheck" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:gravity="center"
+                android:text=" / "
+                android:textSize="13dp"
+                android:textStyle="bold" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/textStudentLoginForgetPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:gravity="center"
+                android:onClick="buttonForgetPasswordPage"
+                android:text="Şifremi Unuttum!"
+                android:textColor="#000000"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                tools:ignore="TouchTargetSizeCheck" />
+
+        </TableRow>
+
+    </TableLayout>
 
 
     <Button

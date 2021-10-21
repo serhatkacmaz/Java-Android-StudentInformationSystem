@@ -136,7 +136,7 @@ public class MyApplicationFragment extends Fragment {
             @Override
             public void onUploadClick(MyAppItemInfo myAppItemInfo, int position) {
                 mInfo = myAppItemInfo;
-                getUploadStateField(myAppItemInfo);
+                getStateField(myAppItemInfo);
 
             }
         });
@@ -248,21 +248,20 @@ public class MyApplicationFragment extends Fragment {
         DocumentReference docRef = firebaseFirestore.collection("Resources").document(myAppItemInfo.getDocumentId());
         docRef.update("petitionPath", uploadFilePathName);
         docRef.update("state", "1");
-        docRef.update("uploadState", "1");
         System.out.println("field update");
         //myAppItemInfo.setPetitionPath(uploadFilePathName);
     }
 
     // pdf yüklemek için aktif pasif durumu
-    private void getUploadStateField(MyAppItemInfo myAppItemInfo) {
+    private void getStateField(MyAppItemInfo myAppItemInfo) {
 
         docRef = firebaseFirestore.collection("Resources").document(myAppItemInfo.getDocumentId());
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists()) {
-                    System.out.println(documentSnapshot.getData().get("uploadState").toString());
-                    getStateUpload = documentSnapshot.getData().get("uploadState").toString();
+                    System.out.println(documentSnapshot.getData().get("state").toString());
+                    getStateUpload = documentSnapshot.getData().get("state").toString();
                     if (getStateUpload.equals("0")) {
                         selectFile(mInfo);
                     } else {

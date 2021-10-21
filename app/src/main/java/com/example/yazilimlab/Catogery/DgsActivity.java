@@ -348,7 +348,6 @@ public class DgsActivity extends AppCompatActivity {
         resourcesAdd.put("type", "Dgs");
         resourcesAdd.put("userUid", fUser.getUid());
         resourcesAdd.put("state", "0");
-        resourcesAdd.put("uploadState","0");
         resourcesAdd.put("transcriptPath", transcriptPath);
         resourcesAdd.put("lessonPath", lessonPath);
         resourcesAdd.put("petitionPath", petitionPath);

@@ -352,7 +352,6 @@ public class CapActivity extends AppCompatActivity {
         resourcesAdd.put("type", "Çap");
         resourcesAdd.put("userUid", fUser.getUid());
         resourcesAdd.put("state", "0");
-        resourcesAdd.put("uploadState","0");
         resourcesAdd.put("transcriptPath", transcriptPath);
         resourcesAdd.put("petitionPath",petitionPath);
         resourcesAdd.put("date", strDate);

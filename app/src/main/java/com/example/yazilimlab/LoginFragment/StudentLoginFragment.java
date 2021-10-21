@@ -85,7 +85,7 @@ public class StudentLoginFragment extends Fragment {
         // beni hatırla için, kayıtlı verileri alma
         getUserName = preferences.getString("userName", null);
         getUserPassword = preferences.getString("userPassword", null);
-        getCheckRememberMe = preferences.getBoolean("checkBox", false);
+        getCheckRememberMe = preferences.getBoolean("userSwitch", false);
 
 
         // beni hatırla kayıtılı veriler varsa otomatik yaz
@@ -169,19 +169,19 @@ public class StudentLoginFragment extends Fragment {
             editor = preferences.edit();
             editor.putString("userName", strUser);  //key'e göre kaydettik
             editor.putString("userPassword", strPassword);
-            editor.putBoolean("checkBox", true);
+            editor.putBoolean("userSwitch", true);
             editor.apply();
         } else {
             // switch kapalı ise boş kaydet
             editor = preferences.edit();
             editor.putString("userName", null);
-            editor.putString("userPassword",null);
-            editor.putBoolean("checkBox", false);
+            editor.putString("userPassword", null);
+            editor.putBoolean("userSwitch", false);
             editor.apply();
         }
     }
 
-    //Giriş yap
+    // Giriş yap
     private void setButtonLogin() {
         strUser = editTextStudentLoginUserName.getText().toString();
         strPassword = editTextStudentLoginPassword.getText().toString();

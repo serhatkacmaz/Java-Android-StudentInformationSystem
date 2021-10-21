@@ -634,7 +634,6 @@ public class YazOkuluActivity extends AppCompatActivity {
         resourcesAdd.put("type", "Yaz Okulu");
         resourcesAdd.put("userUid", fUser.getUid());
         resourcesAdd.put("state", "0");
-        resourcesAdd.put("uploadState","0");
         resourcesAdd.put("transcriptPath", transcriptPath);
         resourcesAdd.put("lessonPath", lessonPath);
         resourcesAdd.put("subScorePath", subScorePath);

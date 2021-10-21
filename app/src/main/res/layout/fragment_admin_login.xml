@@ -53,7 +53,6 @@
         android:padding="5dp"
         app:boxCornerRadiusBottomEnd="20dp"
         app:boxCornerRadiusTopStart="20dp"
-        android:layout_marginBottom="50dp"
         app:boxStrokeColor="@color/kou_green"
         app:endIconMode="password_toggle"
         app:helperTextTextColor="@color/red_helper">
@@ -72,12 +71,42 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TableRow android:gravity="left">
+            <Switch
+                android:id="@+id/switch_adminLogin_RememberMe"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/textViewGrayColor"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:enabled="false"
+                android:onClick="buttonRegisterPage"
+                android:text="Beni Hatırla"
+                android:textColor="@color/textViewGrayColor"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                tools:ignore="TouchTargetSizeCheck" />
+
+
+        </TableRow>
+    </TableLayout>
+
+
+
 
     <Button
         android:id="@+id/adminLoginButtonLogin"
         android:layout_width="750px"
         android:layout_height="wrap_content"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="40dp"
         android:layout_gravity="center"
         android:backgroundTint="@color/kou_green"
         android:text="Giriş Yap"

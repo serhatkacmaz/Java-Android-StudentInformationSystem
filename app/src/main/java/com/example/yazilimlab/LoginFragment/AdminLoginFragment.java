@@ -1,6 +1,8 @@
 package com.example.yazilimlab.LoginFragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +36,7 @@ import java.sql.SQLOutput;
 
 public class AdminLoginFragment extends Fragment {
 
-
+    // input
     private EditText editTextAdminLoginUserName, editTextAdminLoginPassword;
     private String strUser, strPassword;
     private Button buttonLogin;
@@ -43,6 +46,13 @@ public class AdminLoginFragment extends Fragment {
     private FirebaseUser fUser;
     private FirebaseFirestore firebaseFirestore;
     private DocumentReference docRef;
+
+    //beni hatirla
+    private Switch switch_adminLogin_RememberMe;
+    private String getUserName, getUserPassword;
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
+    private boolean getCheckRememberMe;
 
 
     @Override
@@ -59,6 +69,25 @@ public class AdminLoginFragment extends Fragment {
         editTextAdminLoginUserName = (EditText) view.findViewById(R.id.editTextAdminLoginUserName);
         editTextAdminLoginPassword = (EditText) view.findViewById(R.id.editTextAdminLoginPassword);
         buttonLogin = (Button) view.findViewById(R.id.adminLoginButtonLogin);
+        switch_adminLogin_RememberMe = (Switch) view.findViewById(R.id.switch_adminLogin_RememberMe);
+
+
+        // telefon hazfızasında dosya oluşturup verileri içinde saklar
+        preferences = this.getActivity().getSharedPreferences("com.example.yazilimlab", Context.MODE_PRIVATE);
+
+
+        // beni hatırla için, kayıtlı verileri alma
+        getUserName = preferences.getString("adminName", null);
+        getUserPassword = preferences.getString("adminPassword", null);
+        getCheckRememberMe = preferences.getBoolean("adminSwitch", false);
+
+
+        // beni hatırla kayıtılı veriler varsa otomatik yaz
+        if (getCheckRememberMe && !TextUtils.isEmpty(getUserName)) {
+            editTextAdminLoginUserName.setText(getUserName);
+            editTextAdminLoginPassword.setText(getUserPassword);
+            switch_adminLogin_RememberMe.setChecked(true);
+        }
 
         //Firebase
         fAuth = FirebaseAuth.getInstance();
@@ -73,11 +102,31 @@ public class AdminLoginFragment extends Fragment {
 
     }
 
+    // beni hatırla için local olarak kayıt tutma
+    private void rememberMe() {
+        if (switch_adminLogin_RememberMe.isChecked()) {
+            editor = preferences.edit();
+            editor.putString("adminName", strUser);  //key'e göre kaydettik
+            editor.putString("adminPassword", strPassword);
+            editor.putBoolean("adminSwitch", true);
+            editor.apply();
+        } else {
+            // switch kapalı ise boş kaydet
+            editor = preferences.edit();
+            editor.putString("adminName", null);
+            editor.putString("adminPassword", null);
+            editor.putBoolean("adminSwitch", false);
+            editor.apply();
+        }
+    }
+
+    // Giris yap
     private void setButtonLogin() {
         strUser = editTextAdminLoginUserName.getText().toString();
         strPassword = editTextAdminLoginPassword.getText().toString();
 
         if (!TextUtils.isEmpty(strUser) && !TextUtils.isEmpty(strPassword)) {
+            rememberMe();
             fAuth.signInWithEmailAndPassword(strUser, strPassword)
                     .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
