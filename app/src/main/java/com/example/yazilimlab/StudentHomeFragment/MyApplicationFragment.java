@@ -53,10 +53,12 @@ import java.util.Date;
 
 public class MyApplicationFragment extends Fragment {
 
+    // RecyclerView
     RecyclerView recyclerView;
     ArrayList<MyAppItemInfo> myAppItemInfoArrayList;
     MyAppItemAdapter myAppItemAdapter;
 
+    // basvuru durumu
     private TextView myApplicationItem_stateText;
     private String strState;
 
@@ -67,6 +69,7 @@ public class MyApplicationFragment extends Fragment {
     FirebaseStorage storage;
     StorageReference storageReference;
     private DocumentReference docRef;
+    private UsersData usersData;
 
     // code
     private static final int PICK_FILE = 1;
@@ -76,13 +79,8 @@ public class MyApplicationFragment extends Fragment {
 
     // dosya isimleri,yolları
     private String fileName, uploadFilePathName;
-
-    private UsersData usersData;
     private MyAppItemInfo mInfo;
-
     private String getStateUpload;
-
-    private ImageButton myApplicationItem_fileUploadButton;
 
 
     @Override
@@ -116,11 +114,14 @@ public class MyApplicationFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        // RecyclerView
         myApplicationItem_stateText = (TextView) view.findViewById(R.id.myApplicationItem_stateText);
         recyclerView = (RecyclerView) view.findViewById(R.id.myApp_recyclerView);
-        myApplicationItem_fileUploadButton = (ImageButton) view.findViewById(R.id.myApplicationItem_fileUploadButton);
         init();
 
+
+        // card click
         myAppItemAdapter.setOnItemClickListener(new MyAppItemAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(MyAppItemInfo myAppItemInfo, int position) {
@@ -141,8 +142,7 @@ public class MyApplicationFragment extends Fragment {
         });
     }
 
-
-    // imzalı yada imzasız güncel pdf indirme
+    // imzalı yada imzasız güncel pdf dosyasını indirme
     private void downloadFile(MyAppItemInfo myAppItemInfo) {
         fileName = myAppItemInfo.getPetitionPath();
         fileName = fileName.substring(fileName.lastIndexOf('/') + 1, fileName.length());
@@ -154,7 +154,7 @@ public class MyApplicationFragment extends Fragment {
                     public void onSuccess(Uri uri) {
                         String url = uri.toString();
                         downloadPdfFile(getActivity(), fileName, ".pdf", Environment.DIRECTORY_DOWNLOADS, url);
-                        Toast.makeText(getActivity(), "Dosya indirildi", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Dosya indiriliyor", Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -162,10 +162,9 @@ public class MyApplicationFragment extends Fragment {
                 Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
-    // basvuru pdf indirme
+    // basvuru pdf dosaysını indirme
     public void downloadPdfFile(Context context, String fileName, String fileExtension, String destinationDirectory, String url) {
         DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
         Uri uri = Uri.parse(url);
@@ -181,10 +180,10 @@ public class MyApplicationFragment extends Fragment {
         intent.setType("application/pdf");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Dosya Seç"), PICK_FILE);
-        deleteNotSignatureFile(myAppItemInfo);  // eski dosya sil
+        deleteNotSignatureFile(myAppItemInfo);  // sistemden eski dosyayıi sil
     }
 
-    // eski dosyayı sil
+    // firebase uzerinde eski dosyayı sil
     private void deleteNotSignatureFile(MyAppItemInfo myAppItemInfo) {
         mInfo = myAppItemInfo;
         StorageReference reference = storageReference.child(myAppItemInfo.getPetitionPath());
@@ -244,17 +243,17 @@ public class MyApplicationFragment extends Fragment {
         }
     }
 
-    // field path güncelleme
+    // Resources uzerinde field path güncelleme
     private void updateField(MyAppItemInfo myAppItemInfo) {
         DocumentReference docRef = firebaseFirestore.collection("Resources").document(myAppItemInfo.getDocumentId());
         docRef.update("petitionPath", uploadFilePathName);
         docRef.update("state", "1");
         docRef.update("uploadState", "1");
-        System.out.println("upload güncellendi");
+        System.out.println("field update");
         //myAppItemInfo.setPetitionPath(uploadFilePathName);
     }
 
-    // pdf yükleme aktif pasif
+    // pdf yüklemek için aktif pasif durumu
     private void getUploadStateField(MyAppItemInfo myAppItemInfo) {
 
         docRef = firebaseFirestore.collection("Resources").document(myAppItemInfo.getDocumentId());
@@ -272,25 +271,9 @@ public class MyApplicationFragment extends Fragment {
                 }
             }
         });
-
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == PICK_FILE && resultCode == RESULT_OK && data.getData() != null) {
-            uploadFileUri = data.getData();
-            saveUploadFile(mInfo);
-            updateField(mInfo);  // field güncelleme
-            // refresh
-            myAppItemInfoArrayList.clear();
-            eventChangeListener();
-        }
-    }
-
-    
-    // basvuru listeleme
+    // yapılan başvuruları listeleme
     private void eventChangeListener() {
         fUser = fAuth.getCurrentUser();
         firebaseFirestore.collection("Resources").whereEqualTo("userUid", fUser.getUid())
@@ -312,5 +295,19 @@ public class MyApplicationFragment extends Fragment {
                         }
                     }
                 });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_FILE && resultCode == RESULT_OK && data.getData() != null) {
+            uploadFileUri = data.getData();
+            saveUploadFile(mInfo);
+            updateField(mInfo);  // field güncelleme
+            // refresh
+            myAppItemInfoArrayList.clear();
+            eventChangeListener();
+        }
     }
 }
