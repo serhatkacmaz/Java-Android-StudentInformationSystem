@@ -1,5 +1,6 @@
 package com.example.yazilimlab.LoginFragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -58,6 +59,9 @@ public class StudentLoginFragment extends Fragment {
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
     private boolean getCheckRememberMe;
+
+    // progress dialog
+    private ProgressDialog progressDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -188,6 +192,13 @@ public class StudentLoginFragment extends Fragment {
 
         if (!TextUtils.isEmpty(strUser) && !TextUtils.isEmpty(strPassword)) {
             rememberMe();
+
+            // progress dialog
+            progressDialog = new ProgressDialog(getActivity());
+            progressDialog.setCancelable(false);
+            progressDialog.setMessage("Lütfen Bekleyiniz");
+            progressDialog.show();
+
             fAuth.signInWithEmailAndPassword(strUser, strPassword)
                     .addOnSuccessListener(getActivity(), new OnSuccessListener<AuthResult>() {
                         @Override
@@ -200,6 +211,7 @@ public class StudentLoginFragment extends Fragment {
 
                                     if (documentSnapshot.getData().get("isStudent") != null) {
                                         Intent homeIntent = new Intent(getActivity(), StudentHomeActivity.class);
+                                        progressDialog.cancel();
                                         startActivity(homeIntent);
                                     } else {
                                         Toast.makeText(getActivity(), "Kullanıcı adı veya şifre hatalı", Toast.LENGTH_SHORT).show();

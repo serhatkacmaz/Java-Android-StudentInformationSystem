@@ -75,97 +75,34 @@ public class RegisterActivity extends AppCompatActivity {
     ArrayList<String> arrayListInfoClass, arrayListFaculty, arrayListDepartment;
     ArrayAdapter<String> arrayAdapterInfoClass, arrayAdapterFaculty, arrayAdapterDepartment;
 
+    // input
     private EditText editTextRegisterNumber, editTextRegisterMail, editTextRegisterName, editTextRegisterLastName, editTextRegisterPhone, editTextRegisterIdentity,
             editTextRegisterAddress, editTextRegisterUniversity,
             editTextRegisterPassword, autoCompleteRegisterInfoClass;
-
     private TextView editTextRegisterBirthday;
     private UserRegister userRegister;
     public String strNumber, strMail, strName, strLastName, strPhone, strIdentity, strAddress, strInfoClass, strBirthday, strUniversity, strFaculty, strDepartment, strPassword, isStudent = "1";
+
+    // firebase
     private FirebaseAuth fAuth;
     private FirebaseUser fUser;
     private FirebaseFirestore firebaseFirestore;
     private DocumentReference docRef;
-
+    FirebaseStorage storage;
+    StorageReference storageReference;
 
     //img
     private ImageView imageRegisterProfile;
     private final int IMG_REQUEST_ID = 10;
     private Uri imgUri, uri;
 
-    FirebaseStorage storage;
-    StorageReference storageReference;
-
     // date
     DatePickerDialog.OnDateSetListener onDateSetListener;
 
+    // progress dialog
+    private ProgressDialog progressDialog;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
-        init();
-
-
-        // Fakulte ismi degistiğinde
-        facultyDropDown.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                getDataComboBoxDepartment();
-            }
-        });
-    }
-
-    private void getDataComboBoxFaculty() {
-        arrayListFaculty = new ArrayList<>();
-        firebaseFirestore.collection("Faculties")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                // System.out.println(document.getId() + " => " + document.getData());
-                                arrayListFaculty.add(document.getId());
-                            }
-                        } else {
-
-                        }
-                    }
-                });
-
-        arrayAdapterFaculty = new ArrayAdapter<>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, arrayListFaculty);
-        facultyDropDown.setAdapter(arrayAdapterFaculty);
-    }
-
-    private void getDataComboBoxDepartment() {
-        arrayListDepartment = new ArrayList<>();
-        docRef = firebaseFirestore.collection("Faculties").document(facultyDropDown.getText().toString());
-        docRef.get().addOnSuccessListener(RegisterActivity.this, new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if (documentSnapshot.exists()) {
-                    //System.out.println(documentSnapshot.getData().values().size());
-                    for (int i = 0; i < documentSnapshot.getData().values().size(); i++) {
-                        //System.out.println(documentSnapshot.getData().get(String.valueOf(i)));
-                        arrayListDepartment.add(String.valueOf(documentSnapshot.getData().get(String.valueOf(i))));
-                    }
-                }
-            }
-        });
-
-        arrayAdapterDepartment = new ArrayAdapter<>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, arrayListDepartment);
-        departmentDropDown.setAdapter(arrayAdapterDepartment);
-    }
-
+    // init
     private void init() {
 
         //Firebase
@@ -234,8 +171,104 @@ public class RegisterActivity extends AppCompatActivity {
         };
     }
 
-    //img choice start
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_register);
 
+        init();
+
+        // Fakulte ismi degistiğinde
+        facultyDropDown.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                getDataComboBoxDepartment();
+            }
+        });
+    }
+
+    // fakulte isimlerini getir
+    private void getDataComboBoxFaculty() {
+        arrayListFaculty = new ArrayList<>();
+        firebaseFirestore.collection("Faculties")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                // System.out.println(document.getId() + " => " + document.getData());
+                                arrayListFaculty.add(document.getId());
+                            }
+                        } else {
+
+                        }
+                    }
+                });
+
+        arrayAdapterFaculty = new ArrayAdapter<>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, arrayListFaculty);
+        facultyDropDown.setAdapter(arrayAdapterFaculty);
+    }
+
+    // fakulteye gore bolum isimleri
+    private void getDataComboBoxDepartment() {
+        arrayListDepartment = new ArrayList<>();
+        docRef = firebaseFirestore.collection("Faculties").document(facultyDropDown.getText().toString());
+        docRef.get().addOnSuccessListener(RegisterActivity.this, new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
+                    //System.out.println(documentSnapshot.getData().values().size());
+                    for (int i = 0; i < documentSnapshot.getData().values().size(); i++) {
+                        //System.out.println(documentSnapshot.getData().get(String.valueOf(i)));
+                        arrayListDepartment.add(String.valueOf(documentSnapshot.getData().get(String.valueOf(i))));
+                    }
+                }
+            }
+        });
+
+        arrayAdapterDepartment = new ArrayAdapter<>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, arrayListDepartment);
+        departmentDropDown.setAdapter(arrayAdapterDepartment);
+    }
+
+    // textlerden gelen verileri string yap
+    private void incomingData() {
+        strNumber = editTextRegisterNumber.getText().toString();
+        strMail = editTextRegisterMail.getText().toString();
+        strName = editTextRegisterName.getText().toString();
+        strLastName = editTextRegisterLastName.getText().toString();
+        strPhone = editTextRegisterPhone.getText().toString();
+        strIdentity = editTextRegisterIdentity.getText().toString();
+        strAddress = editTextRegisterAddress.getText().toString();
+        strInfoClass = infoClassDropDown.getText().toString();
+        strBirthday = editTextRegisterBirthday.getText().toString();
+        strUniversity = editTextRegisterUniversity.getText().toString();
+        strFaculty = facultyDropDown.getText().toString();
+        strDepartment = departmentDropDown.getText().toString();
+        strPassword = editTextRegisterPassword.getText().toString();
+    }
+
+    // ınput bosmu kontrol
+    private boolean isNotEmpty() {
+        boolean result = TextUtils.isEmpty(strNumber) || TextUtils.isEmpty(strMail) || TextUtils.isEmpty(strName) || TextUtils.isEmpty(strLastName) || TextUtils.isEmpty(strPhone) || TextUtils.isEmpty(strIdentity) ||
+                TextUtils.isEmpty(strAddress) || TextUtils.isEmpty(strInfoClass) || TextUtils.isEmpty(strBirthday) || TextUtils.isEmpty(strUniversity) ||
+                TextUtils.isEmpty(strFaculty) || TextUtils.isEmpty(strDepartment) || TextUtils.isEmpty(strPassword) || imgUri == null;
+
+        if (result)
+            return false;
+        return true;
+    }
+
+
+    //->img choice start
     // https://www.youtube.com/watch?v=_uW3yRhy0MU start
     public void buttonSelectPhoto(View v) {
         Intent intent = new Intent();
@@ -258,7 +291,10 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
     // https://www.youtube.com/watch?v=_uW3yRhy0MU end
+    //->img choice end
 
+
+    // dosya isim format
     private String adjustFormat() {
         String number, name, lastName;
         number = editTextRegisterNumber.getText().toString();
@@ -274,6 +310,36 @@ public class RegisterActivity extends AppCompatActivity {
         return number + "_" + name + "_" + lastName + "_" + strDate;
     }
 
+
+    // kaydet buton
+    public void buttonRegister(View v) {
+
+        incomingData();
+        boolean flag = isNotEmpty();
+
+        if (flag) {
+
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setCancelable(false);
+
+            fAuth.createUserWithEmailAndPassword(strMail, strPassword)
+                    .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                progressDialog.show();
+                                saveInStorage();    // resmi kaydet
+                            } else {
+                                Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+        } else {
+            Toast.makeText(RegisterActivity.this, "Eksik bilgiler var", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    // resmi firebase kaydet
     private void saveInStorage() {
         if (imgUri != null) {
             try {
@@ -286,7 +352,7 @@ public class RegisterActivity extends AppCompatActivity {
                         while (!uriTask.isComplete()) ;
                         uri = uriTask.getResult();
                         //System.out.println(uri.toString());
-                        setData();
+                        setData(); // kullanıcı verileri kaydet
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -300,31 +366,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    //img choice end
-
-
-    //save start
-    public void buttonRegister(View v) {
-        incomingData();
-        boolean flag = isNotEmpty();
-
-        if (flag) {
-            fAuth.createUserWithEmailAndPassword(strMail, strPassword)
-                    .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                saveInStorage();
-                            } else {
-                                Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-        } else {
-            Toast.makeText(RegisterActivity.this, "Eksik bilgiler var", Toast.LENGTH_SHORT).show();
-        }
-    }
-
+    // kullanıcı verileri kaydet
     private void setData() {
 
         fUser = fAuth.getCurrentUser();
@@ -334,7 +376,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    //saveInStorage();
+                    progressDialog.cancel();
                     Toast.makeText(RegisterActivity.this, "Kayıt Tamamlandı", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(RegisterActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 } else {
@@ -344,30 +386,4 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void incomingData() {
-        strNumber = editTextRegisterNumber.getText().toString();
-        strMail = editTextRegisterMail.getText().toString();
-        strName = editTextRegisterName.getText().toString();
-        strLastName = editTextRegisterLastName.getText().toString();
-        strPhone = editTextRegisterPhone.getText().toString();
-        strIdentity = editTextRegisterIdentity.getText().toString();
-        strAddress = editTextRegisterAddress.getText().toString();
-        strInfoClass = infoClassDropDown.getText().toString();
-        strBirthday = editTextRegisterBirthday.getText().toString();
-        strUniversity = editTextRegisterUniversity.getText().toString();
-        strFaculty = facultyDropDown.getText().toString();
-        strDepartment = departmentDropDown.getText().toString();
-        strPassword = editTextRegisterPassword.getText().toString();
-    }
-
-    private boolean isNotEmpty() {
-        boolean result = TextUtils.isEmpty(strNumber) || TextUtils.isEmpty(strMail) || TextUtils.isEmpty(strName) || TextUtils.isEmpty(strLastName) || TextUtils.isEmpty(strPhone) || TextUtils.isEmpty(strIdentity) ||
-                TextUtils.isEmpty(strAddress) || TextUtils.isEmpty(strInfoClass) || TextUtils.isEmpty(strBirthday) || TextUtils.isEmpty(strUniversity) ||
-                TextUtils.isEmpty(strFaculty) || TextUtils.isEmpty(strDepartment) || TextUtils.isEmpty(strPassword) || imgUri == null;
-
-        if (result)
-            return false;
-        return true;
-    }
-    // save end
 }
