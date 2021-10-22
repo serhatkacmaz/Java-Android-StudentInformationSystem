@@ -1,24 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/admin_home_drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AdminHomeActivity">
 
-    <FrameLayout
-        android:id="@+id/admin_home_activity_frameLayout"
+
+    <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/admin_home_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_alignParentTop="true"
+            android:background="#173E0A"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+        <FrameLayout
+            android:id="@+id/admin_home_frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/admin_home_toolbar"
+            android:layout_marginTop="-3dp"></FrameLayout>
+
+    </RelativeLayout>
+
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/admin_home_navigationView"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_above="@id/admin_home_activity_bottomNavigationView" />
+        android:layout_gravity="start"
+        app:headerLayout="@layout/admin_nav_header"
+        app:menu="@menu/admin_home_menu"
+        >
 
-    <!-- itemIconTint icon,itemTextColor text icin renk-->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/admin_home_activity_bottomNavigationView"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_alignParentBottom="true"
-        android:background="#FFFFFF"
-        app:menu="@menu/admin_home_menu" />
 
-</RelativeLayout>
+    </com.google.android.material.navigation.NavigationView>
+</androidx.drawerlayout.widget.DrawerLayout>

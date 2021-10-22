@@ -11,12 +11,12 @@ import android.view.ViewGroup;
 import com.example.yazilimlab.R;
 
 
-public class RejectedApplicationFragment extends Fragment {
+public class AdminYatayGecisFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_rejected_application, container, false);
+        return inflater.inflate(R.layout.fragment_admin_yatay_gecis, container, false);
     }
 }

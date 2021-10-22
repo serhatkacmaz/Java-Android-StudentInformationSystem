@@ -1,16 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/adminHome_bottomBar_menu_incomingApplication"
-        android:icon="@drawable/incoming_application"
-        android:title="Gelen Başvurular" />
-    <item
-        android:id="@+id/adminHome_bottomBar_menu_acceptedApplication"
-        android:icon="@drawable/accepted_application"
-        android:title="Kabul Edilen" />
 
-    <item
-        android:id="@+id/adminHome_bottomBar_menu_rejectedApplication"
-        android:icon="@drawable/rejected_application"
-        android:title="Red Edilen" />
+    <item android:title="">
+        <menu>
+            <group android:checkableBehavior="single">
+
+            </group>
+        </menu>
+    </item>
+
+
+    <item android:title="">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/admin_nav_menu_YazOkulu"
+                    android:title="Yaz Okulu Başvurusu" />
+                <item
+                    android:id="@+id/admin_nav_menu_YatayGeciş"
+                    android:title="Yatay Okulu Başvurusu" />
+                <item
+                    android:id="@+id/admin_nav_menu_DGS"
+                    android:title="DGS Başvurusu" />
+                <item
+                    android:id="@+id/admin_nav_menu_CAP"
+                    android:title="Çap Başvurusu" />
+                <item
+                    android:id="@+id/admin_nav_menu_DersIntibaki"
+                    android:title="Ders İntibakı Başvurusu" />
+            </group>
+        </menu>
+    </item>
+
+
 </menu>
