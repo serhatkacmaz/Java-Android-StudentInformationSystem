@@ -72,7 +72,7 @@ public class AdminDgsFragment extends Fragment {
         admin_DgsLinearLayoutIncoming = (LinearLayout) view.findViewById(R.id.admin_DgsLinearLayoutIncoming);
 
         // admin IncomingList
-        adminIncomingList = new AdminIncomingList(getActivity(), admin_DgsRecyclerViewIncoming, admin_DgsCardViewIncoming, admin_DgsLinearLayoutIncoming, "Dgs");
+        adminIncomingList = new AdminIncomingList(getActivity(), admin_DgsRecyclerViewIncoming, admin_DgsCardViewIncoming, admin_DgsLinearLayoutIncoming, "Dgs","1");
         admin_DgsCardViewIncoming = adminIncomingList.admin_CardViewIncoming();
         adminAppItemIncomingAdapter = adminIncomingList.adminAppItemAdapter();
 

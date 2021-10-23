@@ -73,7 +73,7 @@ public class AdminIntibakFragment extends Fragment {
 
 
         // admin IncomingList
-        adminIncomingList = new AdminIncomingList(getActivity(), admin_IntibakRecyclerViewIncoming, admin_IntibakCardViewIncoming, admin_IntibakLinearLayoutIncoming, "İntibak");
+        adminIncomingList = new AdminIncomingList(getActivity(), admin_IntibakRecyclerViewIncoming, admin_IntibakCardViewIncoming, admin_IntibakLinearLayoutIncoming, "İntibak","1");
         admin_IntibakCardViewIncoming = adminIncomingList.admin_CardViewIncoming();
         adminAppItemIncomingAdapter = adminIncomingList.adminAppItemAdapter();
 

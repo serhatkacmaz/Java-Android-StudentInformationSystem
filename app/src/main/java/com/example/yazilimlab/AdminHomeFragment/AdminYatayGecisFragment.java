@@ -73,7 +73,7 @@ public class AdminYatayGecisFragment extends Fragment {
 
 
         // admin IncomingList
-        adminIncomingList = new AdminIncomingList(getActivity(), admin_YatayGecisRecyclerViewIncoming, admin_YatayGecisCardViewIncoming, admin_YatayGecisLinearLayoutIncoming, "Yatay Geciş");
+        adminIncomingList = new AdminIncomingList(getActivity(), admin_YatayGecisRecyclerViewIncoming, admin_YatayGecisCardViewIncoming, admin_YatayGecisLinearLayoutIncoming, "Yatay Geciş","1");
         admin_YatayGecisCardViewIncoming = adminIncomingList.admin_CardViewIncoming();
         adminAppItemIncomingAdapter = adminIncomingList.adminAppItemAdapter();
 

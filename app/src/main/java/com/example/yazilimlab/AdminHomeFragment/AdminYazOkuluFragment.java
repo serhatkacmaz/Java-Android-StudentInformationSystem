@@ -72,7 +72,7 @@ public class AdminYazOkuluFragment extends Fragment {
         admin_YazOkuluLinearLayoutIncoming = (LinearLayout) view.findViewById(R.id.admin_YazOkuluLinearLayoutIncoming);
 
         // admin IncomingList
-        adminIncomingList = new AdminIncomingList(getActivity(), admin_YazOkuluRecyclerViewIncoming, admin_YazOkuluCardViewIncoming, admin_YazOkuluLinearLayoutIncoming, "Yaz Okulu");
+        adminIncomingList = new AdminIncomingList(getActivity(), admin_YazOkuluRecyclerViewIncoming, admin_YazOkuluCardViewIncoming, admin_YazOkuluLinearLayoutIncoming, "Yaz Okulu", "1");
         admin_YazOkuluCardViewIncoming = adminIncomingList.admin_CardViewIncoming();
         adminAppItemIncomingAdapter = adminIncomingList.adminAppItemAdapter();
 
