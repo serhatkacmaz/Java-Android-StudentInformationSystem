@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.yazilimlab.AdminHomeActivity;
+import com.example.yazilimlab.Model.CustomDialog;
 import com.example.yazilimlab.R;
 import com.example.yazilimlab.StudentHomeActivity;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -54,6 +55,8 @@ public class AdminLoginFragment extends Fragment {
     private SharedPreferences.Editor editor;
     private boolean getCheckRememberMe;
 
+    // progress dialog
+    private CustomDialog customDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -127,6 +130,10 @@ public class AdminLoginFragment extends Fragment {
 
         if (!TextUtils.isEmpty(strUser) && !TextUtils.isEmpty(strPassword)) {
             rememberMe();
+
+            customDialog = new CustomDialog(getActivity());
+            customDialog.startLoadingDialog();
+
             fAuth.signInWithEmailAndPassword(strUser, strPassword)
                     .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
@@ -139,6 +146,7 @@ public class AdminLoginFragment extends Fragment {
 
                                     if (documentSnapshot.getData().get("isAdmin") != null) {
                                         Intent adminIntent = new Intent(getActivity(), AdminHomeActivity.class);
+                                        customDialog.dismissDialog();
                                         startActivity(adminIntent);
                                     } else {
                                         Toast.makeText(getActivity(), "Kullanıcı adı veya şifre hatalı", Toast.LENGTH_SHORT).show();

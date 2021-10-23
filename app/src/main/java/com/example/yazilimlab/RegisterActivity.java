@@ -36,6 +36,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.yazilimlab.Catogery.YatayGecisActivity;
+import com.example.yazilimlab.Model.CustomDialog;
 import com.example.yazilimlab.Model.UserRegister;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -100,7 +101,7 @@ public class RegisterActivity extends AppCompatActivity {
     DatePickerDialog.OnDateSetListener onDateSetListener;
 
     // progress dialog
-    private ProgressDialog progressDialog;
+    private CustomDialog customDialog;
 
     // init
     private void init() {
@@ -318,16 +319,15 @@ public class RegisterActivity extends AppCompatActivity {
         boolean flag = isNotEmpty();
 
         if (flag) {
-
-            progressDialog = new ProgressDialog(this);
-            progressDialog.setCancelable(false);
-
             fAuth.createUserWithEmailAndPassword(strMail, strPassword)
                     .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                progressDialog.show();
+
+                                customDialog = new CustomDialog(RegisterActivity.this);
+                                customDialog.startLoadingDialog();
+
                                 saveInStorage();    // resmi kaydet
                             } else {
                                 Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -376,7 +376,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    progressDialog.cancel();
+                    customDialog.dismissDialog();
                     Toast.makeText(RegisterActivity.this, "Kayıt Tamamlandı", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(RegisterActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 } else {

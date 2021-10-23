@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 
 import com.example.yazilimlab.AdminHomeActivity;
+import com.example.yazilimlab.Model.CustomDialog;
 import com.example.yazilimlab.R;
 
 import androidx.fragment.app.Fragment;
@@ -61,7 +62,7 @@ public class StudentLoginFragment extends Fragment {
     private boolean getCheckRememberMe;
 
     // progress dialog
-    private ProgressDialog progressDialog;
+    private CustomDialog customDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -193,11 +194,8 @@ public class StudentLoginFragment extends Fragment {
         if (!TextUtils.isEmpty(strUser) && !TextUtils.isEmpty(strPassword)) {
             rememberMe();
 
-            // progress dialog
-            progressDialog = new ProgressDialog(getActivity());
-            progressDialog.setCancelable(false);
-            progressDialog.setMessage("Lütfen Bekleyiniz");
-            progressDialog.show();
+            customDialog = new CustomDialog(getActivity());
+            customDialog.startLoadingDialog();
 
             fAuth.signInWithEmailAndPassword(strUser, strPassword)
                     .addOnSuccessListener(getActivity(), new OnSuccessListener<AuthResult>() {
@@ -211,7 +209,7 @@ public class StudentLoginFragment extends Fragment {
 
                                     if (documentSnapshot.getData().get("isStudent") != null) {
                                         Intent homeIntent = new Intent(getActivity(), StudentHomeActivity.class);
-                                        progressDialog.cancel();
+                                        customDialog.dismissDialog();
                                         startActivity(homeIntent);
                                     } else {
                                         Toast.makeText(getActivity(), "Kullanıcı adı veya şifre hatalı", Toast.LENGTH_SHORT).show();
