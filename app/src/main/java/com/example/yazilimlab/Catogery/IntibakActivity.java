@@ -624,6 +624,7 @@ public class IntibakActivity extends AppCompatActivity {
         resourcesAdd.put("transcriptPath", transcriptPath);
         resourcesAdd.put("lessonPath", lessonPath);
         resourcesAdd.put("petitionPath", petitionPath);
+        resourcesAdd.put("studentNumber", usersData.getIncomingNumber());
         resourcesAdd.put("date", strDate);
 
         firebaseFirestore.collection("Resources").document()

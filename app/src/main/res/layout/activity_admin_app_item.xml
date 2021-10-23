@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="5dp"
+    android:layout_marginTop="2.5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginBottom="2.5dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="8dp"
+    tools:context=".AdminHomeFragment.AdminAppItem">
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <TableRow android:gravity="center">
+
+            <TextView
+                android:id="@+id/adminApplicationItem_dateText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:text="21/02/2012"
+                android:textColor="@color/black"
+                android:textSize="14dp" />
+
+
+            <TextView
+                android:id="@+id/adminApplicationItem_numberText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:text="181307036"
+                android:textColor="@color/black"
+                android:textSize="14dp" />
+
+            <ImageButton
+                android:id="@+id/adminApplicationItem_acceptButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/border_my_app_item"
+                android:backgroundTint="@color/kou_green"
+                android:padding="10dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/accept"></ImageButton>
+
+
+            <ImageButton
+                android:id="@+id/adminApplicationItem_rejectButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/border_my_app_item"
+                android:backgroundTint="#CB2027"
+                android:padding="10dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/reject"></ImageButton>
+
+
+            <ImageButton
+                android:id="@+id/adminApplicationItem_fileDownloadButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/border_my_app_item"
+                android:backgroundTint="@color/HomeFragmentBgColor"
+                android:padding="10dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/filedownb"></ImageButton>
+        </TableRow>
+
+    </TableLayout>
+
+
+</androidx.cardview.widget.CardView>

@@ -356,6 +356,7 @@ public class CapActivity extends AppCompatActivity {
         resourcesAdd.put("state", "0");
         resourcesAdd.put("transcriptPath", transcriptPath);
         resourcesAdd.put("petitionPath", petitionPath);
+        resourcesAdd.put("studentNumber", usersData.getIncomingNumber());
         resourcesAdd.put("date", strDate);
 
         firebaseFirestore.collection("Resources").document()

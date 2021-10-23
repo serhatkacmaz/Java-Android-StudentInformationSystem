@@ -640,6 +640,7 @@ public class YazOkuluActivity extends AppCompatActivity {
         resourcesAdd.put("lessonPath", lessonPath);
         resourcesAdd.put("subScorePath", subScorePath);
         resourcesAdd.put("petitionPath", petitionPath);
+        resourcesAdd.put("studentNumber", usersData.getIncomingNumber());
         resourcesAdd.put("date", strDate);
 
         firebaseFirestore.collection("Resources").document()
