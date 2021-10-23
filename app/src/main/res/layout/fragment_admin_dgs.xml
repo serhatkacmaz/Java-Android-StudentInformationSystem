@@ -3,12 +3,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/admin_DgsFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".AdminHomeFragment.AdminDgsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="dgs" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <!--Devam Eden Başvurular-->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/admin_DgsCardViewIncoming"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="2.5dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="8dp"
+            app:contentPadding="15dp">
+
+            <LinearLayout
+                android:id="@+id/admin_DgsLinearLayoutIncoming"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="3dp"
+                    android:text="Gelen Başvurular"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/admin_DgsRecyclerViewIncoming"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="3dp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
 
 </FrameLayout>
