@@ -130,14 +130,14 @@ public class AdminLoginFragment extends Fragment {
 
         if (!TextUtils.isEmpty(strUser) && !TextUtils.isEmpty(strPassword)) {
             rememberMe();
-
-            customDialog = new CustomDialog(getActivity());
-            customDialog.startLoadingDialog();
-
             fAuth.signInWithEmailAndPassword(strUser, strPassword)
                     .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
                         public void onSuccess(AuthResult authResult) {
+
+                            customDialog = new CustomDialog(getActivity());
+                            customDialog.startLoadingDialog();
+
                             fUser = fAuth.getCurrentUser();
                             docRef = firebaseFirestore.collection("Users").document(fUser.getUid());
                             docRef.get().addOnSuccessListener(getActivity(), new OnSuccessListener<DocumentSnapshot>() {
@@ -149,6 +149,7 @@ public class AdminLoginFragment extends Fragment {
                                         customDialog.dismissDialog();
                                         startActivity(adminIntent);
                                     } else {
+                                        customDialog.dismissDialog();
                                         Toast.makeText(getActivity(), "Kullanıcı adı veya şifre hatalı", Toast.LENGTH_SHORT).show();
                                     }
                                 }

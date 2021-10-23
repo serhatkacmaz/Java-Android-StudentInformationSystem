@@ -30,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.yazilimlab.Catogery.CapActivity;
+import com.example.yazilimlab.Model.CustomDialog;
 import com.example.yazilimlab.Model.MyAppItemAdapter;
 import com.example.yazilimlab.Model.MyAppItemInfo;
 import com.example.yazilimlab.Model.UsersData;
@@ -95,6 +96,8 @@ public class MyApplicationFragment extends Fragment {
     // CardView Extand
     private CardView myApp_CardViewOnGoing, myApp_CardViewEnd;
     private LinearLayout myApp_linearLayoutOnGoing, myApp_linearLayoutEnd;
+
+    private CustomDialog customDialog;
 
 
     @Override
@@ -266,7 +269,7 @@ public class MyApplicationFragment extends Fragment {
         reference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
-
+                saveUploadFile(mInfoOnGoing);   // kaydet
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -305,6 +308,7 @@ public class MyApplicationFragment extends Fragment {
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            updateField(mInfoOnGoing);  // field güncelleme
                             System.out.println("İmzalı dosya Kayıt Tamam.");
                             System.out.println("----------------------");
                             Toast.makeText(getActivity(), "İmzalı pdf yüklendi", Toast.LENGTH_SHORT).show();
@@ -325,6 +329,8 @@ public class MyApplicationFragment extends Fragment {
         docRef.update("state", "1");
         System.out.println("field update");
         //myAppItemInfo.setPetitionPath(uploadFilePathName);
+        customDialog.dismissDialog();
+        refreshOnGoingCardView();
     }
 
     // pdf yüklemek için aktif pasif durumu
@@ -403,21 +409,23 @@ public class MyApplicationFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == PICK_FILE && resultCode == RESULT_OK && data.getData() != null) {
+
+            customDialog=new CustomDialog(getActivity());
+            customDialog.startLoadingDialog();
+
             uploadFileUri = data.getData();
             deleteNotSignatureFile(mInfoOnGoing);  // sistemden eski dosyayıi sil
-            saveUploadFile(mInfoOnGoing);
-            updateField(mInfoOnGoing);  // field güncelleme
 
-            refreshOnGoingCardView();
         }
     }
 
-    // refresh
+    // refresh devam eden basvuru
     private void refreshOnGoingCardView() {
         myAppItemInfoOnGoingArrayList.clear();
         eventChangeListenerOnGoing();
     }
 
+    // refresh biten basvuru
     private void refreshEndCardView() {
         myAppItemInfoEndArrayList.clear();
         eventChangeListenerEnd();

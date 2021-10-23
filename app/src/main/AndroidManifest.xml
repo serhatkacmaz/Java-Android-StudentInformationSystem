@@ -15,33 +15,43 @@
         android:theme="@style/Theme.YazilimLAB">
         <activity
             android:name=".StudentHomeFragment.MyAppItem"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".Catogery.DgsActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".Catogery.CapActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".Catogery.YatayGecisActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".Catogery.IntibakActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".Catogery.YazOkuluActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".AdminHomeActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".RegisterActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".StudentHomeActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
