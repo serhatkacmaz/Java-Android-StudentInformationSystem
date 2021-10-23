@@ -29,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.yazilimlab.MainActivity;
+import com.example.yazilimlab.Model.CustomDialog;
 import com.example.yazilimlab.Model.UsersData;
 import com.example.yazilimlab.R;
 import com.example.yazilimlab.RegisterActivity;
@@ -103,6 +104,9 @@ public class CapActivity extends AppCompatActivity {
 
     // incoming data
     private UsersData usersData;
+
+    // progress dialog
+    private CustomDialog customDialog;
 
     // init
     private void init() {
@@ -270,9 +274,7 @@ public class CapActivity extends AppCompatActivity {
             pdfDocument.writeTo(stream);
             pdfDocument.close();
             stream.flush();
-            Toast.makeText(this, "Pdf oluşturuldu", Toast.LENGTH_LONG).show();
             petitionUri = uri;
-            startActivity(new Intent(CapActivity.this, StudentHomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
 
         } catch (FileNotFoundException e) {
             Toast.makeText(this, "Dosya hatası bulunamadı", Toast.LENGTH_LONG).show();
@@ -353,14 +355,17 @@ public class CapActivity extends AppCompatActivity {
         resourcesAdd.put("userUid", fUser.getUid());
         resourcesAdd.put("state", "0");
         resourcesAdd.put("transcriptPath", transcriptPath);
-        resourcesAdd.put("petitionPath",petitionPath);
+        resourcesAdd.put("petitionPath", petitionPath);
         resourcesAdd.put("date", strDate);
 
         firebaseFirestore.collection("Resources").document()
                 .set(resourcesAdd).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                System.out.println("Resourcers kayıt ok");
+                Toast.makeText(CapActivity.this, "Başvuru Yapıldı\n İmzalı Belgeyin Yükleyin", Toast.LENGTH_LONG).show();
+                System.out.println("Cap basvuru kayıt tamam");
+                customDialog.dismissDialog();
+                startActivity(new Intent(CapActivity.this, StudentHomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
     }
@@ -438,6 +443,10 @@ public class CapActivity extends AppCompatActivity {
 
         // pdf
         if (requestCode == CREATE_PDF && resultCode == RESULT_OK && data.getData() != null && flagPdf) {
+
+            customDialog = new CustomDialog(CapActivity.this);
+            customDialog.startLoadingDialog();
+
             pdfUri = data.getData();
             createPdf(pdfUri);
             saveTranscriptFileInStorage();

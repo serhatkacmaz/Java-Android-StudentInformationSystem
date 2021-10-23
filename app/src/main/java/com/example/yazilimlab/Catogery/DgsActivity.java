@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.yazilimlab.Model.CustomDialog;
 import com.example.yazilimlab.Model.UsersData;
 import com.example.yazilimlab.R;
 import com.example.yazilimlab.StudentHomeActivity;
@@ -90,6 +91,9 @@ public class DgsActivity extends AppCompatActivity {
 
     // incoming data
     private UsersData usersData;
+
+    // progress dialog
+    private CustomDialog customDialog;
 
     // init
     public void init() {
@@ -224,9 +228,7 @@ public class DgsActivity extends AppCompatActivity {
             pdfDocument.writeTo(stream);
             pdfDocument.close();
             stream.flush();
-            Toast.makeText(this, "PDF oluşturuldu.", Toast.LENGTH_LONG).show();
             petitionUri = uri;
-            startActivity(new Intent(DgsActivity.this, StudentHomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
 
         } catch (FileNotFoundException e) {
             Toast.makeText(this, "Dosya hatası bulunamadı", Toast.LENGTH_LONG).show();
@@ -357,7 +359,10 @@ public class DgsActivity extends AppCompatActivity {
                 .set(resourcesAdd).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                System.out.println("Resourcers kayıt ok");
+                Toast.makeText(DgsActivity.this, "Başvuru Yapıldı\n İmzalı Belgeyi Yükleyin", Toast.LENGTH_LONG).show();
+                System.out.println("Dgs basvuru kayıt tamam");
+                customDialog.dismissDialog();
+                startActivity(new Intent(DgsActivity.this, StudentHomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
     }
@@ -410,6 +415,10 @@ public class DgsActivity extends AppCompatActivity {
 
         // pdf ve dosyaları kaydet
         if (requestCode == CREATE_PDF && resultCode == RESULT_OK && data.getData() != null && flagPdf) {
+
+            customDialog = new CustomDialog(DgsActivity.this);
+            customDialog.startLoadingDialog();
+
             pdfUri = data.getData();
             createPdf(pdfUri);  // pdf
             saveFileInStorage();  // file save

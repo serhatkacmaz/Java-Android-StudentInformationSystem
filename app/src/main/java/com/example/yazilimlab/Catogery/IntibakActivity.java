@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.yazilimlab.Model.CustomDialog;
 import com.example.yazilimlab.Model.UsersData;
 import com.example.yazilimlab.R;
 import com.example.yazilimlab.RegisterActivity;
@@ -106,6 +107,9 @@ public class IntibakActivity extends AppCompatActivity {
     private EditText editIntibakExemptLessonCode, editIntibakExemptLessonName, editIntibakExemptLessonT, editIntibakExemptLessonUL, editIntibakExemptLessonK, editIntibakExemptLessonAKTS;
     private String strExemptLessonCode, strExemptLessonName, strExemptLessonT, strExemptLessonUL, strExemptLessonK, strExemptLessonAKTS;
 
+    // progress dialog
+    private CustomDialog customDialog;
+
     // init
     private void init() {
 
@@ -173,7 +177,7 @@ public class IntibakActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-             textView_intibak_fileStateLesson.setEnabled(true);
+                textView_intibak_fileStateLesson.setEnabled(true);
             }
         });
     }
@@ -362,9 +366,7 @@ public class IntibakActivity extends AppCompatActivity {
             pdfDocument.writeTo(stream);
             pdfDocument.close();
             stream.flush();
-            Toast.makeText(this, "Pdf oluşturuldu", Toast.LENGTH_LONG).show();
             petitionUri = uri;
-            startActivity(new Intent(IntibakActivity.this, StudentHomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
         } catch (FileNotFoundException e) {
             Toast.makeText(this, "Dosya hatası bulunamadı", Toast.LENGTH_LONG).show();
         } catch (IOException e) {
@@ -628,7 +630,10 @@ public class IntibakActivity extends AppCompatActivity {
                 .set(resourcesAdd).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                System.out.println("Resourcers kayıt ok");
+                Toast.makeText(IntibakActivity.this, "Başvuru Yapıldı\n İmzalı Belgeyi Yükleyin", Toast.LENGTH_LONG).show();
+                System.out.println("Intibak basvuru kayıt tamam");
+                customDialog.dismissDialog();
+                startActivity(new Intent(IntibakActivity.this, StudentHomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
     }
@@ -679,6 +684,10 @@ public class IntibakActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CREATE_PDF && resultCode == RESULT_OK && data.getData() != null && flagPdf) {
+
+            customDialog = new CustomDialog(IntibakActivity.this);
+            customDialog.startLoadingDialog();
+
             pdfUri = data.getData();
             createPdf(pdfUri); // pdf kaydet cihaz
             saveFileInStorage(); // dosyaları yukle firebase

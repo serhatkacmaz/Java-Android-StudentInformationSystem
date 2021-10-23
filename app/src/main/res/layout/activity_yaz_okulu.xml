@@ -94,88 +94,89 @@
 
         <TableLayout
             android:layout_width="match_parent"
-            android:layout_marginStart="5dp"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp">
+            android:layout_margin="10dp"
+            android:layout_marginStart="5dp">
 
             <TableRow android:gravity="center">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/editYazOkuluSchoolDateStart"
+                        android:layout_width="125dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@drawable/text_view_border"
+                        android:ems="10"
+                        android:gravity="center"
+                        android:hint="Başlangıç"
+                        android:inputType="date"
+                        android:minHeight="48dp"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/textViewGrayColor"
+                        android:textSize="18dp"
+                        tools:ignore="SpeakableTextPresentCheck" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="18dp"
+                        android:text="*Zorunlu Alan"
+                        android:textColor="@color/red_helper"
+                        android:textSize="12dp" />
+                </LinearLayout>
+
 
                 <TextView
-                    android:id="@+id/editYazOkuluSchoolDateStart"
-                    android:layout_width="125dp"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="@drawable/text_view_border"
+                    android:layout_marginBottom="12dp"
+                    android:backgroundTint="@color/black"
                     android:ems="10"
                     android:gravity="center"
-                    android:hint="Başlangıç"
-                    android:inputType="date"
                     android:minHeight="48dp"
+                    android:text="-"
                     android:textColor="@color/black"
-                    android:textColorHint="@color/textViewGrayColor"
-                    android:textSize="18dp"
+                    android:textSize="30dp"
+                    android:textStyle="bold"
                     tools:ignore="SpeakableTextPresentCheck" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="18dp"
-                    android:text="*Zorunlu Alan"
-                    android:textColor="@color/red_helper"
-                    android:textSize="12dp" />
-            </LinearLayout>
-
-
-            <TextView
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:backgroundTint="@color/black"
-                android:ems="10"
-                android:gravity="center"
-                android:minHeight="48dp"
-                android:text="-"
-                android:textColor="@color/black"
-                android:textSize="30dp"
-                android:textStyle="bold"
-                tools:ignore="SpeakableTextPresentCheck" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/editYazOkuluSchoolDateFinish"
-                    android:layout_width="125dp"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="@drawable/text_view_border"
-                    android:ems="10"
-                    android:gravity="center"
-                    android:hint="Bitiş"
-                    android:inputType="date"
-                    android:minHeight="48dp"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/textViewGrayColor"
-                    android:textSize="18dp"
-                    tools:ignore="SpeakableTextPresentCheck" />
+                    android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="8dp"
-                    android:text="*Zorunlu Alan"
-                    android:textColor="@color/red_helper"
-                    android:textSize="12dp" />
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/editYazOkuluSchoolDateFinish"
+                        android:layout_width="125dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@drawable/text_view_border"
+                        android:ems="10"
+                        android:gravity="center"
+                        android:hint="Bitiş"
+                        android:inputType="date"
+                        android:minHeight="48dp"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/textViewGrayColor"
+                        android:textSize="18dp"
+                        tools:ignore="SpeakableTextPresentCheck" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="8dp"
+                        android:text="*Zorunlu Alan"
+                        android:textColor="@color/red_helper"
+                        android:textSize="12dp" />
+                </LinearLayout>
             </TableRow>
 
 
@@ -223,9 +224,9 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:boxCornerRadiusBottomEnd="10dp"
-            app:boxCornerRadiusTopStart="5dp"
+            android:layout_marginTop="20dp"
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
             app:boxStrokeColor="@color/kou_green"
             app:helperText="*Zorunlu Alan"
             app:helperTextTextColor="@color/red_helper">
@@ -245,129 +246,131 @@
 
         <TableLayout
             android:layout_width="match_parent"
-            android:layout_marginStart="5dp"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp">
+
             <TableRow android:gravity="center">
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="0dp"
-                android:layout_weight="4"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                app:boxCornerRadiusBottomEnd="20dp"
-                app:boxCornerRadiusTopStart="20dp"
-                app:boxStrokeColor="@color/kou_green"
-                app:helperTextTextColor="@color/red_helper">
 
-                <EditText
-                    android:id="@+id/editYazOkuluTakeLessonT"
-                    android:layout_width="match_parent"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/black"
-                    android:ems="10"
-                    android:hint="T"
-                    android:inputType="number"
-                    android:minHeight="48dp"
-                    tools:ignore="SpeakableTextPresentCheck" />
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="4"
+                    app:boxCornerRadiusBottomEnd="20dp"
+                    app:boxCornerRadiusTopStart="20dp"
+                    app:boxStrokeColor="@color/kou_green"
+                    app:helperTextTextColor="@color/red_helper">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <EditText
+                        android:id="@+id/editYazOkuluTakeLessonT"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/black"
+                        android:ems="10"
+                        android:hint="T"
+                        android:inputType="number"
+                        android:minHeight="48dp"
+                        tools:ignore="SpeakableTextPresentCheck" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="0dp"
-                android:layout_weight="4"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                app:boxCornerRadiusBottomEnd="20dp"
-                app:boxCornerRadiusTopStart="20dp"
-                app:boxStrokeColor="@color/kou_green"
-                app:helperTextTextColor="@color/red_helper">
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <EditText
-                    android:id="@+id/editYazOkuluTakeLessonU"
-                    android:layout_width="match_parent"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/black"
-                    android:ems="10"
-                    android:hint="U"
-                    android:inputType="number"
-                    android:minHeight="48dp"
-                    tools:ignore="SpeakableTextPresentCheck" />
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="4"
+                    app:boxCornerRadiusBottomEnd="20dp"
+                    app:boxCornerRadiusTopStart="20dp"
+                    app:boxStrokeColor="@color/kou_green"
+                    app:helperTextTextColor="@color/red_helper">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <EditText
+                        android:id="@+id/editYazOkuluTakeLessonU"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/black"
+                        android:ems="10"
+                        android:hint="U"
+                        android:inputType="number"
+                        android:minHeight="48dp"
+                        tools:ignore="SpeakableTextPresentCheck" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="0dp"
-                android:layout_weight="4"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                app:boxCornerRadiusBottomEnd="20dp"
-                app:boxCornerRadiusTopStart="20dp"
-                app:boxStrokeColor="@color/kou_green"
-                app:helperTextTextColor="@color/red_helper">
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <EditText
-                    android:id="@+id/editYazOkuluTakeLessonL"
-                    android:layout_width="match_parent"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/black"
-                    android:ems="10"
-                    android:hint="L"
-                    android:inputType="number"
-                    android:minHeight="48dp"
-                    tools:ignore="SpeakableTextPresentCheck" />
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="4"
+                    app:boxCornerRadiusBottomEnd="20dp"
+                    app:boxCornerRadiusTopStart="20dp"
+                    app:boxStrokeColor="@color/kou_green"
+                    app:helperTextTextColor="@color/red_helper">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <EditText
+                        android:id="@+id/editYazOkuluTakeLessonL"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/black"
+                        android:ems="10"
+                        android:hint="L"
+                        android:inputType="number"
+                        android:minHeight="48dp"
+                        tools:ignore="SpeakableTextPresentCheck" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="0dp"
-                android:layout_weight="6"
-                android:layout_height="wrap_content"
-                app:boxCornerRadiusBottomEnd="20dp"
-                app:boxCornerRadiusTopStart="20dp"
-                app:boxStrokeColor="@color/kou_green"
-                app:helperTextTextColor="@color/red_helper">
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <EditText
-                    android:id="@+id/editYazOkuluTakeLessonAKTS"
-                    android:layout_width="match_parent"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/black"
-                    android:ems="10"
-                    android:hint="AKTS"
-                    android:inputType="number"
-                    android:minHeight="48dp"
-                    tools:ignore="SpeakableTextPresentCheck" />
+                    android:layout_weight="6"
+                    app:boxCornerRadiusBottomEnd="20dp"
+                    app:boxCornerRadiusTopStart="20dp"
+                    app:boxStrokeColor="@color/kou_green"
+                    app:helperTextTextColor="@color/red_helper">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <EditText
+                        android:id="@+id/editYazOkuluTakeLessonAKTS"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/black"
+                        android:ems="10"
+                        android:hint="AKTS"
+                        android:inputType="number"
+                        android:minHeight="48dp"
+                        tools:ignore="SpeakableTextPresentCheck" />
 
-            <Button
-                android:id="@+id/buttonYazOkuluTakeLessonAdd"
-                android:layout_width="0dp"
-                android:layout_weight="4"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:onClick="yazOkuluTakeLessonAdd"
-                android:text="+"
-                android:textSize="20dp" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-            <Button
-                android:id="@+id/buttonYazOkuluTakeLessonRemove"
-                android:layout_width="0dp"
-                android:layout_weight="4"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:onClick="yazOkuluTakeLessonRemove"
-                android:text="-"
-                android:textSize="22dp" />
+                <Button
+                    android:id="@+id/buttonYazOkuluTakeLessonAdd"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="4"
+                    android:onClick="yazOkuluTakeLessonAdd"
+                    android:text="+"
+                    android:textSize="20dp" />
+
+                <Button
+                    android:id="@+id/buttonYazOkuluTakeLessonRemove"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="4"
+                    android:onClick="yazOkuluTakeLessonRemove"
+                    android:text="-"
+                    android:textSize="22dp" />
             </TableRow>
         </TableLayout>
 
@@ -384,31 +387,33 @@
         <!--Transkript-->
         <TableLayout
             android:layout_width="match_parent"
-            android:layout_marginStart="5dp"
-            android:layout_height="wrap_content">
-            <TableRow android:gravity="center">
-            <TextView
-                android:id="@+id/textView_yazOkul_fileStateTranscript"
-                android:layout_width="0dp"
-                android:layout_weight="4"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/text_view_border"
-                android:onClick="selectFileTranscript"
-                android:padding="15dp"
-                android:text="Transkript Ekle"
-                android:textAllCaps="false"
-                android:textColor="@color/textViewGrayColor"
-                android:textSize="16dp" />
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp">
 
-            <ImageView
-                android:id="@+id/image_yazOkul_fileStateTranscript"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_margin="15dp"
-                android:layout_marginTop="30dp"
-                android:src="@drawable/no" />
+            <TableRow android:gravity="center">
+
+                <TextView
+                    android:id="@+id/textView_yazOkul_fileStateTranscript"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_weight="4"
+                    android:background="@drawable/text_view_border"
+                    android:onClick="selectFileTranscript"
+                    android:padding="15dp"
+                    android:text="Transkript Ekle"
+                    android:textAllCaps="false"
+                    android:textColor="@color/textViewGrayColor"
+                    android:textSize="16dp" />
+
+                <ImageView
+                    android:id="@+id/image_yazOkul_fileStateTranscript"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="15dp"
+                    android:layout_marginTop="30dp"
+                    android:src="@drawable/no" />
             </TableRow>
         </TableLayout>
 
@@ -425,34 +430,35 @@
         <!--Ders içerik-->
         <TableLayout
             android:layout_width="match_parent"
-            android:layout_marginStart="5dp"
-            android:layout_height="wrap_content">
-        <TableRow android:gravity="center">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp">
 
-            <TextView
-                android:id="@+id/textView_yazOkul_fileStateLesson"
-                android:layout_width="0dp"
-                android:layout_weight="4"
-                android:enabled="false"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/text_view_border"
-                android:onClick="selectFileLesson"
-                android:padding="15dp"
-                android:text="Ders Listesi Ekle"
-                android:textAllCaps="false"
-                android:textColor="@color/textViewGrayColor"
-                android:textSize="16dp" />
+            <TableRow android:gravity="center">
 
-            <ImageView
-                android:id="@+id/image_yazOkul_fileStateLesson"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_margin="15dp"
-                android:layout_marginTop="30dp"
-                android:src="@drawable/no" />
-        </TableRow>
+                <TextView
+                    android:id="@+id/textView_yazOkul_fileStateLesson"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_weight="4"
+                    android:background="@drawable/text_view_border"
+                    android:enabled="false"
+                    android:onClick="selectFileLesson"
+                    android:padding="15dp"
+                    android:text="Ders Listesi Ekle"
+                    android:textAllCaps="false"
+                    android:textColor="@color/textViewGrayColor"
+                    android:textSize="16dp" />
+
+                <ImageView
+                    android:id="@+id/image_yazOkul_fileStateLesson"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="15dp"
+                    android:layout_marginTop="30dp"
+                    android:src="@drawable/no" />
+            </TableRow>
         </TableLayout>
 
         <TextView
@@ -468,35 +474,36 @@
         <!--Taban Puan-->
         <TableLayout
             android:layout_width="match_parent"
-            android:layout_marginStart="5dp"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp">
+
             <TableRow android:gravity="center">
 
-            <TextView
-                android:id="@+id/textView_yazOkul_fileStateSubScore"
-                android:layout_width="0dp"
-                android:layout_weight="4"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:enabled="false"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/text_view_border"
-                android:onClick="selectFileSubScore"
-                android:padding="15dp"
-                android:text="Taban Liste Ekle"
-                android:textAllCaps="false"
-                android:textColor="@color/textViewGrayColor"
-                android:textSize="16dp" />
+                <TextView
+                    android:id="@+id/textView_yazOkul_fileStateSubScore"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_weight="4"
+                    android:background="@drawable/text_view_border"
+                    android:enabled="false"
+                    android:onClick="selectFileSubScore"
+                    android:padding="15dp"
+                    android:text="Taban Liste Ekle"
+                    android:textAllCaps="false"
+                    android:textColor="@color/textViewGrayColor"
+                    android:textSize="16dp" />
 
-            <ImageView
-                android:id="@+id/image_yazOkul_fileStateSubScore"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_margin="15dp"
-                android:layout_marginTop="30dp"
-                android:src="@drawable/no" />
-        </TableRow>
-    </TableLayout>
+                <ImageView
+                    android:id="@+id/image_yazOkul_fileStateSubScore"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="15dp"
+                    android:layout_marginTop="30dp"
+                    android:src="@drawable/no" />
+            </TableRow>
+        </TableLayout>
 
         <TextView
             android:layout_width="match_parent"

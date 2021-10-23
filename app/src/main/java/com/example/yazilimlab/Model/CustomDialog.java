@@ -28,7 +28,6 @@ public class CustomDialog {
         params.copyFrom(dialog.getWindow().getAttributes());
         params.width = WindowManager.LayoutParams.WRAP_CONTENT;
         params.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        params.screenBrightness=WindowManager.LayoutParams.FLAG_BLUR_BEHIND;
         dialog.setContentView(R.layout.custom_loader);
         dialog.setCancelable(false);
 

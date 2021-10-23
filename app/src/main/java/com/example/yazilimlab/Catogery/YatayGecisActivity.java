@@ -30,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.yazilimlab.Model.CustomDialog;
 import com.example.yazilimlab.Model.UsersData;
 import com.example.yazilimlab.R;
 import com.example.yazilimlab.StudentHomeActivity;
@@ -135,6 +136,9 @@ public class YatayGecisActivity extends AppCompatActivity {
     private ArrayList<String> fileType;
 
     private TextInputLayout editTextYatayGecisNoWrap;
+
+    // progress dialog
+    private CustomDialog customDialog;
 
 
     // init
@@ -419,9 +423,7 @@ public class YatayGecisActivity extends AppCompatActivity {
             pdfDocument.writeTo(stream);
             pdfDocument.close();
             stream.flush();
-            Toast.makeText(this, "Pdf oluşturuldu.\n", Toast.LENGTH_LONG).show();
             petitionUri = uri;
-            startActivity(new Intent(YatayGecisActivity.this, StudentHomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
         } catch (FileNotFoundException e) {
             Toast.makeText(this, "Dosya hatası bulunamadı", Toast.LENGTH_LONG).show();
         } catch (IOException e) {
@@ -537,7 +539,11 @@ public class YatayGecisActivity extends AppCompatActivity {
                 .set(resourcesAdd).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                System.out.println("Resourcers kayıt ok");
+                Toast.makeText(YatayGecisActivity.this, "Başvuru Yapıldı\n İmzalı Belgeyi Yükleyin", Toast.LENGTH_LONG).show();
+                System.out.println("YatayGecis basvuru kayıt tamam");
+                customDialog.dismissDialog();
+                startActivity(new Intent(YatayGecisActivity.this, StudentHomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+
             }
         });
     }
@@ -587,6 +593,10 @@ public class YatayGecisActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CREATE_PDF && resultCode == RESULT_OK && data.getData() != null && flagPdf) {
+
+            customDialog = new CustomDialog(YatayGecisActivity.this);
+            customDialog.startLoadingDialog();
+
             pdfUri = data.getData();
             createPdf(pdfUri); // pdf kaydet cihaz
             saveTranscriptFileInStorage();

@@ -6,6 +6,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.yazilimlab.Model.CustomDialog;
 import com.example.yazilimlab.Model.UsersData;
 import com.example.yazilimlab.R;
 import com.example.yazilimlab.StudentHomeActivity;
@@ -116,6 +117,9 @@ public class YazOkuluActivity extends AppCompatActivity {
     DatePickerDialog.OnDateSetListener onDateSetListenerStart, onDateSetListenerFinish;
     private TextView editYazOkuluSchoolDateStart, editYazOkuluSchoolDateFinish;
     private String strSchoolDateStart, strSchoolDateFinish;
+
+    // progress dialog
+    private CustomDialog customDialog;
 
     private void init() {
 
@@ -507,9 +511,7 @@ public class YazOkuluActivity extends AppCompatActivity {
             pdfDocument.writeTo(stream);
             pdfDocument.close();
             stream.flush();
-            Toast.makeText(this, "Pdf oluşturuldu", Toast.LENGTH_LONG).show();
             petitionUri = uri;
-            startActivity(new Intent(YazOkuluActivity.this, StudentHomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
         } catch (FileNotFoundException e) {
             Toast.makeText(this, "Dosya hatası bulunamadı", Toast.LENGTH_LONG).show();
         } catch (IOException e) {
@@ -644,7 +646,10 @@ public class YazOkuluActivity extends AppCompatActivity {
                 .set(resourcesAdd).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                System.out.println("Resourcers kayıt ok");
+                Toast.makeText(YazOkuluActivity.this, "Başvuru Yapıldı\n İmzalı Belgeyi Yükleyin", Toast.LENGTH_LONG).show();
+                System.out.println("YazOkulu basvuru kayıt tamam");
+                customDialog.dismissDialog();
+                startActivity(new Intent(YazOkuluActivity.this, StudentHomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
     }
@@ -698,6 +703,10 @@ public class YazOkuluActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CREATE_PDF && resultCode == RESULT_OK && data.getData() != null && flagPdf) {
+
+            customDialog = new CustomDialog(YazOkuluActivity.this);
+            customDialog.startLoadingDialog();
+
             pdfUri = data.getData();
             createPdf(pdfUri); // pdf olustur kaydet
             saveFileInStorage(); // dosyalari kaydet
