@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 
 import com.example.yazilimlab.Model.AdminAppItemAdapter;
 import com.example.yazilimlab.Model.AdminAppItemInfo;
+import com.example.yazilimlab.Model.AdminIncomingList;
 import com.example.yazilimlab.Model.CustomDialog;
 import com.example.yazilimlab.Model.MyAppItemAdapter;
 import com.example.yazilimlab.Model.MyAppItemInfo;
@@ -47,21 +48,12 @@ public class AdminCapFragment extends Fragment {
     ArrayList<AdminAppItemInfo> adminAppItemInfoIncomingArrayList;
     AdminAppItemAdapter adminAppItemIncomingAdapter;
 
-    // firebase
-    private FirebaseAuth fAuth;
-    private FirebaseUser fUser;
-    FirebaseFirestore firebaseFirestore;
-    FirebaseStorage storage;
-    StorageReference storageReference;
-
-
     // CardView Extand
     private CardView admin_CapCardViewIncoming;
     private LinearLayout admin_CapLinearLayoutIncoming;
 
-    // custom Dialog
-    private CustomDialog customDialog;
-
+    // Admin IncomingList
+    private AdminIncomingList adminIncomingList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,24 +62,6 @@ public class AdminCapFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_admin_cap, container, false);
     }
 
-
-    // init
-    private void init() {
-        // Firebase
-        fAuth = FirebaseAuth.getInstance();
-        firebaseFirestore = FirebaseFirestore.getInstance();
-        storage = FirebaseStorage.getInstance();
-        storageReference = storage.getReference();
-
-        // recyclerViewOnGoing
-        admin_CapRecyclerViewIncoming.setHasFixedSize(true);
-        admin_CapRecyclerViewIncoming.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adminAppItemInfoIncomingArrayList = new ArrayList<AdminAppItemInfo>();
-        adminAppItemIncomingAdapter = new AdminAppItemAdapter(adminAppItemInfoIncomingArrayList, getActivity());
-        admin_CapRecyclerViewIncoming.setAdapter(adminAppItemIncomingAdapter);
-        eventChangeListenerIncoming();
-
-    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -102,14 +76,17 @@ public class AdminCapFragment extends Fragment {
         // LinearLayout
         admin_CapLinearLayoutIncoming = (LinearLayout) view.findViewById(R.id.admin_CapLinearLayoutIncoming);
 
-        init();
+        // admin IncomingList
+        adminIncomingList = new AdminIncomingList(getActivity(), admin_CapRecyclerViewIncoming, admin_CapCardViewIncoming, admin_CapLinearLayoutIncoming, "Çap");
+        admin_CapCardViewIncoming = adminIncomingList.admin_CardViewIncoming();
+        adminAppItemIncomingAdapter = adminIncomingList.adminAppItemAdapter();
 
         // gelen Basvurular CardView extend event
         admin_CapCardViewIncoming.setOnClickListener(new View.OnClickListener() {
             @Override
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             public void onClick(View view) {
-                refreshIncomingCardView();
+                adminIncomingList.refreshIncomingCardView();
                 // https://www.youtube.com/watch?v=qIJ_U51s4ls&list=PLY0RqCbhFOzJZCQQ07rTTIt2YCGIxsR5-&index=18&t=421s
                 int v = (admin_CapRecyclerViewIncoming.getVisibility() == View.GONE) ? View.VISIBLE : View.GONE;
                 TransitionManager.beginDelayedTransition(admin_CapLinearLayoutIncoming, new AutoTransition());
@@ -140,33 +117,5 @@ public class AdminCapFragment extends Fragment {
                 System.out.println("indirme");
             }
         });
-    }
-
-    // gelen başvuruları listeleme
-    private void eventChangeListenerIncoming() {
-        firebaseFirestore.collection("Resources").whereEqualTo("type", "Çap")
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-
-                        for (DocumentChange dc : value.getDocumentChanges()) {
-                            if (dc.getType() == DocumentChange.Type.ADDED) {
-
-                                // gelen başvurular
-                                if (dc.getDocument().getData().get("state").equals("1")) {
-                                    System.out.println(dc.getDocument().toObject(AdminAppItemInfo.class));
-                                    adminAppItemInfoIncomingArrayList.add(dc.getDocument().toObject(AdminAppItemInfo.class));
-                                }
-                            }
-                            adminAppItemIncomingAdapter.notifyDataSetChanged();
-                        }
-                    }
-                });
-    }
-
-    // refresh gelen basvuru
-    private void refreshIncomingCardView() {
-        adminAppItemInfoIncomingArrayList.clear();
-        eventChangeListenerIncoming();
     }
 }

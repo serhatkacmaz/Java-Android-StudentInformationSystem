@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 
 import com.example.yazilimlab.Model.AdminAppItemAdapter;
 import com.example.yazilimlab.Model.AdminAppItemInfo;
+import com.example.yazilimlab.Model.AdminIncomingList;
 import com.example.yazilimlab.Model.CustomDialog;
 import com.example.yazilimlab.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,20 +43,12 @@ public class AdminYatayGecisFragment extends Fragment {
     ArrayList<AdminAppItemInfo> adminAppItemInfoIncomingArrayList;
     AdminAppItemAdapter adminAppItemIncomingAdapter;
 
-    // firebase
-    private FirebaseAuth fAuth;
-    private FirebaseUser fUser;
-    FirebaseFirestore firebaseFirestore;
-    FirebaseStorage storage;
-    StorageReference storageReference;
-
-
     // CardView Extand
     private CardView admin_YatayGecisCardViewIncoming;
     private LinearLayout admin_YatayGecisLinearLayoutIncoming;
 
-    // custom Dialog
-    private CustomDialog customDialog;
+    // Admin IncomingList
+    private AdminIncomingList adminIncomingList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,23 +57,6 @@ public class AdminYatayGecisFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_admin_yatay_gecis, container, false);
     }
 
-    // init
-    private void init() {
-        // Firebase
-        fAuth = FirebaseAuth.getInstance();
-        firebaseFirestore = FirebaseFirestore.getInstance();
-        storage = FirebaseStorage.getInstance();
-        storageReference = storage.getReference();
-
-        // recyclerViewOnGoing
-        admin_YatayGecisRecyclerViewIncoming.setHasFixedSize(true);
-        admin_YatayGecisRecyclerViewIncoming.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adminAppItemInfoIncomingArrayList = new ArrayList<AdminAppItemInfo>();
-        adminAppItemIncomingAdapter = new AdminAppItemAdapter(adminAppItemInfoIncomingArrayList, getActivity());
-        admin_YatayGecisRecyclerViewIncoming.setAdapter(adminAppItemIncomingAdapter);
-        eventChangeListenerIncoming();
-
-    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -95,14 +71,19 @@ public class AdminYatayGecisFragment extends Fragment {
         // LinearLayout
         admin_YatayGecisLinearLayoutIncoming = (LinearLayout) view.findViewById(R.id.admin_YatayGecisLinearLayoutIncoming);
 
-        init();
+
+        // admin IncomingList
+        adminIncomingList = new AdminIncomingList(getActivity(), admin_YatayGecisRecyclerViewIncoming, admin_YatayGecisCardViewIncoming, admin_YatayGecisLinearLayoutIncoming, "Yatay Geciş");
+        admin_YatayGecisCardViewIncoming = adminIncomingList.admin_CardViewIncoming();
+        adminAppItemIncomingAdapter = adminIncomingList.adminAppItemAdapter();
+
 
         // gelen Basvurular CardView extend event
         admin_YatayGecisCardViewIncoming.setOnClickListener(new View.OnClickListener() {
             @Override
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             public void onClick(View view) {
-                refreshIncomingCardView();
+                adminIncomingList.refreshIncomingCardView();
                 // https://www.youtube.com/watch?v=qIJ_U51s4ls&list=PLY0RqCbhFOzJZCQQ07rTTIt2YCGIxsR5-&index=18&t=421s
                 int v = (admin_YatayGecisRecyclerViewIncoming.getVisibility() == View.GONE) ? View.VISIBLE : View.GONE;
                 TransitionManager.beginDelayedTransition(admin_YatayGecisLinearLayoutIncoming, new AutoTransition());
@@ -133,34 +114,5 @@ public class AdminYatayGecisFragment extends Fragment {
                 System.out.println("indirme");
             }
         });
-
-    }
-
-    // gelen başvuruları listeleme
-    private void eventChangeListenerIncoming() {
-        firebaseFirestore.collection("Resources").whereEqualTo("type", "Yatay Geciş")
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-
-                        for (DocumentChange dc : value.getDocumentChanges()) {
-                            if (dc.getType() == DocumentChange.Type.ADDED) {
-
-                                // gelen başvurular
-                                if (dc.getDocument().getData().get("state").equals("1")) {
-                                    System.out.println(dc.getDocument().toObject(AdminAppItemInfo.class));
-                                    adminAppItemInfoIncomingArrayList.add(dc.getDocument().toObject(AdminAppItemInfo.class));
-                                }
-                            }
-                            adminAppItemIncomingAdapter.notifyDataSetChanged();
-                        }
-                    }
-                });
-    }
-
-    // refresh gelen basvuru
-    private void refreshIncomingCardView() {
-        adminAppItemInfoIncomingArrayList.clear();
-        eventChangeListenerIncoming();
     }
 }
