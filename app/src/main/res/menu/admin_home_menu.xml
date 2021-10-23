@@ -18,7 +18,7 @@
                     android:title="Yaz Okulu Başvurusu" />
                 <item
                     android:id="@+id/admin_nav_menu_YatayGeciş"
-                    android:title="Yatay Okulu Başvurusu" />
+                    android:title="Yatay Geçiş Başvurusu" />
                 <item
                     android:id="@+id/admin_nav_menu_DGS"
                     android:title="DGS Başvurusu" />
