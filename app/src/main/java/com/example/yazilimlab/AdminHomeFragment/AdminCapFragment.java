@@ -44,6 +44,9 @@ import java.util.ArrayList;
 
 public class AdminCapFragment extends Fragment {
 
+    // firebase
+    FirebaseFirestore firebaseFirestore;
+    private DocumentReference docRef;
 
     // RecyclerViewIncoming
     RecyclerView admin_CapRecyclerViewIncoming;
@@ -82,6 +85,9 @@ public class AdminCapFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        // Firebase
+        firebaseFirestore = FirebaseFirestore.getInstance();
 
         // RecyclerView
         admin_CapRecyclerViewIncoming = (RecyclerView) view.findViewById(R.id.admin_CapRecyclerViewIncoming);
@@ -167,12 +173,12 @@ public class AdminCapFragment extends Fragment {
 
             @Override
             public void onAcceptClick(AdminAppItemInfo adminAppItemInfo, int position) {
-                System.out.println(" gelen kabul");
+                updateStateAccept(adminAppItemInfo);
             }
 
             @Override
             public void onRejectClick(AdminAppItemInfo adminAppItemInfo, int position) {
-                System.out.println(" gelen red");
+                updateStateRejected(adminAppItemInfo);
             }
 
             @Override
@@ -226,6 +232,22 @@ public class AdminCapFragment extends Fragment {
                 System.out.println(" red edilen indirme");
             }
         });
+    }
+
+    // basvuru onayla
+    private void updateStateAccept(AdminAppItemInfo adminAppItemInfo) {
+        DocumentReference docRef = firebaseFirestore.collection("Resources").document(adminAppItemInfo.getDocumentId());
+        docRef.update("state", "2");
+        System.out.println("state update");
+        refresh();
+    }
+
+    // basvuru reddet
+    private void updateStateRejected(AdminAppItemInfo adminAppItemInfo) {
+        DocumentReference docRef = firebaseFirestore.collection("Resources").document(adminAppItemInfo.getDocumentId());
+        docRef.update("state", "3");
+        System.out.println("state update");
+        refresh();
     }
 
     private void refresh() {

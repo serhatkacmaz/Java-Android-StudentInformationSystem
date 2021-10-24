@@ -43,7 +43,7 @@ public class AdminHomeActivity extends AppCompatActivity {
         admin_home_navigationView = (NavigationView) findViewById(R.id.admin_home_navigationView);
         admin_home_toolbar = (Toolbar) findViewById(R.id.admin_home_toolbar);
 
-        setSupportActionBar(admin_home_toolbar);
+        //setSupportActionBar(admin_home_toolbar);
 
         // Menu ekleme
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, admin_home_drawerLayout, admin_home_toolbar, R.string.navView_open, R.string.navView_close);
@@ -56,6 +56,9 @@ public class AdminHomeActivity extends AppCompatActivity {
         adminIntibakFragment = new AdminIntibakFragment();
         adminYazOkuluFragment = new AdminYazOkuluFragment();
         adminYatayGecisFragment = new AdminYatayGecisFragment();
+
+        admin_home_toolbar.setTitle("Çap Başvuruları");
+        setFragment(adminCapFragment);
     }
 
     @Override
@@ -72,22 +75,27 @@ public class AdminHomeActivity extends AppCompatActivity {
 
                 switch (item.getItemId()) {
                     case R.id.admin_nav_menu_YazOkulu:
+                        admin_home_toolbar.setTitle("Yaz Okulu Başvuruları");
                         setFragment(adminYazOkuluFragment);
                         admin_home_drawerLayout.closeDrawer(GravityCompat.START);
                         return true;
                     case R.id.admin_nav_menu_YatayGeciş:
+                        admin_home_toolbar.setTitle("Yatay Geçiş Başvuruları");
                         setFragment(adminYatayGecisFragment);
                         admin_home_drawerLayout.closeDrawer(GravityCompat.START);
                         return true;
                     case R.id.admin_nav_menu_DGS:
+                        admin_home_toolbar.setTitle("Dgs Başvuruları");
                         setFragment(adminDgsFragment);
                         admin_home_drawerLayout.closeDrawer(GravityCompat.START);
                         return true;
                     case R.id.admin_nav_menu_CAP:
+                        admin_home_toolbar.setTitle("Çap Başvuruları");
                         setFragment(adminCapFragment);
                         admin_home_drawerLayout.closeDrawer(GravityCompat.START);
                         return true;
                     case R.id.admin_nav_menu_DersIntibaki:
+                        admin_home_toolbar.setTitle("İntibak Başvuruları");
                         setFragment(adminIntibakFragment);
                         admin_home_drawerLayout.closeDrawer(GravityCompat.START);
                         return true;

@@ -1,6 +1,7 @@
 package com.example.yazilimlab.Model;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,7 @@ public class AdminAppItemAdapter extends RecyclerView.Adapter<AdminAppItemAdapte
         AdminAppItemInfo adminAppItemInfo = adminAppItemInfoList.get(position);
         holder.adminApplicationItem_dateText.setText(adminAppItemInfo.date);
         holder.adminApplicationItem_numberText.setText(adminAppItemInfo.studentNumber);
+        holder.state(adminAppItemInfo.state);
     }
 
     // liste boyutu
@@ -116,6 +118,23 @@ public class AdminAppItemAdapter extends RecyclerView.Adapter<AdminAppItemAdapte
                 }
             });
 
+        }
+
+        public void state(String strState) {
+            switch (strState) {
+                case "2":
+                    adminApplicationItem_acceptButton.setBackgroundColor(Color.TRANSPARENT);
+                    adminApplicationItem_acceptButton.setEnabled(false);
+                    adminApplicationItem_rejectButton.setBackgroundColor(Color.TRANSPARENT);
+                    adminApplicationItem_rejectButton.setEnabled(false);
+                    break;
+                case "3":
+                    adminApplicationItem_rejectButton.setBackgroundColor(Color.TRANSPARENT);
+                    adminApplicationItem_rejectButton.setEnabled(false);
+                    adminApplicationItem_acceptButton.setBackgroundColor(Color.TRANSPARENT);
+                    adminApplicationItem_acceptButton.setEnabled(false);
+                    break;
+            }
         }
     }
 
