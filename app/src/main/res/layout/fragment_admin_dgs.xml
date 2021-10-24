@@ -23,7 +23,7 @@
             android:layout_marginBottom="2.5dp"
             app:cardCornerRadius="20dp"
             app:cardElevation="8dp"
-            app:contentPadding="15dp">
+            app:contentPadding="8dp">
 
             <LinearLayout
                 android:id="@+id/admin_DgsLinearLayoutIncoming"
@@ -35,7 +35,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="3dp"
+                    android:layout_margin="10dp"
                     android:text="Gelen Başvurular"
                     android:textSize="20dp"
                     android:textStyle="bold" />
@@ -61,7 +61,7 @@
             android:layout_marginBottom="2.5dp"
             app:cardCornerRadius="20dp"
             app:cardElevation="8dp"
-            app:contentPadding="15dp">
+            app:contentPadding="8dp">
 
             <LinearLayout
                 android:id="@+id/admin_DgsLinearLayoutAccept"
@@ -73,7 +73,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="3dp"
+                    android:layout_margin="10dp"
                     android:text="Onaylanan Başvurular"
                     android:textSize="20dp"
                     android:textStyle="bold" />
@@ -99,7 +99,7 @@
             android:layout_marginBottom="2.5dp"
             app:cardCornerRadius="20dp"
             app:cardElevation="8dp"
-            app:contentPadding="15dp">
+            app:contentPadding="8dp">
 
             <LinearLayout
                 android:id="@+id/admin_DgsLinearLayoutRejected"
@@ -111,7 +111,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="3dp"
+                    android:layout_margin="10dp"
                     android:text="Reddedilen  Başvurular"
                     android:textSize="20dp"
                     android:textStyle="bold" />

@@ -158,7 +158,7 @@ public class MyApplicationFragment extends Fragment {
             @Override
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             public void onClick(View view) {
-                refreshOnGoingCardView();
+                refresh();
                 // https://www.youtube.com/watch?v=qIJ_U51s4ls&list=PLY0RqCbhFOzJZCQQ07rTTIt2YCGIxsR5-&index=18&t=421s
                 int v = (myApp_recyclerViewOnGoing.getVisibility() == View.GONE) ? View.VISIBLE : View.GONE;
                 TransitionManager.beginDelayedTransition(myApp_linearLayoutOnGoing, new AutoTransition());
@@ -172,7 +172,7 @@ public class MyApplicationFragment extends Fragment {
             @Override
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             public void onClick(View view) {
-                refreshEndCardView();
+                refresh();
                 // https://www.youtube.com/watch?v=qIJ_U51s4ls&list=PLY0RqCbhFOzJZCQQ07rTTIt2YCGIxsR5-&index=18&t=421s
                 int v = (myApp_recyclerViewEnd.getVisibility() == View.GONE) ? View.VISIBLE : View.GONE;
                 TransitionManager.beginDelayedTransition(myApp_linearLayoutEnd, new AutoTransition());
@@ -330,7 +330,7 @@ public class MyApplicationFragment extends Fragment {
         System.out.println("field update");
         //myAppItemInfo.setPetitionPath(uploadFilePathName);
         customDialog.dismissDialog();
-        refreshOnGoingCardView();
+        refresh();
     }
 
     // pdf yüklemek için aktif pasif durumu
@@ -420,13 +420,9 @@ public class MyApplicationFragment extends Fragment {
     }
 
     // refresh devam eden basvuru
-    private void refreshOnGoingCardView() {
+    private void refresh() {
         myAppItemInfoOnGoingArrayList.clear();
         eventChangeListenerOnGoing();
-    }
-
-    // refresh biten basvuru
-    private void refreshEndCardView() {
         myAppItemInfoEndArrayList.clear();
         eventChangeListenerEnd();
     }

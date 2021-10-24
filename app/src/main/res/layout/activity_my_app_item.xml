@@ -28,7 +28,7 @@
                 android:gravity="center_horizontal"
                 android:text="21/02/2012"
                 android:textColor="@color/black"
-                android:textSize="14dp" />
+                android:textSize="13dp" />
 
 
             <TextView
@@ -36,26 +36,28 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:layout_marginStart="3dp"
                 android:gravity="center_horizontal"
                 android:text="Intibak Başvurusu"
                 android:textColor="@color/black"
-                android:textSize="14dp" />
+                android:textSize="13dp" />
 
             <TextView
                 android:id="@+id/myApplicationItem_stateText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:layout_marginStart="3dp"
                 android:gravity="center_horizontal"
                 android:text="İmza Bekleniyor"
                 android:textColor="@color/black"
-                android:textSize="14dp" />
+                android:textSize="13dp" />
 
             <ImageButton
                 android:id="@+id/myApplicationItem_fileUploadButton"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginStart="3dp"
                 android:background="@drawable/border_my_app_item"
                 android:backgroundTint="@color/ItemSelectedColor"
                 android:padding="10dp"
@@ -67,6 +69,7 @@
                 android:id="@+id/myApplicationItem_fileDownloadButton"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_marginStart="3dp"
                 android:background="@drawable/border_my_app_item"
                 android:backgroundTint="@color/kou_green"
                 android:padding="10dp"
