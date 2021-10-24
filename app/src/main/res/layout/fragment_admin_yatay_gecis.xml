@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/admin_YatayGecisFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/admin_YatayGecisFragment"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".AdminHomeFragment.AdminYatayGecisFragment">
 
     <LinearLayout
@@ -41,6 +41,82 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/admin_YatayGecisRecyclerViewIncoming"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="3dp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <!--Onaylanan Başvurular-->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/admin_YatayGecisCardViewAccept"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="2.5dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="8dp"
+            app:contentPadding="15dp">
+
+            <LinearLayout
+                android:id="@+id/admin_YatayGecisLinearLayoutAccept"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="3dp"
+                    android:text="Onaylanan Başvurular"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/admin_YatayGecisRecyclerViewAccept"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="3dp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <!--Red edilen Başvurular-->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/admin_YatayGecisCardViewRejected"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="2.5dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="8dp"
+            app:contentPadding="15dp">
+
+            <LinearLayout
+                android:id="@+id/admin_YatayGecisLinearLayoutRejected"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="3dp"
+                    android:text="Reddedilen  Başvurular"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/admin_YatayGecisRecyclerViewRejected"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="3dp"
