@@ -18,9 +18,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.example.yazilimlab.Model.AdminAcceptList;
 import com.example.yazilimlab.Model.AdminAppItemAdapter;
 import com.example.yazilimlab.Model.AdminAppItemInfo;
 import com.example.yazilimlab.Model.AdminIncomingList;
+import com.example.yazilimlab.Model.AdminRejectedList;
 import com.example.yazilimlab.Model.CustomDialog;
 import com.example.yazilimlab.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,15 +42,28 @@ public class AdminIntibakFragment extends Fragment {
 
     // RecyclerViewIncoming
     RecyclerView admin_IntibakRecyclerViewIncoming;
-    ArrayList<AdminAppItemInfo> adminAppItemInfoIncomingArrayList;
     AdminAppItemAdapter adminAppItemIncomingAdapter;
 
+    // RecyclerViewAccept
+    RecyclerView admin_IntibakRecyclerViewAccept;
+    AdminAppItemAdapter adminAppItemAcceptAdapter;
+
+    // RecyclerViewRejected
+    RecyclerView admin_IntibakRecyclerViewRejected;
+    AdminAppItemAdapter adminAppItemRejectedAdapter;
+
     // CardView Extand
-    private CardView admin_IntibakCardViewIncoming;
-    private LinearLayout admin_IntibakLinearLayoutIncoming;
+    private CardView admin_IntibakCardViewIncoming, admin_IntibakCardViewAccept, admin_IntibakCardViewRejected;
+    private LinearLayout admin_IntibakLinearLayoutIncoming, admin_IntibakLinearLayoutAccept, admin_IntibakLinearLayoutRejected;
 
     // Admin IncomingList
     private AdminIncomingList adminIncomingList;
+
+    // Admin AcceptList
+    private AdminAcceptList adminAcceptList;
+
+    // Admin RejectedList
+    private AdminRejectedList adminRejectedList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,19 +79,34 @@ public class AdminIntibakFragment extends Fragment {
 
         // RecyclerView
         admin_IntibakRecyclerViewIncoming = (RecyclerView) view.findViewById(R.id.admin_IntibakRecyclerViewIncoming);
+        admin_IntibakRecyclerViewAccept = (RecyclerView) view.findViewById(R.id.admin_IntibakRecyclerViewAccept);
+        admin_IntibakRecyclerViewRejected = (RecyclerView) view.findViewById(R.id.admin_IntibakRecyclerViewRejected);
 
         // CardView
         admin_IntibakCardViewIncoming = (CardView) view.findViewById(R.id.admin_IntibakCardViewIncoming);
+        admin_IntibakCardViewAccept = (CardView) view.findViewById(R.id.admin_IntibakCardViewAccept);
+        admin_IntibakCardViewRejected = (CardView) view.findViewById(R.id.admin_IntibakCardViewRejected);
 
         // LinearLayout
         admin_IntibakLinearLayoutIncoming = (LinearLayout) view.findViewById(R.id.admin_IntibakLinearLayoutIncoming);
+        admin_IntibakLinearLayoutAccept = (LinearLayout) view.findViewById(R.id.admin_IntibakLinearLayoutAccept);
+        admin_IntibakLinearLayoutRejected = (LinearLayout) view.findViewById(R.id.admin_IntibakLinearLayoutRejected);
 
 
         // admin IncomingList
-        adminIncomingList = new AdminIncomingList(getActivity(), admin_IntibakRecyclerViewIncoming, admin_IntibakCardViewIncoming, admin_IntibakLinearLayoutIncoming, "İntibak","1");
+        adminIncomingList = new AdminIncomingList(getActivity(), admin_IntibakRecyclerViewIncoming, admin_IntibakCardViewIncoming, admin_IntibakLinearLayoutIncoming, "İntibak", "1");
         admin_IntibakCardViewIncoming = adminIncomingList.admin_CardViewIncoming();
         adminAppItemIncomingAdapter = adminIncomingList.adminAppItemAdapter();
 
+        // admin AcceptList
+        adminAcceptList = new AdminAcceptList(getActivity(), admin_IntibakRecyclerViewAccept, admin_IntibakCardViewAccept, admin_IntibakLinearLayoutAccept, "İntibak", "2");
+        admin_IntibakCardViewAccept = adminAcceptList.admin_CardViewIncoming();
+        adminAppItemAcceptAdapter = adminAcceptList.adminAppItemAdapter();
+
+        // admin RejectedList
+        adminRejectedList = new AdminRejectedList(getActivity(), admin_IntibakRecyclerViewRejected, admin_IntibakCardViewRejected, admin_IntibakLinearLayoutRejected, "İntibak", "3");
+        admin_IntibakCardViewRejected = adminRejectedList.admin_CardViewIncoming();
+        adminAppItemRejectedAdapter = adminRejectedList.adminAppItemAdapter();
 
         // gelen Basvurular CardView extend event
         admin_IntibakCardViewIncoming.setOnClickListener(new View.OnClickListener() {
@@ -91,6 +121,35 @@ public class AdminIntibakFragment extends Fragment {
                 // https://www.youtube.com/watch?v=qIJ_U51s4ls&list=PLY0RqCbhFOzJZCQQ07rTTIt2YCGIxsR5-&index=18&t=421s
             }
         });
+
+        // onaylanan basvurular CardView extend event
+        admin_IntibakCardViewAccept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            public void onClick(View view) {
+                refresh();
+                // https://www.youtube.com/watch?v=qIJ_U51s4ls&list=PLY0RqCbhFOzJZCQQ07rTTIt2YCGIxsR5-&index=18&t=421s
+                int v = (admin_IntibakRecyclerViewAccept.getVisibility() == View.GONE) ? View.VISIBLE : View.GONE;
+                TransitionManager.beginDelayedTransition(admin_IntibakLinearLayoutAccept, new AutoTransition());
+                admin_IntibakRecyclerViewAccept.setVisibility(v);
+                // https://www.youtube.com/watch?v=qIJ_U51s4ls&list=PLY0RqCbhFOzJZCQQ07rTTIt2YCGIxsR5-&index=18&t=421s
+            }
+        });
+
+        // red edilen basvurular CardView extend event
+        admin_IntibakCardViewRejected.setOnClickListener(new View.OnClickListener() {
+            @Override
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            public void onClick(View view) {
+                refresh();
+                // https://www.youtube.com/watch?v=qIJ_U51s4ls&list=PLY0RqCbhFOzJZCQQ07rTTIt2YCGIxsR5-&index=18&t=421s
+                int v = (admin_IntibakRecyclerViewRejected.getVisibility() == View.GONE) ? View.VISIBLE : View.GONE;
+                TransitionManager.beginDelayedTransition(admin_IntibakLinearLayoutRejected, new AutoTransition());
+                admin_IntibakRecyclerViewRejected.setVisibility(v);
+                // https://www.youtube.com/watch?v=qIJ_U51s4ls&list=PLY0RqCbhFOzJZCQQ07rTTIt2YCGIxsR5-&index=18&t=421s
+            }
+        });
+
 
         // gelen basvurlar item click
         adminAppItemIncomingAdapter.setOnItemClickListener(new AdminAppItemAdapter.OnItemClickListener() {
@@ -114,5 +173,58 @@ public class AdminIntibakFragment extends Fragment {
                 System.out.println("indirme");
             }
         });
+
+        // onaylanan basvurlar item click
+        adminAppItemAcceptAdapter.setOnItemClickListener(new AdminAppItemAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdminAppItemInfo adminAppItemInfo, int position) {
+                System.out.println(" onaylanan item");
+            }
+
+            @Override
+            public void onAcceptClick(AdminAppItemInfo adminAppItemInfo, int position) {
+                System.out.println(" onaylanan kabul");
+            }
+
+            @Override
+            public void onRejectClick(AdminAppItemInfo adminAppItemInfo, int position) {
+                System.out.println(" onaylanan red");
+            }
+
+            @Override
+            public void onDownloadClick(AdminAppItemInfo adminAppItemInfo, int position) {
+                System.out.println(" onaylanan indirme");
+            }
+        });
+
+        // red edilen basvurlar item click
+        adminAppItemRejectedAdapter.setOnItemClickListener(new AdminAppItemAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdminAppItemInfo adminAppItemInfo, int position) {
+                System.out.println(" red edilen item");
+            }
+
+            @Override
+            public void onAcceptClick(AdminAppItemInfo adminAppItemInfo, int position) {
+                System.out.println(" red edilen kabul");
+            }
+
+            @Override
+            public void onRejectClick(AdminAppItemInfo adminAppItemInfo, int position) {
+                System.out.println(" red edilen red");
+            }
+
+            @Override
+            public void onDownloadClick(AdminAppItemInfo adminAppItemInfo, int position) {
+                System.out.println(" red edilen indirme");
+            }
+        });
+        
+    }
+
+    private void refresh() {
+        adminIncomingList.refreshIncomingCardView();
+        adminAcceptList.refreshIncomingCardView();
+        adminRejectedList.refreshIncomingCardView();
     }
 }
