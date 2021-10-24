@@ -161,12 +161,14 @@ public class AdminYatayGecisFragment extends Fragment {
 
             @Override
             public void onAcceptClick(AdminAppItemInfo adminAppItemInfo, int position) {
-                System.out.println("kabul");
+                adminAcceptList.updateStateAccept(adminAppItemInfo);
+                refresh();
             }
 
             @Override
             public void onRejectClick(AdminAppItemInfo adminAppItemInfo, int position) {
-                System.out.println("red");
+                adminRejectedList.updateStateRejected(adminAppItemInfo);
+                refresh();
             }
 
             @Override
