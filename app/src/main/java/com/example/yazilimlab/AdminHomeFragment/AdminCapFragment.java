@@ -1,5 +1,8 @@
 package com.example.yazilimlab.AdminHomeFragment;
 
+import android.app.DownloadManager;
+import android.content.Context;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -11,12 +14,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Environment;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.yazilimlab.Model.AdminAcceptList;
 import com.example.yazilimlab.Model.AdminAppItemAdapter;
@@ -28,6 +33,8 @@ import com.example.yazilimlab.Model.MyAppItemAdapter;
 import com.example.yazilimlab.Model.MyAppItemInfo;
 import com.example.yazilimlab.Model.UsersData;
 import com.example.yazilimlab.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentChange;
@@ -70,6 +77,10 @@ public class AdminCapFragment extends Fragment {
     // Admin RejectedList
     private AdminRejectedList adminRejectedList;
 
+    // Storage
+    FirebaseStorage storage;
+    StorageReference storageReference;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -81,6 +92,10 @@ public class AdminCapFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        // Storage
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
 
         // RecyclerView
         admin_CapRecyclerViewIncoming = (RecyclerView) view.findViewById(R.id.admin_CapRecyclerViewIncoming);
@@ -178,7 +193,7 @@ public class AdminCapFragment extends Fragment {
 
             @Override
             public void onDownloadClick(AdminAppItemInfo adminAppItemInfo, int position) {
-                System.out.println(" gelen indirme");
+                downloadFile(adminAppItemInfo);
             }
         });
 
@@ -201,7 +216,7 @@ public class AdminCapFragment extends Fragment {
 
             @Override
             public void onDownloadClick(AdminAppItemInfo adminAppItemInfo, int position) {
-                System.out.println(" onaylanan indirme");
+                downloadFile(adminAppItemInfo);
             }
         });
 
@@ -224,10 +239,75 @@ public class AdminCapFragment extends Fragment {
 
             @Override
             public void onDownloadClick(AdminAppItemInfo adminAppItemInfo, int position) {
-                System.out.println(" red edilen indirme");
+                downloadFile(adminAppItemInfo);
             }
         });
     }
+
+    private String fileName, extension;
+
+    // dosyaları inidirme
+    private void downloadFile(AdminAppItemInfo adminAppItemInfo) {
+        // dosya adı
+        fileName = adminAppItemInfo.getPetitionPath();
+        fileName = fileName.substring(fileName.lastIndexOf('/') + 1, fileName.length());
+
+        // imzalı dilekçe
+        StorageReference referencePetition = storageReference.child(adminAppItemInfo.getPetitionPath());
+        referencePetition.getDownloadUrl()
+                .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        String url = uri.toString();
+                        downloadPdfFile(getActivity(), fileName, ".pdf", Environment.DIRECTORY_DOWNLOADS, url);
+                        Toast.makeText(getActivity(), "Dosya indiriliyor(dilekce)", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // transkript belgesi
+
+        // dosya adı
+        fileName = adminAppItemInfo.getTranscriptPath();
+        fileName = fileName.substring(fileName.lastIndexOf('/') + 1, fileName.length());
+
+        // uzantı
+        extension = adminAppItemInfo.getTranscriptPath();
+        extension = (extension.substring(extension.indexOf('/') + 1));
+        extension = extension.substring(0, extension.indexOf('/'));
+
+        StorageReference referenceTranscript = storageReference.child(adminAppItemInfo.getTranscriptPath());
+        referenceTranscript.getDownloadUrl()
+                .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        String url = uri.toString();
+                        downloadPdfFile(getActivity(), fileName, "." + extension, Environment.DIRECTORY_DOWNLOADS, url);
+                        Toast.makeText(getActivity(), "Dosya indiriliyor(transkript)", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    // basvuru pdf dosaysını indirme
+    public void downloadPdfFile(Context context, String fileName, String fileExtension, String destinationDirectory, String url) {
+        DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+        Uri uri = Uri.parse(url);
+        DownloadManager.Request request = new DownloadManager.Request(uri);
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        request.setDestinationInExternalFilesDir(context, destinationDirectory, fileName + fileExtension);
+        downloadManager.enqueue(request);
+    }
+
 
     private void refresh() {
         adminIncomingList.refreshIncomingCardView();
