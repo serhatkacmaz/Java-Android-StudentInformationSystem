@@ -32,6 +32,7 @@ import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.fonts.FontFamily;
 import android.graphics.fonts.FontStyle;
@@ -40,6 +41,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.Layout;
+import android.text.StaticLayout;
+import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.transition.AutoTransition;
@@ -354,7 +358,8 @@ public class YazOkuluActivity extends AppCompatActivity {
     private void createPdf(Uri uri) {
         PdfDocument pdfDocument = new PdfDocument();
         Paint paint = new Paint();
-        Paint s = new Paint();
+        paint.setLinearText(true);
+        paint.setTypeface(Typeface.MONOSPACE);
         PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(210, 297, 1).create();
         PdfDocument.Page page = pdfDocument.startPage(pageInfo);
         Canvas canvas = page.getCanvas();
@@ -378,42 +383,70 @@ public class YazOkuluActivity extends AppCompatActivity {
         paint.setTextSize(3);
         paint.setFakeBoldText(false);
 
-        canvas.drawText("        " + usersData.getIncomingFaculty() + " " + usersData.getIncomingDepartment() + " " + usersData.getIncomingNumber() + " numaralı", 30, 45, paint);
-        canvas.drawText(usersData.getIncomingName() + " " + usersData.getIncomingLastName() + " isimli öğrencisiyim.", 30, 50, paint);
-        canvas.drawText("       Yaz öğretimi kapsamında aşağıda bilgilerini verdiğim ders/dersleri", 30, 55, paint);
-        canvas.drawText("almak istiyorum. Kontrol listesinde belirtilen adımları tamamladım. ", 30, 60, paint);
-        canvas.drawText("       Gereği için arz ederim.", 30, 65, paint);
-        canvas.drawText("imza", 165, 70, paint);
+
+
+        TextPaint mTextPaint=new TextPaint();
+        mTextPaint.setTypeface(Typeface.MONOSPACE);
+        mTextPaint.setTextSize(3);
+        String mText="\t" + usersData.getIncomingFaculty() + " " + usersData.getIncomingDepartment() + " " + usersData.getIncomingNumber() + " numaralı "+usersData.getIncomingName() + " " + usersData.getIncomingLastName() + " isimli öğrencisiyim.\n\tYaz öğretimi kapsamında aşağıda bilgilerini verdiğim ders/dersleri almak istiyorum. Kontrol listesinde belirtilen adımları tamamladım.\n\tGereği için arz ederim. ";
+        StaticLayout mTextLayout = new StaticLayout(mText, mTextPaint, canvas.getWidth()-60, Layout.Alignment.ALIGN_NORMAL, 1, 1, true);
+
+        canvas.save();
+// calculate x and y position where your text will be placed
+        int textX = 30;
+        int textY = 45;
+        canvas.translate(textX, textY);
+        mTextLayout.draw(canvas);
+        canvas.restore();
+
+        canvas.drawText("imza:_____________", 142, 75, paint);
 
 
         //table1 row
         canvas.drawLine(30, 85, 180, 85, paint);
         canvas.drawLine(30, 90, 180, 90, paint);
-        canvas.drawLine(30, 95, 180, 95, paint);
         canvas.drawLine(30, 100, 180, 100, paint);
         canvas.drawLine(30, 105, 180, 105, paint);
         canvas.drawLine(30, 110, 180, 110, paint);
         canvas.drawLine(30, 115, 180, 115, paint);
+        canvas.drawLine(30, 120, 180, 120, paint);
         //table1row context
         canvas.drawText("Öğrenci E-mail", 35, 89, paint);
         canvas.drawText(usersData.getIncomingMail(), 95, 89, paint);
         canvas.drawText("Öğrenci Adres", 35, 94, paint);
-        canvas.drawText(usersData.getIncomingAddress(), 95, 94, paint);
-        canvas.drawText("Öğrenci Gsm ", 35, 99, paint);
-        canvas.drawText(usersData.getIncomingPhone(), 95, 99, paint);
-        canvas.drawText("Öğrenci Danışmanı Adı Soyadı", 35, 104, paint);
-        canvas.drawText(strTeacherName, 95, 104, paint);
-        canvas.drawText("Yaz okulu için Başvurulan Üniversite", 35, 109, paint);
-        canvas.drawText(strToSchool, 95, 109, paint);
-        canvas.drawText("Yaz okulu başlama-bitiş tarihleri", 35, 114, paint);
-        canvas.drawText(strSchoolDateStart + " - " + strSchoolDateFinish, 95, 114, paint);
+
+
+        String mAdressText=usersData.getIncomingAddress();
+        StaticLayout mAdressTextLayout = new StaticLayout(mAdressText, mTextPaint, canvas.getWidth()-120, Layout.Alignment.ALIGN_NORMAL, 1, 1, true);
+
+        canvas.save();
+// calculate x and y position where your text will be placed
+        int textAX = 95;
+        int textAY = 90;
+        canvas.translate(textAX, textAY);
+        mAdressTextLayout.draw(canvas);
+        canvas.restore();
+
+
+
+
+
+
+        canvas.drawText("Öğrenci Gsm ", 35, 104, paint);
+        canvas.drawText(usersData.getIncomingPhone(), 95, 104, paint);
+        canvas.drawText("Öğrenci Danışmanı Adı Soyadı", 35, 109, paint);
+        canvas.drawText(strTeacherName, 95, 109, paint);
+        canvas.drawText("Başvurulan Üniversite", 35, 114, paint);
+        canvas.drawText(strToSchool, 95, 114, paint);
+        canvas.drawText("Başlama-Bitiş Tarihleri", 35, 119, paint);
+        canvas.drawText(strSchoolDateStart + " - " + strSchoolDateFinish, 95, 119, paint);
         //table1 column
-        canvas.drawLine(30, 85, 30, 115, paint);
-        canvas.drawLine(93, 85, 93, 115, paint); //orts
-        canvas.drawLine(180, 85, 180, 115, paint);
+        canvas.drawLine(30, 85, 30, 120, paint);
+        canvas.drawLine(93, 85, 93, 120, paint); //orts
+        canvas.drawLine(180, 85, 180, 120, paint);
 
 
-        canvas.drawText("   Yaz öğretimi kapsamında alınacak ders/dersler", 30, 129, paint);
+        canvas.drawText("\tYaz öğretimi kapsamında alınacak ders/dersler", 30, 129, paint);
         //table3 row
         canvas.drawLine(30, 130, 180, 130, paint);
         canvas.drawLine(30, 135, 180, 135, paint);
@@ -453,13 +486,26 @@ public class YazOkuluActivity extends AppCompatActivity {
 
 
         paint.setFakeBoldText(true);
-        canvas.drawText("   Dilekçe Ekleri", 30, 159, paint);
+        canvas.drawText("Dilekçe Ekleri", 30, 159, paint);
         paint.setFakeBoldText(false);
         paint.setTextSize(2);
-        canvas.drawText("       1-\tYaz döneminde ders almak istenilen Üniversite ve Kocaeli Üniversitesinin ilgili bölümlerinin, öğrencinin üniversiteye giriş yılındaki taban puanlarını gösteren belge ektedir.", 30, 164, paint);
-        canvas.drawText("       2-\tAlınmak istenilen derslerin karşı Üniversitedeki ders saati/kredi/AKTS ve ders içeriklerini gösteren belge ektedir", 30, 167, paint);
-        canvas.drawText("       3-\tBaşvurulan dönem içinde alınmış transkript ektedir.", 30, 170, paint);
 
+        TextPaint mFooterTextPaint=new TextPaint();
+        mFooterTextPaint.setTypeface(Typeface.MONOSPACE);
+        mFooterTextPaint.setTextSize(2);
+        String mFooterText="1-Yaz döneminde ders almak istenilen Üniversite ve Kocaeli Üniversitesinin ilgili bölümlerinin, öğrencinin üniversiteye giriş yılındaki taban puanlarını gösteren belge ektedir." +
+                "\n2-Alınmak istenilen derslerin karşı Üniversitedeki ders saati/kredi/AKTS ve ders içeriklerini gösteren belge ektedir." +
+                "\n3-Başvurulan dönem içinde alınmış transkript ektedir.";
+
+        StaticLayout mFooterTextLayout = new StaticLayout(mFooterText, mFooterTextPaint, canvas.getWidth()-60, Layout.Alignment.ALIGN_NORMAL, 1, 1, true);
+
+        canvas.save();
+// calculate x and y position where your text will be placed
+        int textFX = 30;
+        int textFY = 160;
+        canvas.translate(textFX, textFY);
+        mFooterTextLayout.draw(canvas);
+        canvas.restore();
 
         paint.setTextSize(3);
         //table4 row
@@ -486,18 +532,28 @@ public class YazOkuluActivity extends AppCompatActivity {
         canvas.drawText("YAZ ÖĞRETİMİ ESASLARI", pageInfo.getPageWidth() / 2, 203, paint);
         paint.setTextAlign(Paint.Align.LEFT);
         paint.setFakeBoldText(false);
-        canvas.drawText("ESAS l- (1) Spor Bilimleri Fakültesi dışındaki tüm akademik birimlerde okuyan öğrencilerin, diğer yükseköğretim kurumlarından yaz öğretiminde ders alabilmeleri ", 30, 210, paint);
-        canvas.drawText("için; Üniversiteye giriş yılı esas olmak üzere ilgili bölüm/program taban puanın en fazla 40 puan düşük olma koşulu aranır.", 30, 213, paint);
-        canvas.drawText(" (3) Yaz okulunda diğer yükseköğretim kurumlarından alınacak dersler için öğrencinin kayıtlı olduğu ilgili birimin Bölüm/Anabilim Dalı veya Program ", 30, 217, paint);
-        canvas.drawText("Başkanlığının onayı gerekir. ", 30, 220, paint);
-        canvas.drawText("(4) Yaz okulunda Bölüm/Anabilim Dalı veya Program Başkanlığı bu konudaki değerlendirmesini; ilgili bölüm müfredatındaki benzer içeriğe veya program ", 30, 223, paint);
-        canvas.drawText("yeterliliğine sahip olmakla birlikte, ders(ler)in AKTS/kedi/saat değer(ler)inden herhangi birini dikkate alarak yapar. ", 30, 226, paint);
-        canvas.drawText("ESAS 2- (l) Öğrenciler, yaz öğretiminde derslerin AKTS/kredi/saat değerlerine bakılmaksızın, en çok 3 ders alabilir. ", 30, 229, paint);
-        canvas.drawText("ESAS 3- (l) Güz ve/veya bahar yarıyıllarında kayıt donduran öğrenciler, kayıt dondurdukları yarıyıllara ilişkin dersleri yaz öğretiminde alamazlar.", 30, 232, paint);
-        canvas.drawText("ESAS 6  (l)Yaz öğretimi kapsamında alınan ders(ler)in notu genel not ortalamasına bakılmaksızın 4'lük sistem üzerinden 2'nin altında ise öğrenci bu ders(ler)den ", 30, 235, paint);
-        canvas.drawText("başarısız sayılır.", 30, 238, paint);
-        canvas.drawText("ESAS 9- (l) Yaz öğretimi aynı öğretim yılına ait üçüncü bir yarıyıl değildir. Yaz öğretiminde alınan ders(ler)in notları, öğrencilerin güz ve bahar yarıyıllarındaki ", 30, 241, paint);
-        canvas.drawText("yarıyıl not ortalamalarını ve yarıyıllardaki derslerin koşul durumlarını etkilemez. Ancak, öğrencinin genel not ortalaması (GNO) hesaplanmasına dahil edilir", 30, 244, paint);
+
+        TextPaint mFooterEsasTextPaint=new TextPaint();
+        mFooterEsasTextPaint.setTypeface(Typeface.MONOSPACE);
+        mFooterEsasTextPaint.setTextSize(2);
+        String mFooterEsasText="\nESAS l- (1) Spor Bilimleri Fakültesi dışındaki tüm akademik birimlerde okuyan öğrencilerin, diğer yükseköğretim kurumlarından yaz öğretiminde ders alabilmeleri için; Üniversiteye giriş yılı esas olmak üzere ilgili bölüm/program taban puanın en fazla 40 puan düşük olma koşulu aranır." +
+                "\n(3) Yaz okulunda diğer yükseköğretim kurumlarından alınacak dersler için öğrencinin kayıtlı olduğu ilgili birimin Bölüm/Anabilim Dalı veya Program Başkanlığının onayı gerekir. " +
+                "\n(4) Yaz okulunda Bölüm/Anabilim Dalı veya Program Başkanlığı bu konudaki değerlendirmesini; ilgili bölüm müfredatındaki benzer içeriğe veya program yeterliliğine sahip olmakla birlikte, ders(ler)in AKTS/kedi/saat değer(ler)inden herhangi birini dikkate alarak yapar." +
+                "\nESAS 2- (l) Öğrenciler, yaz öğretiminde derslerin AKTS/kredi/saat değerlerine bakılmaksızın, en çok 3 ders alabilir. " +
+                "\nESAS 3- (l) Güz ve/veya bahar yarıyıllarında kayıt donduran öğrenciler, kayıt dondurdukları yarıyıllara ilişkin dersleri yaz öğretiminde alamazlar." +
+                "\nESAS 6  (l)Yaz öğretimi kapsamında alınan ders(ler)in notu genel not ortalamasına bakılmaksızın 4'lük sistem üzerinden 2'nin altında ise öğrenci bu ders(ler)den başarısız sayılır." +
+                "\nESAS 9- (l) Yaz öğretimi aynı öğretim yılına ait üçüncü bir yarıyıl değildir. Yaz öğretiminde alınan ders(ler)in notları, öğrencilerin güz ve bahar yarıyıllarındaki yarıyıl not ortalamalarını ve yarıyıllardaki derslerin koşul durumlarını etkilemez. Ancak, öğrencinin genel not ortalaması (GNO) hesaplanmasına dahil edilir. ";
+
+
+        StaticLayout mFooterEsasTextLayout = new StaticLayout(mFooterEsasText, mFooterEsasTextPaint, canvas.getWidth()-60, Layout.Alignment.ALIGN_NORMAL, 1, 1, true);
+
+        canvas.save();
+// calculate x and y position where your text will be placed
+        int textFEX = 30;
+        int textFEY = 210;
+        canvas.translate(textFEX, textFEY);
+        mFooterEsasTextLayout.draw(canvas);
+        canvas.restore();
 
 
         pdfDocument.finishPage(page);

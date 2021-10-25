@@ -13,11 +13,15 @@ import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.Layout;
+import android.text.StaticLayout;
+import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
@@ -329,7 +333,8 @@ public class YatayGecisActivity extends AppCompatActivity {
 
         PdfDocument pdfDocument = new PdfDocument();
         Paint paint = new Paint();
-        Paint s = new Paint();
+        paint.setLinearText(true);
+        paint.setTypeface(Typeface.MONOSPACE);
         PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(210, 297, 1).create();
         PdfDocument.Page page = pdfDocument.startPage(pageInfo);
         Canvas canvas = page.getCanvas();
@@ -392,12 +397,28 @@ public class YatayGecisActivity extends AppCompatActivity {
         canvas.drawText("FAKÜLTE / YÜKSEKOKUL/MYO. ADI: " + strFaculty, 30, 165, paint);
         canvas.drawText("BÖLÜM / PROGRAM ADI:   " + strBranch, 30, 170, paint);
         canvas.drawText("ÖĞRETİM TÜRÜ:  " + strScoreTypeDropDown2, 30, 175, paint);
-        canvas.drawText("BAŞVURULAN PROGRAMIN HALEN KAYITLI OLUNAN PROGRAMA YERLEŞTİRME YAPILDIĞI PUAN TÜRÜ VE PUANI: " + strScoreTypeDropDown2 + " / " + strScore2, 30, 180, paint);
+        canvas.drawText("BAŞVURULAN PROGRAMIN HALEN KAYITLI OLUNAN PUAN TÜRÜ VE PUANI: " + strScoreTypeDropDown2 + " / " + strScore2, 30, 180, paint);
 
         //text5
-        canvas.drawText("Beyan ettiğim bilgilerin veya belgelerin gerçeğe aykırı olması veya daha önce yatay geçiş yapmış olmam ", 30, 190, paint);
-        canvas.drawText("halinde hakkımda cezai işlemlerin yürütüleceğini ve kaydım yapılmış olsa dahi silineceğini bildiğimi kabul ", 30, 195, paint);
-        canvas.drawText("ediyorum.", 30, 200, paint);
+
+        TextPaint mTextPaint=new TextPaint();
+        mTextPaint.setTypeface(Typeface.MONOSPACE);
+        mTextPaint.setTextSize(3);
+        String mText="Beyan ettiğim bilgilerin veya belgelerin gerçeğe aykırı olması veya daha önce yatay geçiş yapmış olmam halinde hakkımda cezai işlemlerin yürütüleceğini ve kaydım yapılmış olsa dahi silineceğini bildiğimi kabul ediyorum. ";
+
+
+        StaticLayout mTextLayout = new StaticLayout(mText, mTextPaint, canvas.getWidth()-45, Layout.Alignment.ALIGN_NORMAL, 1, 1, true);
+
+        canvas.save();
+// calculate x and y position where your text will be placed
+        int textX = 30;
+        int textY = 185;
+        canvas.translate(textX, textY);
+        mTextLayout.draw(canvas);
+        canvas.restore();
+
+
+
 
         canvas.drawText("Adayın Adı Soyadı: " + usersData.getIncomingName() + " " + usersData.getIncomingLastName(), 130, 205, paint);
         canvas.drawText("İmzası:", 140, 210, paint);

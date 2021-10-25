@@ -11,10 +11,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.Layout;
+import android.text.StaticLayout;
+import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
@@ -184,7 +188,8 @@ public class DgsActivity extends AppCompatActivity {
 
         PdfDocument pdfDocument = new PdfDocument();
         Paint paint = new Paint();
-        Paint s = new Paint();
+        paint.setLinearText(true);
+        paint.setTypeface(Typeface.MONOSPACE);
         PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(210, 297, 1).create();
         PdfDocument.Page page = pdfDocument.startPage(pageInfo);
         Canvas canvas = page.getCanvas();
@@ -207,16 +212,53 @@ public class DgsActivity extends AppCompatActivity {
 
         paint.setTextAlign(Paint.Align.LEFT);
 
-        canvas.drawText("       Üniversiteniz " + usersData.getIncomingFaculty() + " Fakültesi " + usersData.getIncomingDepartment(), 39, 80, paint);
-        canvas.drawText("Bölümüne Dikey Geçiş Sınavı ile yerleştirildim. Daha önce bitirmiş olduğum okuldaki", 39, 84, paint);
-        canvas.drawText("transkriptim ve ders içerikleri ekte sunulmuştur.", 39, 88, paint);
-        canvas.drawText("Gerekli ders muafiyetimin ve sınıf intibakımın yapılabilmesi için gereğini arz ederim. ", 39, 100, paint);
+
+        TextPaint mTextPaint=new TextPaint();
+        mTextPaint.setTypeface(Typeface.MONOSPACE);
+        mTextPaint.setTextSize(3);
+        String mText="Üniversiteniz " + usersData.getIncomingFaculty() + " Fakültesi " + usersData.getIncomingDepartment()+" Bölümüne Dikey Geçiş Sınavı ile yerleştirildim. Daha önce bitirmiş olduğum okuldaki transkriptim ve ders içerikleri ekte sunulmuştur. Gerekli ders muafiyetimin ve sınıf intibakımın yapılabilmesi için gereğini arz ederim. ";
+
+
+        StaticLayout mTextLayout = new StaticLayout(mText, mTextPaint, canvas.getWidth()-60, Layout.Alignment.ALIGN_NORMAL, 1, 1, true);
+        canvas.save();
+// calculate x and y position where your text will be placed
+        int textX = 39;
+        int textY = 80;
+        canvas.translate(textX, textY);
+        mTextLayout.draw(canvas);
+        canvas.restore();
+
+
+
         canvas.drawText("Öğrenci Numarası: " + usersData.getIncomingNumber(), 39, 115, paint);
         canvas.drawText("Tarih: " + strDate, 140, 115, paint);
         canvas.drawText("Adı Soyadı: " + usersData.getIncomingName() + " " + usersData.getIncomingLastName(), 140, 125, paint);
-        canvas.drawText("İmza", 146, 129, paint);
+
+
+        canvas.drawText("İmza: ______________", 140, 133, paint);
+
+
         canvas.drawText("Telefon Numarası: " + usersData.getIncomingPhone(), 39, 120, paint);
-        canvas.drawText("Adres: " + usersData.getIncomingAddress(), 39, 125, paint);
+
+        TextPaint mAdressTextPaint=new TextPaint();
+        mAdressTextPaint.setTypeface(Typeface.MONOSPACE);
+        mAdressTextPaint.setTextSize(3);
+        String mAdressText="Adres: " + usersData.getIncomingAddress();
+        StaticLayout mAdressTextLayout = new StaticLayout(mAdressText, mAdressTextPaint, canvas.getWidth()-150, Layout.Alignment.ALIGN_NORMAL, 1, 1, true);
+        canvas.save();
+// calculate x and y position where your text will be placed
+        int textAX = 39;
+        int textAY = 125;
+        canvas.translate(textAX, textAY);
+        mAdressTextLayout.draw(canvas);
+        canvas.restore();
+
+
+
+
+
+
+
         pdfDocument.finishPage(page);
         setPdf(uri, pdfDocument);
     }
