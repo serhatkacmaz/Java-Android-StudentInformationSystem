@@ -13,11 +13,15 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.graphics.pdf.PdfDocument;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Layout;
+import android.text.StaticLayout;
+import android.text.TextPaint;
 import android.text.TextUtils;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -184,7 +188,8 @@ public class CapActivity extends AppCompatActivity {
     private void createPdf(Uri uri) {
         PdfDocument pdfDocument = new PdfDocument();
         Paint paint = new Paint();
-        Paint s = new Paint();
+        paint.setLinearText(true);
+        paint.setTypeface(Typeface.MONOSPACE);
         PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(210, 297, 1).create();
         PdfDocument.Page page = pdfDocument.startPage(pageInfo);
         Canvas canvas = page.getCanvas();
@@ -208,13 +213,44 @@ public class CapActivity extends AppCompatActivity {
         paint.setTextSize(3);
         paint.setFakeBoldText(false);
 
-        canvas.drawText("   " + usersData.getIncomingFaculty() + " " + usersData.getIncomingDepartment() + " Bölümü " + strEducationCapType, 30, 45, paint);
-        canvas.drawText(usersData.getIncomingNumber() + " numaralı " + usersData.getIncomingName() + " " + usersData.getIncomingLastName() + " isimli öğrencisiyim.", 30, 50, paint);
-        canvas.drawText("       Kocaeli Üniversitesi Ön Lisans ve Lisans Eğitim ve Öğretim Yönetmeliği’nin 43.maddesi", 30, 60, paint);
-        canvas.drawText("uyarınca, " + strCapFaculty + " Fakülteniz " + strCapBranch + " Bölümü aşağıda belirtmiş", 30, 65, paint);
-        canvas.drawText("olduğum " + strEducationCapTypePass + " Çift Anadal Programı (ÇAP) kapsamında öğrenim görme talebimin kabul", 30, 70, paint);
-        canvas.drawText("edilmesini arz ederim.", 30, 75, paint);
-        canvas.drawText("imza", 165, 80, paint);
+        TextPaint mTextPaint=new TextPaint();
+        mTextPaint.setTypeface(Typeface.MONOSPACE);
+        mTextPaint.setTextSize(3);
+        String mText="\t" + usersData.getIncomingFaculty() + " "
+                + usersData.getIncomingDepartment() + " Bölümü "
+                + strEducationCapType+" "+usersData.getIncomingNumber()
+                + " numaralı " + usersData.getIncomingName() + " "
+                + usersData.getIncomingLastName() + " isimli öğrencisiyim."
+                +"\n\tKocaeli Üniversitesi Ön Lisans ve Lisans Eğitim ve Öğretim Yönetmeliği’nin 45.maddesi uyarınca, "
+                + strCapFaculty + " Fakülteniz " + strCapBranch + " Bölümü'nde  "
+                + strEducationCapTypePass + " Çift Anadal Programı (ÇAP) kapsamında öğrenim görme talebimin kabul edilmesini arz ederim.";
+
+
+        StaticLayout mTextLayout = new StaticLayout(mText, mTextPaint, canvas.getWidth()-60, Layout.Alignment.ALIGN_NORMAL, 1, 1, true);
+
+        canvas.save();
+// calculate x and y position where your text will be placed
+        int textX = 30;
+        int textY = 45;
+        canvas.translate(textX, textY);
+        mTextLayout.draw(canvas);
+        canvas.restore();
+
+
+
+        canvas.drawText("İmza:", 135, 80, paint);
+        //İmza Kutusu
+
+        //sol
+        canvas.drawLine(150,75,150,85,paint);
+        //sağ
+        canvas.drawLine(180,75,180,85,paint);
+        //yukarı
+        canvas.drawLine(150,75,180,75,paint);
+        //aşağı
+        canvas.drawLine(150,85,180,85,paint);
+
+
 
         //table1 row
         canvas.drawLine(30, 90, 180, 90, paint);
@@ -236,7 +272,29 @@ public class CapActivity extends AppCompatActivity {
         canvas.drawText("E-posta Adresi", 33, 114, paint);
         canvas.drawText(usersData.getIncomingMail(), 85, 114, paint);
         canvas.drawText("Adresi", 33, 119, paint);
-        canvas.drawText(usersData.getIncomingAddress(), 85, 119, paint);
+
+
+        TextPaint mAdressTextPaint=new TextPaint();
+        mAdressTextPaint.setTypeface(Typeface.MONOSPACE);
+        mAdressTextPaint.setTextSize(3);
+        String mAdressText=usersData.getIncomingAddress();
+
+
+        StaticLayout mAdressTextLayout = new StaticLayout(mAdressText, mAdressTextPaint, canvas.getWidth()-120, Layout.Alignment.ALIGN_NORMAL, 1, 1, true);
+
+        canvas.save();
+// calculate x and y position where your text will be placed
+        int textAX = 85;
+        int textAY = 118;
+        canvas.translate(textAX, textAY);
+        mAdressTextLayout.draw(canvas);
+        canvas.restore();
+
+
+
+
+
+
         //table1 column
         canvas.drawLine(30, 90, 30, 130, paint);
         canvas.drawLine(80, 90, 80, 130, paint);  // orta
@@ -256,12 +314,11 @@ public class CapActivity extends AppCompatActivity {
         canvas.drawText("edebilir. Bununla ilgili esaslar Senato tarafından belirlenir.", 30, 164, paint);
 
         canvas.drawText("MADDE 6- (2) Başvuru anında anadal diploma programındaki GNO'su 4.00'lük not sisteminde en az 3.00 olan ve anadal", 30, 170, paint);
-        canvas.drawText("MADDE 6- (2) Başvuru anında anadal diploma programındaki GNO'su 4.00'lük not sisteminde en az 3.00 olan ve anadal", 30, 173, paint);
-        canvas.drawText("başvurabilir.", 30, 176, paint);
+        canvas.drawText("başvurabilir.", 30, 173, paint);
 
-        canvas.drawText("c) Anadal diploma programındaki GNO'su en az 3.00 olan ancak anadal diploma programının ilgili sınıfında başarı sıralaması", 30, 182, paint);
-        canvas.drawText("itibariyle en üst %20'sinde yer almayan öğrencilerden çift anadal yapılacak bölümün/programın ilgili yıldaki taban puanından az", 30, 185, paint);
-        canvas.drawText("olmamak üzere puana sahip olanlar da ÇAP'a başvurabilirler.", 30, 188, paint);
+        canvas.drawText("c) Anadal diploma programındaki GNO'su en az 3.00 olan ancak anadal diploma programının ilgili sınıfında başarı sıralaması", 30, 177, paint);
+        canvas.drawText("itibariyle en üst %20'sinde yer almayan öğrencilerden çift anadal yapılacak bölümün/programın ilgili yıldaki taban puanından az", 30, 180, paint);
+        canvas.drawText("olmamak üzere puana sahip olanlar da ÇAP'a başvurabilirler.", 30, 183, paint);
 
         pdfDocument.finishPage(page);
         setPdf(uri, pdfDocument);

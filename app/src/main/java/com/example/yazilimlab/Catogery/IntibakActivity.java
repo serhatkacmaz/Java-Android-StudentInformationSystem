@@ -11,10 +11,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.Layout;
+import android.text.StaticLayout;
+import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
@@ -200,7 +204,8 @@ public class IntibakActivity extends AppCompatActivity {
     private void createPdf(Uri uri) {
         PdfDocument pdfDocument = new PdfDocument();
         Paint paint = new Paint();
-        Paint s = new Paint();
+        paint.setLinearText(true);
+        paint.setTypeface(Typeface.MONOSPACE);
         PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(210, 297, 1).create();
         PdfDocument.Page page = pdfDocument.startPage(pageInfo);
         Canvas canvas = page.getCanvas();
@@ -252,11 +257,33 @@ public class IntibakActivity extends AppCompatActivity {
         canvas.drawLine(180, 40, 180, 75, paint);
 
         paint.setTextSize(4);
-        canvas.drawText("       Daha önce " + strEditIntibakOldSchool + " Üniversitesi " + strEditIntibakOldFaculty + " Fakültesi / Meslek ", 45, 85, paint);
-        canvas.drawText("Yüksek Okulu " + strEditIntibakOldBranch + " Bölümünde / Programında aldığım ve ", 45, 90, paint);
-        canvas.drawText("aşağıda belirttiğim ders / derslerden muaf olmak istiyorum.", 45, 95, paint);
-        canvas.drawText("       Gereğinin yapılmasını arz ederim.", 45, 100, paint);
-        canvas.drawText("İmza:", 150, 107, paint);
+
+        TextPaint mTextPaint=new TextPaint();
+        mTextPaint.setTypeface(Typeface.MONOSPACE);
+        mTextPaint.setTextSize(3);
+        String mText="Daha önce " + strEditIntibakOldSchool + " Üniversitesi " + strEditIntibakOldFaculty + " Fakültesi / Meslek Yüksek Okulu " + strEditIntibakOldBranch + " Bölümünde / Programında aldığım ve aşağıda belirttiğim ders / derslerden muaf olmak istiyorum.\nGereğinin yapılmasını arz ederim.";
+        StaticLayout mTextLayout = new StaticLayout(mText, mTextPaint, canvas.getWidth()-60, Layout.Alignment.ALIGN_NORMAL, 1, 1, true);
+
+        canvas.save();
+// calculate x and y position where your text will be placed
+        int textX = 30;
+        int textY = 85;
+        canvas.translate(textX, textY);
+        mTextLayout.draw(canvas);
+        canvas.restore();
+
+
+        canvas.drawText("İmza:", 135, 110, paint);
+        //İmza Kutusu
+
+        //sol
+        canvas.drawLine(150,105,150,115,paint);
+        //sağ
+        canvas.drawLine(180,105,180,115,paint);
+        //yukarı
+        canvas.drawLine(150,105,180,105,paint);
+        //aşağı
+        canvas.drawLine(150,115,180,115,paint);
 
 
         // table arraylist Daha once aldığım ders
@@ -332,7 +359,7 @@ public class IntibakActivity extends AppCompatActivity {
         canvas.drawText("K", 176, 136, paint);
         canvas.drawText("T", 176, 140, paint);
         canvas.drawText("S", 176, 144, paint);
-        paint.setTextSize(4);
+        paint.setTextSize(3);
         //table2 column
         canvas.drawLine(30, 120, 30, 225, paint);
         canvas.drawLine(80, 130, 80, 225, paint);
