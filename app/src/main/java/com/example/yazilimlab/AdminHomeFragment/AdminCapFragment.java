@@ -261,6 +261,7 @@ public class AdminCapFragment extends Fragment {
                         String url = uri.toString();
                         downloadPdfFile(getActivity(), fileName, ".pdf", Environment.DIRECTORY_DOWNLOADS, url);
                         Toast.makeText(getActivity(), "Dosya indiriliyor(dilekce)", Toast.LENGTH_SHORT).show();
+                        downloadTranscript(adminAppItemInfo);   // transkirpt
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -269,7 +270,11 @@ public class AdminCapFragment extends Fragment {
             }
         });
 
-        // transkript belgesi
+    }
+
+
+    // transkript belgesi
+    private void downloadTranscript(AdminAppItemInfo adminAppItemInfo) {
 
         // dosya adı
         fileName = adminAppItemInfo.getTranscriptPath();
@@ -295,7 +300,6 @@ public class AdminCapFragment extends Fragment {
                 Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
     // basvuru pdf dosaysını indirme
