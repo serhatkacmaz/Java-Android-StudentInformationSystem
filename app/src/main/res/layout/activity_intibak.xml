@@ -480,6 +480,17 @@
             android:textColor="@color/red_helper"
             android:textSize="12dp" />
 
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="Ek Belgeler"
+            android:textColor="@color/black"
+            android:textSize="20dp"></TextView>
+
         <!--Transkript-->
         <TableLayout
             android:layout_width="match_parent"

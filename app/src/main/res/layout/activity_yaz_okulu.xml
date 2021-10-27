@@ -199,7 +199,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:padding="5dp"
             app:boxCornerRadiusBottomEnd="20dp"
             app:boxCornerRadiusTopStart="20dp"
             app:boxStrokeColor="@color/kou_green"
@@ -224,7 +224,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:padding="5dp"
             app:boxCornerRadiusBottomEnd="20dp"
             app:boxCornerRadiusTopStart="20dp"
             app:boxStrokeColor="@color/kou_green"
@@ -351,7 +351,7 @@
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_weight="4"
@@ -364,7 +364,7 @@
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginStart="5dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_weight="4"
@@ -384,11 +384,20 @@
             android:textSize="12dp" />
 
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="Ek Belgeler"
+            android:textColor="@color/black"
+            android:textSize="20dp"></TextView>
+
         <!--Transkript-->
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp">
+            android:layout_marginStart="-7dp">
 
             <TableRow android:gravity="center">
 
@@ -431,7 +440,7 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp">
+            android:layout_marginStart="-7dp">
 
             <TableRow android:gravity="center">
 
@@ -475,7 +484,7 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp">
+            android:layout_marginStart="-7dp">
 
             <TableRow android:gravity="center">
 

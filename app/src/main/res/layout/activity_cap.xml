@@ -122,6 +122,15 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="Ek Belgeler"
+            android:textColor="@color/black"
+            android:textSize="20dp"></TextView>
+
         <!--Belge Ekle-->
         <TableLayout
             android:layout_width="match_parent"

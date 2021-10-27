@@ -25,7 +25,8 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:padding="5dp"
-            android:text="123@gmail.com"
+            android:textAlignment="center"
+            android:text="Kocaeli Üniversitesi Admin Paneli"
             android:textSize="17sp" />
     </LinearLayout>
 
