@@ -257,7 +257,7 @@ public class RegisterActivity extends AppCompatActivity {
         strPassword = editTextRegisterPassword.getText().toString();
     }
 
-    private String emptyControlMessage = "Eksik bilgiler vars";
+    private String emptyControlMessage;
 
     // ınput bosmu kontrol
     private boolean isNotEmpty() {
@@ -266,9 +266,10 @@ public class RegisterActivity extends AppCompatActivity {
                 TextUtils.isEmpty(strFaculty) || TextUtils.isEmpty(strDepartment) || TextUtils.isEmpty(strPassword) || imgUri == null;
 
 
-        if (result)
+        if (result) {
+            emptyControlMessage = "Eksik bilgiler vars";
             return false;
-        else {
+        } else {
             if (strMail.endsWith("@kocaeli.edu.tr") && strNumber.length() == 10 && strPhone.length() == 10 && strIdentity.length() == 11) {
                 return true;
             } else {

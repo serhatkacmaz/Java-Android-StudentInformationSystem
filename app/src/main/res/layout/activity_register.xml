@@ -65,13 +65,14 @@
             android:textColorHint="@color/textViewGrayColor"
             android:textSize="16dp"
             tools:ignore="SpeakableTextPresentCheck" />
+
         <TextView
             android:layout_width="match_parent"
-            android:textColor="@color/red_helper"
-            android:text="*Zorunlu Alan"
+            android:layout_height="match_parent"
             android:layout_marginLeft="18dp"
-            android:textSize="12dp"
-            android:layout_height="match_parent"/>
+            android:text="*Zorunlu Alan"
+            android:textColor="@color/red_helper"
+            android:textSize="12dp" />
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -96,6 +97,7 @@
                 android:ems="10"
                 android:hint="Okul Numaranızı Giriniz"
                 android:inputType="number"
+                android:maxLength="10"
                 android:minHeight="48dp"
                 tools:ignore="SpeakableTextPresentCheck" />
 
@@ -196,6 +198,7 @@
                 android:ems="10"
                 android:hint="Telefon Numarası Giriniz"
                 android:inputType="phone"
+                android:maxLength="10"
                 android:minHeight="48dp"
                 tools:ignore="SpeakableTextPresentCheck" />
 
