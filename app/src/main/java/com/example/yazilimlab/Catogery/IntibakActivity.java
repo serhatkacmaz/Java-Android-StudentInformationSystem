@@ -395,11 +395,11 @@ public class IntibakActivity extends AppCompatActivity {
             stream.flush();
             petitionUri = uri;
         } catch (FileNotFoundException e) {
-            Toast.makeText(this, "Dosya hatası bulunamadı", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Dosya hatası bulunamadı.", Toast.LENGTH_LONG).show();
         } catch (IOException e) {
-            Toast.makeText(this, "Giriş ve çıkış hatası", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Giriş ve çıkış hatası.", Toast.LENGTH_LONG).show();
         } catch (Exception e) {
-            Toast.makeText(this, "Bilinmeyen hata" + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Bilinmeyen hata." + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
         }
     }
     //https://github.com/LukeDaniel16/CreatePDFwithJavaOnAndroidStudio
@@ -465,10 +465,10 @@ public class IntibakActivity extends AppCompatActivity {
                 System.out.println("----------------------------------------------");
                 oldLessonTextDelete();
             } else {
-                Toast.makeText(IntibakActivity.this, "Daha önce aldığım ders kısmında boş alanlar var", Toast.LENGTH_SHORT).show();
+                Toast.makeText(IntibakActivity.this, "Daha önce aldığım dersler kısmında boş alanlar var.", Toast.LENGTH_SHORT).show();
             }
         } else {
-            Toast.makeText(IntibakActivity.this, String.valueOf(tableRow) + " adet ekliyebilirsin", Toast.LENGTH_SHORT).show();
+            Toast.makeText(IntibakActivity.this, String.valueOf(tableRow) + " adet ekliyebilirsin.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -476,9 +476,9 @@ public class IntibakActivity extends AppCompatActivity {
     public void IntibakOldLessonRemove(View view) {
         if (oldLessonList.size() > 0) {
             oldLessonList.remove(oldLessonList.size() - 1);
-            Toast.makeText(IntibakActivity.this, "Son Eklenen Kaldırıldı", Toast.LENGTH_SHORT).show();
+            Toast.makeText(IntibakActivity.this, "Son eklenen ders kaldırıldı.", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(IntibakActivity.this, "Liste bos", Toast.LENGTH_SHORT).show();
+            Toast.makeText(IntibakActivity.this, "Liste boş.", Toast.LENGTH_SHORT).show();
         }
     }
     // daha önce aldığım end
@@ -528,10 +528,10 @@ public class IntibakActivity extends AppCompatActivity {
                 System.out.println("----------------------------------------------");
                 exemptLessonTextDelete();
             } else {
-                Toast.makeText(IntibakActivity.this, "Muaf olmak istediğim kısmında boş alanlar var", Toast.LENGTH_SHORT).show();
+                Toast.makeText(IntibakActivity.this, "Muaf olmak istediğim dersler kısmında boş alanlar var.", Toast.LENGTH_SHORT).show();
             }
         } else {
-            Toast.makeText(IntibakActivity.this, String.valueOf(tableRow) + " adet ekliyebilirsin", Toast.LENGTH_SHORT).show();
+            Toast.makeText(IntibakActivity.this, String.valueOf(tableRow) + " adet ekliyebilirsin.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -539,9 +539,9 @@ public class IntibakActivity extends AppCompatActivity {
     public void IntibakExemptLessonRemove(View view) {
         if (exemptLessonList.size() > 0) {
             exemptLessonList.remove(exemptLessonList.size() - 1);
-            Toast.makeText(IntibakActivity.this, "Son Eklenen Kaldırıldı", Toast.LENGTH_SHORT).show();
+            Toast.makeText(IntibakActivity.this, "Son eklenen ders kaldırıldı.", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(IntibakActivity.this, "Liste bos", Toast.LENGTH_SHORT).show();
+            Toast.makeText(IntibakActivity.this, "Liste boş.", Toast.LENGTH_SHORT).show();
         }
     }
     // muaf olmak istediğim end
@@ -629,7 +629,7 @@ public class IntibakActivity extends AppCompatActivity {
             });
             checkAlertDialog.create().show();
         } else {
-            Toast.makeText(IntibakActivity.this, "Boş alanlar var", Toast.LENGTH_SHORT).show();
+            Toast.makeText(IntibakActivity.this, "Boş alanlar var.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -658,7 +658,7 @@ public class IntibakActivity extends AppCompatActivity {
                 .set(resourcesAdd).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                Toast.makeText(IntibakActivity.this, "Başvuru Yapıldı\n İmzalı Belgeyi Yükleyin", Toast.LENGTH_LONG).show();
+                Toast.makeText(IntibakActivity.this, "Başvurunuz yapıldı.\nİmzalı belgeyi yükleyin.", Toast.LENGTH_LONG).show();
                 System.out.println("Intibak basvuru kayıt tamam");
                 customDialog.dismissDialog();
                 startActivity(new Intent(IntibakActivity.this, StudentHomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));

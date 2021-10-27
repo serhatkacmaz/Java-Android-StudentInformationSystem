@@ -273,11 +273,11 @@ public class DgsActivity extends AppCompatActivity {
             petitionUri = uri;
 
         } catch (FileNotFoundException e) {
-            Toast.makeText(this, "Dosya hatası bulunamadı", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Dosya hatası bulunamadı.", Toast.LENGTH_LONG).show();
         } catch (IOException e) {
-            Toast.makeText(this, "Giriş ve çıkış hatası", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Giriş ve çıkış hatası.", Toast.LENGTH_LONG).show();
         } catch (Exception e) {
-            Toast.makeText(this, "Bilinmeyen hata" + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Bilinmeyen hata." + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -373,7 +373,7 @@ public class DgsActivity extends AppCompatActivity {
             });
             checkAlertDialog.create().show();
         } else {
-            Toast.makeText(DgsActivity.this, "Boş alanlar var", Toast.LENGTH_SHORT).show();
+            Toast.makeText(DgsActivity.this, "Boş alanlar var.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -402,7 +402,7 @@ public class DgsActivity extends AppCompatActivity {
                 .set(resourcesAdd).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                Toast.makeText(DgsActivity.this, "Başvuru Yapıldı\n İmzalı Belgeyi Yükleyin", Toast.LENGTH_LONG).show();
+                Toast.makeText(DgsActivity.this, "Başvurunuz yapıldı.\nİmzalı belgeyi yükleyin.", Toast.LENGTH_LONG).show();
                 System.out.println("Dgs basvuru kayıt tamam");
                 customDialog.dismissDialog();
                 startActivity(new Intent(DgsActivity.this, StudentHomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));

@@ -334,11 +334,11 @@ public class CapActivity extends AppCompatActivity {
             petitionUri = uri;
 
         } catch (FileNotFoundException e) {
-            Toast.makeText(this, "Dosya hatası bulunamadı", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Dosya hatası bulunamadı.", Toast.LENGTH_LONG).show();
         } catch (IOException e) {
-            Toast.makeText(this, "Giriş ve çıkış hatası", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Giriş ve çıkış hatası.", Toast.LENGTH_LONG).show();
         } catch (Exception e) {
-            Toast.makeText(this, "Bilinmeyen hata" + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Bilinmeyen hata." + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
         }
     }
     // https://github.com/LukeDaniel16/CreatePDFwithJavaOnAndroidStudio
@@ -420,7 +420,7 @@ public class CapActivity extends AppCompatActivity {
                 .set(resourcesAdd).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                Toast.makeText(CapActivity.this, "Başvuru Yapıldı\n İmzalı Belgeyin Yükleyin", Toast.LENGTH_LONG).show();
+                Toast.makeText(CapActivity.this, "Başvurunuz yapıldı.\nİmzalı belgeyi yükleyin.", Toast.LENGTH_LONG).show();
                 System.out.println("Cap basvuru kayıt tamam");
                 customDialog.dismissDialog();
                 startActivity(new Intent(CapActivity.this, StudentHomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
@@ -489,7 +489,7 @@ public class CapActivity extends AppCompatActivity {
             });
             checkAlertDialog.create().show();
         } else {
-            Toast.makeText(CapActivity.this, "Boş alanlar var", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CapActivity.this, "Boş alanlar var.", Toast.LENGTH_SHORT).show();
         }
     }
 

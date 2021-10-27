@@ -321,10 +321,10 @@ public class YazOkuluActivity extends AppCompatActivity {
                 System.out.println("----------------------------------------------");
                 takeLessonTextDelete();
             } else {
-                Toast.makeText(YazOkuluActivity.this, "Ders eklemede boş alanlar var ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(YazOkuluActivity.this, "Ders eklemede boş alanlar var.", Toast.LENGTH_SHORT).show();
             }
         } else {
-            Toast.makeText(YazOkuluActivity.this, String.valueOf(tableRow) + " adet ekliyebilirsin", Toast.LENGTH_SHORT).show();
+            Toast.makeText(YazOkuluActivity.this, String.valueOf(tableRow) + " adet ekliyebilirsin.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -332,9 +332,9 @@ public class YazOkuluActivity extends AppCompatActivity {
     public void yazOkuluTakeLessonRemove(View view) {
         if (takeLessonList.size() > 0) {
             takeLessonList.remove(takeLessonList.size() - 1);
-            Toast.makeText(YazOkuluActivity.this, "Son Eklenen Kaldırıldı", Toast.LENGTH_SHORT).show();
+            Toast.makeText(YazOkuluActivity.this, "Son eklenen ders kaldırıldı.", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(YazOkuluActivity.this, "Liste bos", Toast.LENGTH_SHORT).show();
+            Toast.makeText(YazOkuluActivity.this, "Liste boş.", Toast.LENGTH_SHORT).show();
         }
     }
     // yaz okulunda alıncak end
@@ -569,11 +569,11 @@ public class YazOkuluActivity extends AppCompatActivity {
             stream.flush();
             petitionUri = uri;
         } catch (FileNotFoundException e) {
-            Toast.makeText(this, "Dosya hatası bulunamadı", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Dosya hatası bulunamadı.", Toast.LENGTH_LONG).show();
         } catch (IOException e) {
-            Toast.makeText(this, "Giriş ve çıkış hatası", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Giriş ve çıkış hatası.", Toast.LENGTH_LONG).show();
         } catch (Exception e) {
-            Toast.makeText(this, "Bilinmeyen hata" + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Bilinmeyen hata." + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
         }
     }
     //https://github.com/LukeDaniel16/CreatePDFwithJavaOnAndroidStudio
@@ -674,7 +674,7 @@ public class YazOkuluActivity extends AppCompatActivity {
             });
             checkAlertDialog.create().show();
         } else {
-            Toast.makeText(YazOkuluActivity.this, "Boş alanlar var", Toast.LENGTH_SHORT).show();
+            Toast.makeText(YazOkuluActivity.this, "Boş alanlar var.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -703,7 +703,7 @@ public class YazOkuluActivity extends AppCompatActivity {
                 .set(resourcesAdd).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                Toast.makeText(YazOkuluActivity.this, "Başvuru Yapıldı\n İmzalı Belgeyi Yükleyin", Toast.LENGTH_LONG).show();
+                Toast.makeText(YazOkuluActivity.this, "Başvurunuz yapıldı.\nİmzalı belgeyi yükleyin.", Toast.LENGTH_LONG).show();
                 System.out.println("YazOkulu basvuru kayıt tamam");
                 customDialog.dismissDialog();
                 startActivity(new Intent(YazOkuluActivity.this, StudentHomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));

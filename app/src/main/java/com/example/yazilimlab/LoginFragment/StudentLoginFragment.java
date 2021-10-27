@@ -144,7 +144,7 @@ public class StudentLoginFragment extends Fragment {
                     fAuth.sendPasswordResetEmail(mail).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
-                            Toast.makeText(getActivity(), "Mail yollandı", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Mail yollandı.", Toast.LENGTH_SHORT).show();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -153,7 +153,7 @@ public class StudentLoginFragment extends Fragment {
                         }
                     });
                 } else {
-                    Toast.makeText(getActivity(), "Mail Adresi Girilmedi", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Mail adresi girilmedi.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -213,7 +213,7 @@ public class StudentLoginFragment extends Fragment {
                                         startActivity(homeIntent);
                                     } else {
                                         customDialog.dismissDialog();
-                                        Toast.makeText(getActivity(), "Kullanıcı adı veya şifre hatalı", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getActivity(), "Kullanıcı adı veya şifre hatalı.", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
@@ -226,7 +226,7 @@ public class StudentLoginFragment extends Fragment {
             });
 
         } else {
-            Toast.makeText(getActivity(), "Kullanıcı adı veya şifre boş", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Kullanıcı adı veya şifre boş olamaz.", Toast.LENGTH_SHORT).show();
         }
     }
 

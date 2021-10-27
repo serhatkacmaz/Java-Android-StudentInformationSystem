@@ -256,7 +256,7 @@ public class AdminYatayGecisFragment extends Fragment {
                     public void onSuccess(Uri uri) {
                         String url = uri.toString();
                         downloadPdfFile(getActivity(), fileName, ".pdf", Environment.DIRECTORY_DOWNLOADS, url);
-                        Toast.makeText(getActivity(), "Dosya indiriliyor(dilekce)", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Dosya indiriliyor.(Dilekçe)", Toast.LENGTH_SHORT).show();
                         downloadTranscript(adminAppItemInfo);   // transkirpt
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -298,6 +298,7 @@ public class AdminYatayGecisFragment extends Fragment {
     }
 
     // basvuru pdf dosaysını indirme
+    //https://www.youtube.com/watch?v=SmXGlv7QEO0
     public void downloadPdfFile(Context context, String fileName, String fileExtension, String destinationDirectory, String url) {
         DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
         Uri uri = Uri.parse(url);
@@ -306,6 +307,7 @@ public class AdminYatayGecisFragment extends Fragment {
         request.setDestinationInExternalFilesDir(context, destinationDirectory, fileName + fileExtension);
         downloadManager.enqueue(request);
     }
+    //https://www.youtube.com/watch?v=SmXGlv7QEO0
 
 
     private void refresh() {
