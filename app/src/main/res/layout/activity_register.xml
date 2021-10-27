@@ -97,7 +97,7 @@
                 android:ems="10"
                 android:hint="Okul Numaranızı Giriniz"
                 android:inputType="number"
-                android:maxLength="10"
+                android:maxLength="9"
                 android:minHeight="48dp"
                 tools:ignore="SpeakableTextPresentCheck" />
 

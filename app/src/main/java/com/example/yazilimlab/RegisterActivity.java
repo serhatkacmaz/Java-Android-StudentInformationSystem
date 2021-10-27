@@ -270,7 +270,7 @@ public class RegisterActivity extends AppCompatActivity {
             emptyControlMessage = "Eksik bilgiler vars";
             return false;
         } else {
-            if (strMail.endsWith("@kocaeli.edu.tr") && strNumber.length() == 10 && strPhone.length() == 10 && strIdentity.length() == 11) {
+            if (strMail.endsWith("@kocaeli.edu.tr") && strNumber.length() == 9 && strPhone.length() == 10 && strIdentity.length() == 11) {
                 return true;
             } else {
                 emptyControlMessage = "Yanlış Bilgi Girişi (Mail veya diğerleri)";
