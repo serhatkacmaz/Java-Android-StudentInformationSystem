@@ -446,11 +446,11 @@ public class YatayGecisActivity extends AppCompatActivity {
             stream.flush();
             petitionUri = uri;
         } catch (FileNotFoundException e) {
-            Toast.makeText(this, "Dosya hatası bulunamadı", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Dosya hatası bulunamadı.", Toast.LENGTH_LONG).show();
         } catch (IOException e) {
-            Toast.makeText(this, "Giriş ve çıkış hatası", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Giriş ve çıkış hatası.", Toast.LENGTH_LONG).show();
         } catch (Exception e) {
-            Toast.makeText(this, "Bilinmeyen hata" + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Bilinmeyen hata." + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
         }
     }
     //https://github.com/LukeDaniel16/CreatePDFwithJavaOnAndroidStudio
@@ -534,7 +534,7 @@ public class YatayGecisActivity extends AppCompatActivity {
             });
             checkAlertDialog.create().show();
         } else {
-            Toast.makeText(YatayGecisActivity.this, "Boş alanlar var", Toast.LENGTH_SHORT).show();
+            Toast.makeText(YatayGecisActivity.this, "Boş alanlar var.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -561,7 +561,7 @@ public class YatayGecisActivity extends AppCompatActivity {
                 .set(resourcesAdd).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                Toast.makeText(YatayGecisActivity.this, "Başvuru Yapıldı\n İmzalı Belgeyi Yükleyin", Toast.LENGTH_LONG).show();
+                Toast.makeText(YatayGecisActivity.this, "Başvurunuz yapıldı.\nİmzalı belgeyi yükleyin.", Toast.LENGTH_LONG).show();
                 System.out.println("YatayGecis basvuru kayıt tamam");
                 customDialog.dismissDialog();
                 startActivity(new Intent(YatayGecisActivity.this, StudentHomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));

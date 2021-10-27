@@ -255,7 +255,7 @@ public class AdminIntibakFragment extends Fragment {
                     public void onSuccess(Uri uri) {
                         String url = uri.toString();
                         downloadPdfFile(getActivity(), fileName, ".pdf", Environment.DIRECTORY_DOWNLOADS, url);
-                        Toast.makeText(getActivity(), "Dosya indiriliyor(dilekce)", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Dosya indiriliyor.(Dilekçe)", Toast.LENGTH_SHORT).show();
                         downloadTranscript(adminAppItemInfo);   // transkirpt
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -287,7 +287,7 @@ public class AdminIntibakFragment extends Fragment {
                     public void onSuccess(Uri uri) {
                         String url = uri.toString();
                         downloadPdfFile(getActivity(), fileName, "." + extension, Environment.DIRECTORY_DOWNLOADS, url);
-                        Toast.makeText(getActivity(), "Dosya indiriliyor(transkript)", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Dosya indiriliyor.(Transkript)", Toast.LENGTH_SHORT).show();
                         dowloadLesson(adminAppItemInfo);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -317,7 +317,7 @@ public class AdminIntibakFragment extends Fragment {
                     public void onSuccess(Uri uri) {
                         String url = uri.toString();
                         downloadPdfFile(getActivity(), fileName, "." + extension, Environment.DIRECTORY_DOWNLOADS, url);
-                        Toast.makeText(getActivity(), "Dosya indiriliyor(lesson)", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Dosya indiriliyor.(Ders dilekçesi)", Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -328,6 +328,7 @@ public class AdminIntibakFragment extends Fragment {
     }
 
     // basvuru pdf dosaysını indirme
+    //https://www.youtube.com/watch?v=SmXGlv7QEO0
     public void downloadPdfFile(Context context, String fileName, String fileExtension, String destinationDirectory, String url) {
         DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
         Uri uri = Uri.parse(url);
@@ -336,6 +337,7 @@ public class AdminIntibakFragment extends Fragment {
         request.setDestinationInExternalFilesDir(context, destinationDirectory, fileName + fileExtension);
         downloadManager.enqueue(request);
     }
+    //https://www.youtube.com/watch?v=SmXGlv7QEO0
 
     private void refresh() {
         adminIncomingList.refreshIncomingCardView();

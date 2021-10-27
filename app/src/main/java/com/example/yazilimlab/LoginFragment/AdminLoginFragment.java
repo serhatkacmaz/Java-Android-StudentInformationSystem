@@ -150,7 +150,7 @@ public class AdminLoginFragment extends Fragment {
                                         startActivity(adminIntent);
                                     } else {
                                         customDialog.dismissDialog();
-                                        Toast.makeText(getActivity(), "Kullanıcı adı veya şifre hatalı", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getActivity(), "Kullanıcı adı veya şifre hatalı.", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
@@ -165,7 +165,7 @@ public class AdminLoginFragment extends Fragment {
 
 
         } else {
-            Toast.makeText(getActivity(), "Kullanıcı adı veya şifre boş", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Kullanıcı adı veya şifre boş olamaz.", Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -234,7 +234,7 @@ public class MyApplicationFragment extends Fragment {
                     public void onSuccess(Uri uri) {
                         String url = uri.toString();
                         downloadPdfFile(getActivity(), fileName, ".pdf", Environment.DIRECTORY_DOWNLOADS, url);
-                        Toast.makeText(getActivity(), "Dosya indiriliyor", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Dosya indiriliyor.", Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -245,6 +245,7 @@ public class MyApplicationFragment extends Fragment {
     }
 
     // basvuru pdf dosaysını indirme
+    //https://www.youtube.com/watch?v=SmXGlv7QEO0
     public void downloadPdfFile(Context context, String fileName, String fileExtension, String destinationDirectory, String url) {
         DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
         Uri uri = Uri.parse(url);
@@ -253,6 +254,7 @@ public class MyApplicationFragment extends Fragment {
         request.setDestinationInExternalFilesDir(context, destinationDirectory, fileName + fileExtension);
         downloadManager.enqueue(request);
     }
+    //https://www.youtube.com/watch?v=SmXGlv7QEO0
 
     // dosya sec sayfası
     private void selectFile(MyAppItemInfo myAppItemInfo) {
@@ -311,7 +313,7 @@ public class MyApplicationFragment extends Fragment {
                             updateField(mInfoOnGoing);  // field güncelleme
                             System.out.println("İmzalı dosya Kayıt Tamam.");
                             System.out.println("----------------------");
-                            Toast.makeText(getActivity(), "İmzalı pdf yüklendi", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "İmzalı pdf yüklendi.", Toast.LENGTH_SHORT).show();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -346,7 +348,7 @@ public class MyApplicationFragment extends Fragment {
                     if (getStateUpload.equals("0")) {
                         selectFile(mInfoOnGoing);
                     } else {
-                        Toast.makeText(getActivity(), "Dosya gönderilmiş durumda", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Dosya gönderilmiş durumda.", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

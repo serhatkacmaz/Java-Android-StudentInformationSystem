@@ -388,7 +388,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     customDialog.dismissDialog();
-                    Toast.makeText(RegisterActivity.this, "Kayıt Tamamlandı", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Kayıt tamamlandı.", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(RegisterActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 } else {
                     Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
