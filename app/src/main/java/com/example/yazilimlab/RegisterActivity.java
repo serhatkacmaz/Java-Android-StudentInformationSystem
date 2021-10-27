@@ -257,15 +257,25 @@ public class RegisterActivity extends AppCompatActivity {
         strPassword = editTextRegisterPassword.getText().toString();
     }
 
+    private String emptyControlMessage = "Eksik bilgiler vars";
+
     // ınput bosmu kontrol
     private boolean isNotEmpty() {
         boolean result = TextUtils.isEmpty(strNumber) || TextUtils.isEmpty(strMail) || TextUtils.isEmpty(strName) || TextUtils.isEmpty(strLastName) || TextUtils.isEmpty(strPhone) || TextUtils.isEmpty(strIdentity) ||
                 TextUtils.isEmpty(strAddress) || TextUtils.isEmpty(strInfoClass) || TextUtils.isEmpty(strBirthday) || TextUtils.isEmpty(strUniversity) ||
                 TextUtils.isEmpty(strFaculty) || TextUtils.isEmpty(strDepartment) || TextUtils.isEmpty(strPassword) || imgUri == null;
 
+
         if (result)
             return false;
-        return true;
+        else {
+            if (strMail.endsWith("@kocaeli.edu.tr") && strNumber.length() == 10 && strPhone.length() == 10 && strIdentity.length() == 11) {
+                return true;
+            } else {
+                emptyControlMessage = "Yanlış Bilgi Girişi (Mail veya diğerleri)";
+                return false;
+            }
+        }
     }
 
 
@@ -335,7 +345,7 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                     });
         } else {
-            Toast.makeText(RegisterActivity.this, "Eksik bilgiler var", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegisterActivity.this, emptyControlMessage, Toast.LENGTH_SHORT).show();
         }
     }
 
