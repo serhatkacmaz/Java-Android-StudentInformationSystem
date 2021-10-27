@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Sicil Numarası Giriniz"
+            android:hint="Mail Adresi Giriniz"
             android:inputType="textEmailAddress"
             android:minHeight="48dp"
             android:textAlignment="center"

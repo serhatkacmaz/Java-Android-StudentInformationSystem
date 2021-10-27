@@ -75,7 +75,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TableRow android:gravity="left">
+        <TableRow android:gravity="center_horizontal">
 
             <Switch
                 android:id="@+id/switch_studentLogin_RememberMe"
@@ -101,7 +101,7 @@
                 android:id="@+id/buttonStudentLoginRegisterPage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="70dp"
+                android:layout_marginStart="50dp"
                 android:onClick="buttonRegisterPage"
                 android:text="Kayıt Ol "
                 android:textColor="#000000"
