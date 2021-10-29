@@ -131,15 +131,9 @@ public class YatayGecisActivity extends AppCompatActivity {
     private String strTerm, strNoteGrade, strYear, strScore, strScore2, strEnglish, strFaculty, strBranch;
     private String strMakeApplicationType, strEducationType, strDisciplineType, strEducationType2, strScoreTypeDropDown1, strScoreTypeDropDown2;
 
-    // visibility
-    private EditText editTextYatayGecisNo;
-    private String strNo;
-
     // ArrayList
     private ArrayList<Uri> fileUriList;
     private ArrayList<String> fileType;
-
-    private TextInputLayout editTextYatayGecisNoWrap;
 
     // progress dialog
     private CustomDialog customDialog;
@@ -167,10 +161,6 @@ public class YatayGecisActivity extends AppCompatActivity {
         image_yatayGecis_fileStateTranscript = (ImageView) findViewById(R.id.image_yatayGecis_fileStateTranscript);
         textView_yatayGecis_fileStateTranscript = (TextView) findViewById(R.id.textView_yatayGecis_fileStateTranscript);
 
-
-        //kurum içi
-        editTextYatayGecisNoWrap = (TextInputLayout) findViewById(R.id.editTextYatayGecisNoWrap);
-        editTextYatayGecisNo = (EditText) findViewById(R.id.editTextYatayGecisNo);
 
         //EditText
         editTextYatayGecisTerm = (EditText) findViewById(R.id.editTextYatayGecisTerm);
@@ -252,36 +242,15 @@ public class YatayGecisActivity extends AppCompatActivity {
         setContentView(R.layout.activity_yatay_gecis);
         init();
 
-        // ComboBox for Basvuru turu click event
-        makeApplicationTypeDropDown.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                //System.out.println(makeApplicationTypeDropDown.getText().toString());
-                if (makeApplicationTypeDropDown.getText().toString().equals("KURUMİÇİ YATAY GEÇİŞ BAŞVURUSU")) {
-                    System.out.println("visible");
-                    editTextYatayGecisNoWrap.setVisibility(View.VISIBLE);
-                } else {
-                    System.out.println("invvisibl");
-                    editTextYatayGecisNoWrap.setVisibility(View.GONE);
-                }
-            }
-        });
     }
 
     // string degerleri atama
     private void setString() {
         // editText
         strTerm = editTextYatayGecisTerm.getText().toString();
+        if (strTerm.equals("0")) {
+            strTerm = "Hazırlık";
+        }
         strNoteGrade = editTextYatayGecisNoteGrade.getText().toString();
         strYear = editTextYatayGecisYear.getText().toString();
         strScore = editTextYatayGecisScore.getText().toString();
@@ -297,9 +266,6 @@ public class YatayGecisActivity extends AppCompatActivity {
         strScoreTypeDropDown1 = scoreTypeDropDown1.getText().toString();
         strScoreTypeDropDown2 = scoreTypeDropDown2.getText().toString();
 
-        //kurum ici
-        strNo = editTextYatayGecisNo.getText().toString();
-
     }
 
     // input bos kontrolu
@@ -307,9 +273,6 @@ public class YatayGecisActivity extends AppCompatActivity {
         setString();
         boolean result = TextUtils.isEmpty(strTerm) || TextUtils.isEmpty(strNoteGrade) || TextUtils.isEmpty(strYear) || TextUtils.isEmpty(strScore) || TextUtils.isEmpty(strScore2) || TextUtils.isEmpty(strFaculty) || TextUtils.isEmpty(strBranch)
                 || TextUtils.isEmpty(strMakeApplicationType) || TextUtils.isEmpty(strEducationType) || TextUtils.isEmpty(strDisciplineType) || TextUtils.isEmpty(strEducationType2) || TextUtils.isEmpty(strScoreTypeDropDown1) || TextUtils.isEmpty(strScoreTypeDropDown2);
-        if (makeApplicationTypeDropDown.getText().toString().equals("KURUMİÇİ YATAY GEÇİŞ BAŞVURUSU") && result == true) {
-            result = TextUtils.isEmpty(strNo);
-        }
 
         if (result)
             return false;
@@ -385,7 +348,11 @@ public class YatayGecisActivity extends AppCompatActivity {
         canvas.drawText("SINIF/ YARIYIL:    " + strTerm, 120, 115, paint);
         canvas.drawText("DİSİPLİN CEZASI ALIP ALMADIĞI: " + strDisciplineType, 30, 120, paint);
         canvas.drawText("GENEL AKADEMİK BAŞARI NOT ORTALAMASI:  " + strNoteGrade, 30, 125, paint);
-        canvas.drawText("ÖĞRENCİ NUMARASI (KOCAELİ  ÜNİVERSİTESİ ÖĞRENCİLERİ İÇİN): " + strNo, 30, 130, paint);
+        if (makeApplicationTypeDropDown.getText().toString().equals("KURUMİÇİ YATAY GEÇİŞ BAŞVURUSU")) {
+            canvas.drawText("ÖĞRENCİ NUMARASI (KOCAELİ  ÜNİVERSİTESİ ÖĞRENCİLERİ İÇİN): " + usersData.getIncomingNumber(), 30, 130, paint);
+        } else {
+            canvas.drawText("ÖĞRENCİ NUMARASI (KOCAELİ  ÜNİVERSİTESİ ÖĞRENCİLERİ İÇİN): ", 30, 130, paint);
+        }
         canvas.drawText("HALEN KAYITLI OLDUĞU YÜKSEKÖĞRETİM KURUMUNA YERLEŞTİRİLDİĞİ YIL:   " + strYear, 30, 135, paint);
         canvas.drawText("HALEN KAYITLI OLUNAN PROGRAMA YERLEŞTİRMEDE KULLANILAN PUAN TÜRÜ VE PUANI: " + strScoreTypeDropDown1 + " / " + strScore, 30, 140, paint);
         canvas.drawText("ZORUNLU HAZIRLIK SINIFI BULUNAN PROGRAMLARA BAŞVURAN ADAYLAR İÇİN YABANCI DİL PUANI:  " + strEnglish, 30, 145, paint);
@@ -401,13 +368,13 @@ public class YatayGecisActivity extends AppCompatActivity {
 
         //text5
 
-        TextPaint mTextPaint=new TextPaint();
+        TextPaint mTextPaint = new TextPaint();
         mTextPaint.setTypeface(Typeface.MONOSPACE);
         mTextPaint.setTextSize(3);
-        String mText="Beyan ettiğim bilgilerin veya belgelerin gerçeğe aykırı olması veya daha önce yatay geçiş yapmış olmam halinde hakkımda cezai işlemlerin yürütüleceğini ve kaydım yapılmış olsa dahi silineceğini bildiğimi kabul ediyorum. ";
+        String mText = "Beyan ettiğim bilgilerin veya belgelerin gerçeğe aykırı olması veya daha önce yatay geçiş yapmış olmam halinde hakkımda cezai işlemlerin yürütüleceğini ve kaydım yapılmış olsa dahi silineceğini bildiğimi kabul ediyorum. ";
 
 
-        StaticLayout mTextLayout = new StaticLayout(mText, mTextPaint, canvas.getWidth()-45, Layout.Alignment.ALIGN_NORMAL, 1, 1, true);
+        StaticLayout mTextLayout = new StaticLayout(mText, mTextPaint, canvas.getWidth() - 45, Layout.Alignment.ALIGN_NORMAL, 1, 1, true);
 
         canvas.save();
 // calculate x and y position where your text will be placed
@@ -416,8 +383,6 @@ public class YatayGecisActivity extends AppCompatActivity {
         canvas.translate(textX, textY);
         mTextLayout.draw(canvas);
         canvas.restore();
-
-
 
 
         canvas.drawText("Adayın Adı Soyadı: " + usersData.getIncomingName() + " " + usersData.getIncomingLastName(), 130, 205, paint);

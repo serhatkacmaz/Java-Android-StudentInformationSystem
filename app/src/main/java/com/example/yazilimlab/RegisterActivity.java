@@ -71,7 +71,7 @@ import java.util.UUID;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    // combo box for InfoClass
+    // combo box
     private AutoCompleteTextView infoClassDropDown, facultyDropDown, departmentDropDown;
     ArrayList<String> arrayListInfoClass, arrayListFaculty, arrayListDepartment;
     ArrayAdapter<String> arrayAdapterInfoClass, arrayAdapterFaculty, arrayAdapterDepartment;
@@ -79,7 +79,7 @@ public class RegisterActivity extends AppCompatActivity {
     // input
     private EditText editTextRegisterNumber, editTextRegisterMail, editTextRegisterName, editTextRegisterLastName, editTextRegisterPhone, editTextRegisterIdentity,
             editTextRegisterAddress, editTextRegisterUniversity,
-            editTextRegisterPassword, autoCompleteRegisterInfoClass;
+            editTextRegisterPassword;
     private TextView editTextRegisterBirthday;
     private UserRegister userRegister;
     public String strNumber, strMail, strName, strLastName, strPhone, strIdentity, strAddress, strInfoClass, strBirthday, strUniversity, strFaculty, strDepartment, strPassword, isStudent = "1";
@@ -126,7 +126,6 @@ public class RegisterActivity extends AppCompatActivity {
         editTextRegisterUniversity = (EditText) findViewById(R.id.editTextRegisterUniversity);
         editTextRegisterPassword = (EditText) findViewById(R.id.editTextRegisterPassword);
         imageRegisterProfile = (ImageView) findViewById(R.id.imageRegisterProfile);
-        autoCompleteRegisterInfoClass = (AutoCompleteTextView) findViewById(R.id.autoCompleteRegisterInfoClass);
 
 
         // ComboBox
@@ -148,14 +147,14 @@ public class RegisterActivity extends AppCompatActivity {
 
         // dogum gunu
         Calendar calendar = Calendar.getInstance();
-        final int year = calendar.get(Calendar.YEAR);
-        final int month = calendar.get(Calendar.MONTH);
-        final int day = calendar.get(Calendar.DAY_OF_MONTH);
+        final int active_year = calendar.get(Calendar.YEAR);
+        final int active_month = calendar.get(Calendar.MONTH);
+        final int active_day = calendar.get(Calendar.DAY_OF_MONTH);
 
         editTextRegisterBirthday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(RegisterActivity.this, android.R.style.Theme_Holo_Dialog_MinWidth, onDateSetListener, year, month, day);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(RegisterActivity.this, android.R.style.Theme_Holo_Dialog_MinWidth, onDateSetListener, active_year, active_month, active_day);
                 datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 datePickerDialog.show();
             }
@@ -164,10 +163,17 @@ public class RegisterActivity extends AppCompatActivity {
         onDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+
+                System.out.println(active_day + "/" + (active_month + 1) + "/" + active_year);
+
                 month = month + 1;
                 String date = day + "/" + month + "/" + year;
                 System.out.println(date);
-                editTextRegisterBirthday.setText(date);
+                if (active_year - year > 17) {
+                    editTextRegisterBirthday.setText(date);
+                } else {
+                    Toast.makeText(RegisterActivity.this, "18 yaşından büyük olmalısın :)", Toast.LENGTH_SHORT).show();
+                }
             }
         };
     }
@@ -267,13 +273,13 @@ public class RegisterActivity extends AppCompatActivity {
 
 
         if (result) {
-            emptyControlMessage = "Eksik bilgiler vars";
+            emptyControlMessage = "Eksik bilgiler var.";
             return false;
         } else {
             if (strMail.endsWith("@kocaeli.edu.tr") && strNumber.length() == 9 && strPhone.length() == 10 && strIdentity.length() == 11) {
                 return true;
             } else {
-                emptyControlMessage = "Yanlış Bilgi Girişi (Mail veya diğerleri)";
+                emptyControlMessage = "Yanlış format.(Mail veya diğerleri)";
                 return false;
             }
         }

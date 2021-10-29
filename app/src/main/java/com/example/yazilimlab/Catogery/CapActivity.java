@@ -19,10 +19,12 @@ import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
 import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
@@ -48,6 +50,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -69,6 +73,11 @@ public class CapActivity extends AppCompatActivity {
     private AutoCompleteTextView educationCapTypeDropDown, educationCapTypePassDropDown;
     ArrayList<String> arrayListCapEducationType;
     ArrayAdapter<String> arrayAdapterCapEducationType;
+
+    // combo box for InfoClass
+    private AutoCompleteTextView facultyDropDown, departmentDropDown;
+    ArrayList<String> arrayListFaculty, arrayListDepartment;
+    ArrayAdapter<String> arrayAdapterFaculty, arrayAdapterDepartment;
 
     //Firebase
     private FirebaseAuth fAuth;
@@ -95,8 +104,7 @@ public class CapActivity extends AppCompatActivity {
     private ImageView image_cap_fileStateTranscript;
     private TextView textView_cap_fileStateTranscript;
 
-    // input
-    private EditText editTextCapFaculty, editTextCapBranch;
+    // str
     private String strEducationCapType, strEducationCapTypePass, strCapFaculty, strCapBranch;
 
     // code
@@ -124,15 +132,15 @@ public class CapActivity extends AppCompatActivity {
         educationCapTypeDropDown.setAdapter(arrayAdapterCapEducationType);
         educationCapTypePassDropDown.setAdapter(arrayAdapterCapEducationType);
 
+        facultyDropDown = (AutoCompleteTextView) findViewById(R.id.autoCompleteCapFaculty);
+        departmentDropDown = (AutoCompleteTextView) findViewById(R.id.autoCompleteCapDep);
+
         //arrayList
         fileUriList = new ArrayList<Uri>();
         fileType = new ArrayList<String>();
         fileType.add("Transcript/");
         fileType.add("Petition/");
 
-        //editText
-        editTextCapFaculty = (EditText) findViewById(R.id.editTextCapFaculty);
-        editTextCapBranch = (EditText) findViewById(R.id.editTextCapBranch);
 
         //Firebase
         fAuth = FirebaseAuth.getInstance();
@@ -151,14 +159,76 @@ public class CapActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cap);
         init();
+
+        getDataComboBoxFaculty();
+        // Fakulte ismi degistiğinde
+        facultyDropDown.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                getDataComboBoxDepartment();
+            }
+        });
+
+    }
+
+    // fakulte isimlerini getir
+    private void getDataComboBoxFaculty() {
+        arrayListFaculty = new ArrayList<>();
+        firebaseFirestore.collection("Faculties")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                // System.out.println(document.getId() + " => " + document.getData());
+                                arrayListFaculty.add(document.getId());
+                            }
+                        } else {
+
+                        }
+                    }
+                });
+
+        arrayAdapterFaculty = new ArrayAdapter<>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, arrayListFaculty);
+        facultyDropDown.setAdapter(arrayAdapterFaculty);
+    }
+
+    // fakulteye gore bolum isimleri
+    private void getDataComboBoxDepartment() {
+        arrayListDepartment = new ArrayList<>();
+        docRef = firebaseFirestore.collection("Faculties").document(facultyDropDown.getText().toString());
+        docRef.get().addOnSuccessListener(CapActivity.this, new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
+                    //System.out.println(documentSnapshot.getData().values().size());
+                    for (int i = 0; i < documentSnapshot.getData().values().size(); i++) {
+                        //System.out.println(documentSnapshot.getData().get(String.valueOf(i)));
+                        arrayListDepartment.add(String.valueOf(documentSnapshot.getData().get(String.valueOf(i))));
+                    }
+                }
+            }
+        });
+
+        arrayAdapterDepartment = new ArrayAdapter<>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, arrayListDepartment);
+        departmentDropDown.setAdapter(arrayAdapterDepartment);
     }
 
     //string degerleri atama
     private void setString() {
         strEducationCapType = educationCapTypeDropDown.getText().toString();
         strEducationCapTypePass = educationCapTypePassDropDown.getText().toString();
-        strCapFaculty = editTextCapFaculty.getText().toString();
-        strCapBranch = editTextCapBranch.getText().toString();
+        strCapFaculty = facultyDropDown.getText().toString();
+        strCapBranch = departmentDropDown.getText().toString();
     }
 
     // input bos kontrolu
@@ -213,20 +283,20 @@ public class CapActivity extends AppCompatActivity {
         paint.setTextSize(3);
         paint.setFakeBoldText(false);
 
-        TextPaint mTextPaint=new TextPaint();
+        TextPaint mTextPaint = new TextPaint();
         mTextPaint.setTypeface(Typeface.MONOSPACE);
         mTextPaint.setTextSize(3);
-        String mText="\t" + usersData.getIncomingFaculty() + " "
+        String mText = "\t" + usersData.getIncomingFaculty() + " "
                 + usersData.getIncomingDepartment() + " Bölümü "
-                + strEducationCapType+" "+usersData.getIncomingNumber()
+                + strEducationCapType + " " + usersData.getIncomingNumber()
                 + " numaralı " + usersData.getIncomingName() + " "
                 + usersData.getIncomingLastName() + " isimli öğrencisiyim."
-                +"\n\tKocaeli Üniversitesi Ön Lisans ve Lisans Eğitim ve Öğretim Yönetmeliği’nin 45.maddesi uyarınca, "
-                + strCapFaculty + " Fakülteniz " + strCapBranch + " Bölümü'nde  "
+                + "\n\tKocaeli Üniversitesi Ön Lisans ve Lisans Eğitim ve Öğretim Yönetmeliği’nin 45.maddesi uyarınca, "
+                + strCapFaculty + "nde " + strCapBranch + " Bölümü'nde  "
                 + strEducationCapTypePass + " Çift Anadal Programı (ÇAP) kapsamında öğrenim görme talebimin kabul edilmesini arz ederim.";
 
 
-        StaticLayout mTextLayout = new StaticLayout(mText, mTextPaint, canvas.getWidth()-60, Layout.Alignment.ALIGN_NORMAL, 1, 1, true);
+        StaticLayout mTextLayout = new StaticLayout(mText, mTextPaint, canvas.getWidth() - 60, Layout.Alignment.ALIGN_NORMAL, 1, 1, true);
 
         canvas.save();
 // calculate x and y position where your text will be placed
@@ -237,19 +307,17 @@ public class CapActivity extends AppCompatActivity {
         canvas.restore();
 
 
-
         canvas.drawText("İmza:", 135, 80, paint);
         //İmza Kutusu
 
         //sol
-        canvas.drawLine(150,75,150,85,paint);
+        canvas.drawLine(150, 75, 150, 85, paint);
         //sağ
-        canvas.drawLine(180,75,180,85,paint);
+        canvas.drawLine(180, 75, 180, 85, paint);
         //yukarı
-        canvas.drawLine(150,75,180,75,paint);
+        canvas.drawLine(150, 75, 180, 75, paint);
         //aşağı
-        canvas.drawLine(150,85,180,85,paint);
-
+        canvas.drawLine(150, 85, 180, 85, paint);
 
 
         //table1 row
@@ -274,13 +342,13 @@ public class CapActivity extends AppCompatActivity {
         canvas.drawText("Adresi", 33, 119, paint);
 
 
-        TextPaint mAdressTextPaint=new TextPaint();
+        TextPaint mAdressTextPaint = new TextPaint();
         mAdressTextPaint.setTypeface(Typeface.MONOSPACE);
         mAdressTextPaint.setTextSize(3);
-        String mAdressText=usersData.getIncomingAddress();
+        String mAdressText = usersData.getIncomingAddress();
 
 
-        StaticLayout mAdressTextLayout = new StaticLayout(mAdressText, mAdressTextPaint, canvas.getWidth()-120, Layout.Alignment.ALIGN_NORMAL, 1, 1, true);
+        StaticLayout mAdressTextLayout = new StaticLayout(mAdressText, mAdressTextPaint, canvas.getWidth() - 120, Layout.Alignment.ALIGN_NORMAL, 1, 1, true);
 
         canvas.save();
 // calculate x and y position where your text will be placed
@@ -289,10 +357,6 @@ public class CapActivity extends AppCompatActivity {
         canvas.translate(textAX, textAY);
         mAdressTextLayout.draw(canvas);
         canvas.restore();
-
-
-
-
 
 
         //table1 column

@@ -100,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/black"
                 android:ems="10"
-                android:hint="Yarıyıl"
+                android:hint="Yarıyıl (Hazırlık için 0)"
                 android:maxLength="1"
                 android:inputType="number"
                 android:minHeight="48dp"
@@ -157,33 +157,7 @@
                 tools:ignore="SpeakableTextPresentCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Öğrenci Numarası  -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/editTextYatayGecisNoWrap"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="5dp"
-            android:visibility="gone"
-            app:boxCornerRadiusBottomEnd="20dp"
-            app:boxCornerRadiusTopStart="20dp"
-            app:boxStrokeColor="@color/kou_green"
-            app:endIconMode="clear_text"
-            app:helperTextTextColor="@color/red_helper">
 
-            <EditText
-                android:id="@+id/editTextYatayGecisNo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/black"
-                android:ems="10"
-                android:maxLength="9"
-                android:hint="KOÜ Öğrenci Numarası"
-                android:inputType="number"
-                android:minHeight="48dp"
-                tools:ignore="SpeakableTextPresentCheck" />
-        </com.google.android.material.textfield.TextInputLayout>
 
         <!-- hala kayıtlı olduğu kuruma kayıt yılı  -->
         <com.google.android.material.textfield.TextInputLayout
