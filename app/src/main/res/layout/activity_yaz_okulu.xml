@@ -269,6 +269,7 @@
                         android:backgroundTint="@color/black"
                         android:ems="10"
                         android:hint="T"
+                        android:maxLength="1"
                         android:inputType="number"
                         android:minHeight="48dp"
                         tools:ignore="SpeakableTextPresentCheck" />
@@ -293,6 +294,7 @@
                         android:backgroundTint="@color/black"
                         android:ems="10"
                         android:hint="U"
+                        android:maxLength="1"
                         android:inputType="number"
                         android:minHeight="48dp"
                         tools:ignore="SpeakableTextPresentCheck" />
@@ -317,6 +319,7 @@
                         android:backgroundTint="@color/black"
                         android:ems="10"
                         android:hint="L"
+                        android:maxLength="1"
                         android:inputType="number"
                         android:minHeight="48dp"
                         tools:ignore="SpeakableTextPresentCheck" />
@@ -340,6 +343,7 @@
                         android:backgroundTint="@color/black"
                         android:ems="10"
                         android:hint="AKTS"
+                        android:maxLength="1"
                         android:inputType="number"
                         android:minHeight="48dp"
                         tools:ignore="SpeakableTextPresentCheck" />

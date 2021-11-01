@@ -149,9 +149,9 @@
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
-                    android:layout_weight="4"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="3dp"
+                    android:layout_weight="4"
                     app:boxCornerRadiusBottomEnd="20dp"
                     app:boxCornerRadiusTopStart="20dp"
                     app:boxStrokeColor="@color/kou_green"
@@ -164,6 +164,7 @@
                         android:backgroundTint="@color/black"
                         android:ems="10"
                         android:hint="T"
+                        android:maxLength="1"
                         android:inputType="number"
                         android:minHeight="48dp"
                         tools:ignore="SpeakableTextPresentCheck" />
@@ -173,9 +174,9 @@
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
-                    android:layout_weight="5"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
+                    android:layout_weight="5"
                     app:boxCornerRadiusBottomEnd="20dp"
                     app:boxCornerRadiusTopStart="20dp"
                     app:boxStrokeColor="@color/kou_green"
@@ -188,6 +189,7 @@
                         android:backgroundTint="@color/black"
                         android:ems="10"
                         android:hint="U/L"
+                        android:maxLength="1"
                         android:inputType="number"
                         android:minHeight="48dp"
                         tools:ignore="SpeakableTextPresentCheck" />
@@ -197,9 +199,9 @@
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
-                    android:layout_weight="4"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
+                    android:layout_weight="4"
                     app:boxCornerRadiusBottomEnd="20dp"
                     app:boxCornerRadiusTopStart="20dp"
                     app:boxStrokeColor="@color/kou_green"
@@ -212,6 +214,7 @@
                         android:backgroundTint="@color/black"
                         android:ems="10"
                         android:hint="K"
+                        android:maxLength="1"
                         android:inputType="number"
                         android:minHeight="48dp"
                         tools:ignore="SpeakableTextPresentCheck" />
@@ -221,8 +224,8 @@
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
-                    android:layout_weight="6"
                     android:layout_height="wrap_content"
+                    android:layout_weight="6"
                     app:boxCornerRadiusBottomEnd="20dp"
                     app:boxCornerRadiusTopStart="20dp"
                     app:boxStrokeColor="@color/kou_green"
@@ -235,6 +238,7 @@
                         android:backgroundTint="@color/black"
                         android:ems="10"
                         android:hint="AKTS"
+                        android:maxLength="1"
                         android:inputType="number"
                         android:minHeight="48dp"
                         tools:ignore="SpeakableTextPresentCheck" />
@@ -244,12 +248,12 @@
                 <Button
                     android:id="@+id/buttonIntibakOldLessonAdd"
                     android:layout_width="0dp"
-                    android:layout_weight="4"
                     android:layout_height="50dp"
                     android:layout_gravity="center"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
+                    android:layout_weight="4"
                     android:onClick="IntibakOldLessonAdd"
                     android:text="+"
                     android:textSize="20dp" />
@@ -257,12 +261,12 @@
                 <Button
                     android:id="@+id/buttonIntibakOldLessonRemove"
                     android:layout_width="0dp"
-                    android:layout_weight="4"
                     android:layout_height="50dp"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
+                    android:layout_weight="4"
                     android:onClick="IntibakOldLessonRemove"
                     android:text="-"
                     android:textSize="22dp" />
@@ -351,9 +355,9 @@
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
-                    android:layout_weight="4"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="3dp"
+                    android:layout_weight="4"
                     app:boxCornerRadiusBottomEnd="20dp"
                     app:boxCornerRadiusTopStart="20dp"
                     app:boxStrokeColor="@color/kou_green"
@@ -366,6 +370,7 @@
                         android:backgroundTint="@color/black"
                         android:ems="10"
                         android:hint="T"
+                        android:maxLength="1"
                         android:inputType="number"
                         android:minHeight="48dp"
                         tools:ignore="SpeakableTextPresentCheck" />
@@ -375,9 +380,9 @@
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
-                    android:layout_weight="5"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
+                    android:layout_weight="5"
                     app:boxCornerRadiusBottomEnd="20dp"
                     app:boxCornerRadiusTopStart="20dp"
                     app:boxStrokeColor="@color/kou_green"
@@ -390,6 +395,7 @@
                         android:backgroundTint="@color/black"
                         android:ems="10"
                         android:hint="U/L"
+                        android:maxLength="1"
                         android:inputType="number"
                         android:minHeight="48dp"
                         tools:ignore="SpeakableTextPresentCheck" />
@@ -399,9 +405,9 @@
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
-                    android:layout_weight="4"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
+                    android:layout_weight="4"
                     app:boxCornerRadiusBottomEnd="20dp"
                     app:boxCornerRadiusTopStart="20dp"
                     app:boxStrokeColor="@color/kou_green"
@@ -414,6 +420,7 @@
                         android:backgroundTint="@color/black"
                         android:ems="10"
                         android:hint="K"
+                        android:maxLength="1"
                         android:inputType="number"
                         android:minHeight="48dp"
                         tools:ignore="SpeakableTextPresentCheck" />
@@ -423,8 +430,8 @@
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
-                    android:layout_weight="6"
                     android:layout_height="wrap_content"
+                    android:layout_weight="6"
                     app:boxCornerRadiusBottomEnd="20dp"
                     app:boxCornerRadiusTopStart="20dp"
                     app:boxStrokeColor="@color/kou_green"
@@ -437,6 +444,7 @@
                         android:backgroundTint="@color/black"
                         android:ems="10"
                         android:hint="AKTS"
+                        android:maxLength="1"
                         android:inputType="number"
                         android:minHeight="48dp"
                         tools:ignore="SpeakableTextPresentCheck" />
@@ -446,12 +454,12 @@
                 <Button
                     android:id="@+id/buttonIntibakExemptLessonAdd"
                     android:layout_width="0dp"
-                    android:layout_weight="4"
                     android:layout_height="50dp"
                     android:layout_gravity="center"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
+                    android:layout_weight="4"
                     android:onClick="IntibakExemptLessonAdd"
                     android:text="+"
                     android:textSize="20dp" />
@@ -459,12 +467,12 @@
                 <Button
                     android:id="@+id/buttonIntibakExemptLessonRemove"
                     android:layout_width="0dp"
-                    android:layout_weight="4"
                     android:layout_height="50dp"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
+                    android:layout_weight="4"
                     android:onClick="IntibakExemptLessonRemove"
                     android:text="-"
                     android:textSize="22dp" />
@@ -479,7 +487,6 @@
             android:text="*Zorunlu Alan"
             android:textColor="@color/red_helper"
             android:textSize="12dp" />
-
 
 
         <TextView
@@ -544,12 +551,12 @@
                 <TextView
                     android:id="@+id/textView_intibak_fileStateLesson"
                     android:layout_width="0dp"
-                    android:enabled="false"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_marginTop="30dp"
                     android:layout_weight="4"
                     android:background="@drawable/text_view_border"
+                    android:enabled="false"
                     android:onClick="selectFileLesson"
                     android:padding="15dp"
                     android:text="Onaylı Ders Liste Ekle"

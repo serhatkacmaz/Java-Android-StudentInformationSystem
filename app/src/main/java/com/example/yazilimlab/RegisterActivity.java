@@ -172,6 +172,7 @@ public class RegisterActivity extends AppCompatActivity {
                 if (active_year - year > 17) {
                     editTextRegisterBirthday.setText(date);
                 } else {
+                    editTextRegisterBirthday.setText("");
                     Toast.makeText(RegisterActivity.this, "18 yaşından büyük olmalısın :)", Toast.LENGTH_SHORT).show();
                 }
             }
