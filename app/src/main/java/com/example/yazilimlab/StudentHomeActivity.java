@@ -6,6 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -13,6 +17,10 @@ import android.widget.Toast;
 import com.example.yazilimlab.StudentHomeFragment.MakeApplicationFragment;
 import com.example.yazilimlab.StudentHomeFragment.MyApplicationFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import net.gotev.uploadservice.BuildConfig;
+import net.gotev.uploadservice.Logger;
+import net.gotev.uploadservice.UploadService;
 
 public class StudentHomeActivity extends AppCompatActivity {
 
@@ -24,7 +32,9 @@ public class StudentHomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_home);
-
+        createNotificationChannel();
+        Logger.setLogLevel(Logger.LogLevel.DEBUG);
+        UploadService.NAMESPACE = BuildConfig.APPLICATION_ID;
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.student_home_activity_bottomNavigationView);
         makeApplicationFragment = new MakeApplicationFragment();
         myApplicationFragment = new MyApplicationFragment();
@@ -46,6 +56,21 @@ public class StudentHomeActivity extends AppCompatActivity {
             }
         });
     }
+
+    //https://github.com/gotev/android-upload-service/wiki/Monitoring-upload-status
+    public static String notificationChannel = "MyNotificationChannel";
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= 26) {
+            NotificationChannel channel = new NotificationChannel(
+                    notificationChannel,
+                    "My Channel", +
+                    NotificationManager.IMPORTANCE_LOW
+            );
+            NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            manager.createNotificationChannel(channel);
+        }
+    }
+    //https://github.com/gotev/android-upload-service/wiki/Monitoring-upload-status
 
     //https://www.youtube.com/watch?v=VUHMdkKUXxk&list=PL20Zn-5nPIPHvLPq5xJTTImOd0qeNd9rW&index=92
     private void setFragment(Fragment fragment) {

@@ -335,8 +335,8 @@ public class IntibakActivity extends AppCompatActivity {
 
         //table2 context
         canvas.drawText("Daha Önce Aldığım Dersin", 33, 125, paint);
-        canvas.drawText("Bilişim Sistemleri Mühendisliği Bölümünde", 103, 124, paint);
-        canvas.drawText("Muaf Olmak İstediğim", 103, 129, paint);
+        canvas.drawText(usersData.getIncomingDepartment(), 103, 124, paint);
+        canvas.drawText("Bölümünde Muaf Olmak İstediğim", 103, 129, paint);
         canvas.drawText("ADI", 50, 140, paint);
         paint.setTextSize(3);
         canvas.drawText("T", 81, 138, paint);
