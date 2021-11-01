@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Environment;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,10 +54,13 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import net.gotev.uploadservice.*;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.UUID;
 
 public class MyApplicationFragment extends Fragment {
 
@@ -83,7 +87,6 @@ public class MyApplicationFragment extends Fragment {
     private UsersData usersData;
 
     // code
-    private static final int PICK_FILE = 1;
 
     // upload file
     private Uri uploadFileUri;
@@ -100,12 +103,18 @@ public class MyApplicationFragment extends Fragment {
     private CustomDialog customDialog;
 
 
+    private static int pickFileRequestCode = 42;
+
+    private UploadServiceSingleBroadcastReceiver uploadReceiver;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_my_application, container, false);
     }
+
 
     private void init() {
         // Firebase
@@ -258,10 +267,13 @@ public class MyApplicationFragment extends Fragment {
 
     // dosya sec sayfası
     private void selectFile(MyAppItemInfo myAppItemInfo) {
-        Intent intent = new Intent();
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        // Filter to only show results that can be "opened", such as files
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        // search for all documents available via installed storage providers
         intent.setType("application/pdf");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Dosya Seç"), PICK_FILE);
+
+        startActivityForResult(intent, pickFileRequestCode);
     }
 
     // firebase uzerinde eski dosyayı sil
@@ -410,16 +422,63 @@ public class MyApplicationFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == PICK_FILE && resultCode == RESULT_OK && data.getData() != null) {
+        if (requestCode == pickFileRequestCode && resultCode == RESULT_OK && data.getData() != null) {
 
-            customDialog=new CustomDialog(getActivity());
+            customDialog = new CustomDialog(getActivity());
             customDialog.startLoadingDialog();
 
             uploadFileUri = data.getData();
-            deleteNotSignatureFile(mInfoOnGoing);  // sistemden eski dosyayıi sil
+
+            uploadMultipart(data.getData().toString());
+
 
         }
     }
+    //https://github.com/gotev/android-upload-service/wiki/Monitoring-upload-status
+    public void uploadMultipart(String getPath) {
+        try {
+            String uploadId =
+                    new MultipartUploadRequest(getActivity(), "https://bsmkousignaturedetection.herokuapp.com/signature-detection")
+                            .addFileToUpload(getPath, "files[]")
+                            .setNotificationConfig(new UploadNotificationConfig())
+                            .setDelegate(new UploadStatusDelegate() {
+                                @Override
+                                public void onProgress(Context context, UploadInfo uploadInfo) {
+                                    // your code here
+                                }
+
+                                @Override
+                                public void onError(Context context, UploadInfo uploadInfo, ServerResponse serverResponse,
+                                                    Exception exception) {
+                                    // your code here
+                                }
+
+                                @Override
+                                public void onCompleted(Context context, UploadInfo uploadInfo, ServerResponse serverResponse) {
+                                    // your code here
+                                    // if you have mapped your server response to a POJO, you can easily get it:
+                                    // YourClass obj = new Gson().fromJson(serverResponse.getBodyAsString(), YourClass.class);
+                                    String result = serverResponse.getBodyAsString();
+                                    if (result.contains("t")) {
+                                        deleteNotSignatureFile(mInfoOnGoing);  // sistemden eski dosyayıi sil
+                                    } else {
+                                        Toast.makeText(getActivity(), "İmzasız pdf tespit edildi.", Toast.LENGTH_LONG).show();
+                                        customDialog.dismissDialog();
+                                    }
+
+                                }
+
+                                @Override
+                                public void onCancelled(Context context, UploadInfo uploadInfo) {
+                                    // your code here
+                                }
+                            })
+                            .startUpload();
+        } catch (Exception exc) {
+            Log.e("AndroidUploadService", exc.getMessage(), exc);
+        }
+    }
+    //https://github.com/gotev/android-upload-service/wiki/Monitoring-upload-status
 
     // refresh devam eden basvuru
     private void refresh() {
@@ -428,4 +487,5 @@ public class MyApplicationFragment extends Fragment {
         myAppItemInfoEndArrayList.clear();
         eventChangeListenerEnd();
     }
+
 }
