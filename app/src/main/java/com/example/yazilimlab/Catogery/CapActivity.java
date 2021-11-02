@@ -525,7 +525,7 @@ public class CapActivity extends AppCompatActivity {
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(CapActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CapActivity.this, "Dosyalar sisteme yüklenirken hata oluştu.", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

@@ -173,7 +173,7 @@ public class RegisterActivity extends AppCompatActivity {
                     editTextRegisterBirthday.setText(date);
                 } else {
                     editTextRegisterBirthday.setText("");
-                    Toast.makeText(RegisterActivity.this, "18 yaşından büyük olmalısın :)", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "18 yaşından büyük olmalısın.", Toast.LENGTH_SHORT).show();
                 }
             }
         };
@@ -348,7 +348,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                                 saveInStorage();    // resmi kaydet
                             } else {
-                                Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegisterActivity.this, "Lütfen kuvvetli şifre giriniz.", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -375,7 +375,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, "Resim kaydedilirken hata oluştu.", Toast.LENGTH_SHORT).show();
                     }
                 });
             } catch (Exception e) {
@@ -398,7 +398,7 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, "Kayıt tamamlandı.", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(RegisterActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 } else {
-                    Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Kayıt yapılırken hata oluştu.", Toast.LENGTH_SHORT).show();
                 }
             }
         });

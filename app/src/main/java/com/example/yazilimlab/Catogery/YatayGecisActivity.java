@@ -567,7 +567,7 @@ public class YatayGecisActivity extends AppCompatActivity {
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(YatayGecisActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(YatayGecisActivity.this, "Dosyalar sisteme yüklenirken hata oluştu.", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

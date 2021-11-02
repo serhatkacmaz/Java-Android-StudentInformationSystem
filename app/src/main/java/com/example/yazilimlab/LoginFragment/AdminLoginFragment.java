@@ -159,7 +159,7 @@ public class AdminLoginFragment extends Fragment {
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Lütfen geçerli bir mail adresi ve şifre giriniz.", Toast.LENGTH_SHORT).show();
                 }
             });
 

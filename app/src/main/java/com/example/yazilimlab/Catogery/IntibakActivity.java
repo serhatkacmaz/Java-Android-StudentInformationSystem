@@ -699,7 +699,7 @@ public class IntibakActivity extends AppCompatActivity {
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(IntibakActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(IntibakActivity.this, "Dosyalar sisteme yüklenirken hata oluştu.", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

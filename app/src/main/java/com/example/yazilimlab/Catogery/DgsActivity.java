@@ -443,7 +443,7 @@ public class DgsActivity extends AppCompatActivity {
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(DgsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DgsActivity.this, "Dosyalar sisteme yüklenirken hata oluştu.", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

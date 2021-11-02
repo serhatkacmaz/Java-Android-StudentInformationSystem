@@ -149,7 +149,7 @@ public class StudentLoginFragment extends Fragment {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getActivity(), "Hata: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Mail yollanırken hata oluştu.", Toast.LENGTH_SHORT).show();
                         }
                     });
                 } else {
@@ -221,7 +221,7 @@ public class StudentLoginFragment extends Fragment {
                     }).addOnFailureListener(getActivity(), new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Lütfen geçerli bir mail adresi ve şifre giriniz.", Toast.LENGTH_SHORT).show();
                 }
             });
 

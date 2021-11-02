@@ -266,7 +266,7 @@ public class AdminCapFragment extends Fragment {
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Dosya indirilirken hata oluştu.", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -297,7 +297,7 @@ public class AdminCapFragment extends Fragment {
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Dosya indirilirken hata oluştu.", Toast.LENGTH_SHORT).show();
             }
         });
     }

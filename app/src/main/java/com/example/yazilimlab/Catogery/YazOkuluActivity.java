@@ -746,7 +746,7 @@ public class YazOkuluActivity extends AppCompatActivity {
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(YazOkuluActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(YazOkuluActivity.this, "Dosyalar sisteme yüklenirken hata oluştu.", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
