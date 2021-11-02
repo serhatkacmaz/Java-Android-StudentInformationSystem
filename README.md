@@ -1,7 +1,7 @@
 # Kou-Mobile
 Mobile Application for Kocaeli Universty. This Mobile application developed with java code.
 
-This project's been developed by 4 people.
+This project was developed by 4 people.
 
 Engin Beyazgül
 
