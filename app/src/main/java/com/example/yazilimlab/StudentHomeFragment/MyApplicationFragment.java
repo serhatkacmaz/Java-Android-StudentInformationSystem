@@ -438,7 +438,7 @@ public class MyApplicationFragment extends Fragment {
     public void uploadMultipart(String getPath) {
         try {
             String uploadId =
-                    new MultipartUploadRequest(getActivity(), "https://bsmkousignaturedetection.herokuapp.com/signature-detection")
+                    new MultipartUploadRequest(getActivity(), "https://koubasvuru.herokuapp.com/signature-detection")
                             .addFileToUpload(getPath, "files[]")
                             .setNotificationConfig(new UploadNotificationConfig())
                             .setDelegate(new UploadStatusDelegate() {
