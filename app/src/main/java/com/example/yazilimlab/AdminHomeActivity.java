@@ -2,6 +2,7 @@ package com.example.yazilimlab;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -9,6 +10,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -120,7 +122,22 @@ public class AdminHomeActivity extends AppCompatActivity {
         if (admin_home_drawerLayout.isDrawerOpen(GravityCompat.START)) {
             admin_home_drawerLayout.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            AlertDialog.Builder checkAlertDialog = new AlertDialog.Builder(AdminHomeActivity.this);
+            checkAlertDialog.setTitle("Kou Başvuru");
+            checkAlertDialog.setMessage("Uygulamadan çıkış yapmak istiyor musunuz?");
+            checkAlertDialog.setPositiveButton("Evet", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    AdminHomeActivity.super.onBackPressed();
+                }
+            });
+            checkAlertDialog.setNegativeButton("Hayır", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    System.out.println("Hayır Bastın");
+                }
+            });
+            checkAlertDialog.create().show();
         }
     }
 }

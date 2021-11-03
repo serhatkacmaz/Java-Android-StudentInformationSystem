@@ -2,18 +2,22 @@ package com.example.yazilimlab;
 
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.yazilimlab.Catogery.CapActivity;
 import com.example.yazilimlab.StudentHomeFragment.MakeApplicationFragment;
 import com.example.yazilimlab.StudentHomeFragment.MyApplicationFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -59,6 +63,7 @@ public class StudentHomeActivity extends AppCompatActivity {
 
     //https://github.com/gotev/android-upload-service/wiki/Monitoring-upload-status
     public static String notificationChannel = "MyNotificationChannel";
+
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= 26) {
             NotificationChannel channel = new NotificationChannel(
@@ -80,4 +85,24 @@ public class StudentHomeActivity extends AppCompatActivity {
     }
     //https://www.youtube.com/watch?v=VUHMdkKUXxk&list=PL20Zn-5nPIPHvLPq5xJTTImOd0qeNd9rW&index=92
 
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder checkAlertDialog = new AlertDialog.Builder(StudentHomeActivity.this);
+        checkAlertDialog.setTitle("Kou Başvuru");
+        checkAlertDialog.setMessage("Uygulamadan çıkış yapmak istiyor musunuz?");
+        checkAlertDialog.setPositiveButton("Evet", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                StudentHomeActivity.super.onBackPressed();
+            }
+        });
+        checkAlertDialog.setNegativeButton("Hayır", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                System.out.println("Hayır Bastın");
+            }
+        });
+        checkAlertDialog.create().show();
+    }
 }

@@ -3,6 +3,7 @@ package com.example.yazilimlab;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -10,6 +11,7 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -198,6 +200,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
+                departmentDropDown.setText("");
                 getDataComboBoxDepartment();
             }
         });
@@ -348,7 +351,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                                 saveInStorage();    // resmi kaydet
                             } else {
-                                Toast.makeText(RegisterActivity.this, "Lütfen kuvvetli şifre giriniz.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegisterActivity.this, "Mail adresi kullanılıyor veya kuvvetli şifre giriniz.", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -404,4 +407,23 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder checkAlertDialog = new AlertDialog.Builder(RegisterActivity.this);
+        checkAlertDialog.setTitle("Kou Başvuru");
+        checkAlertDialog.setMessage("Kayıt olmadan çıkış yapmak istiyor musunuz?");
+        checkAlertDialog.setPositiveButton("Evet", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                RegisterActivity.super.onBackPressed();
+            }
+        });
+        checkAlertDialog.setNegativeButton("Hayır", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                System.out.println("Hayır Bastın");
+            }
+        });
+        checkAlertDialog.create().show();
+    }
 }

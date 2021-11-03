@@ -36,7 +36,7 @@
                 android:layout_height="120dp"
                 android:layout_marginRight="20dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/profile_logo" />
+                android:src="@drawable/avatar" />
 
             <Button
                 android:layout_width="150dp"
