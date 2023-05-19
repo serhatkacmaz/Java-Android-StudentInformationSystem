@@ -1,7 +1,7 @@
 # Java Android Mobile Application, Studen Information System
 Mobile Application for Kocaeli Universty. This Mobile application developed with java code.
 
-**Android Application Images**
+**Student Panel Images**
 ---
 **1. Login**
 
@@ -22,3 +22,14 @@ Mobile Application for Kocaeli Universty. This Mobile application developed with
 **5. On going and completed applications**
 
 ![image](https://github.com/Serhatkacmaz/Java-Android-StudentInformationSystem/assets/56757412/061a77a1-6495-49a1-907d-08386395ea14)
+
+**Admin Panel Images**
+---
+
+**1. Menu**
+
+![image](https://github.com/Serhatkacmaz/Java-Android-StudentInformationSystem/assets/56757412/51d85592-4850-42f0-9618-d921daaeb699)
+
+**2. Status**
+
+![image](https://github.com/Serhatkacmaz/Java-Android-StudentInformationSystem/assets/56757412/dae1d24a-ee63-4341-a3a1-128fbb31f34d)
